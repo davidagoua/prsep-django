@@ -3,87 +3,144 @@
 
 {% block content %}
 <div class="page-body">
-          <div class="container-fluid">
-            <div class="page-title">
-              <div class="row">
-                <div class="col-6">
-                  <h4>Planification PTBA Projet</h4>
-                </div>
+  <div class="container-fluid">
+    <div class="page-title">
+      <div class="row">
+        <div class="col-6">
+          <h4>Planification PTBA Projet</h4>
+        </div>
 
-              </div>
+      </div>
+    </div>
+  </div>
+  <!-- Container-fluid starts-->
+  <div class="container-fluid">
+    <div class="row project-cards">
+      <div class="col-md-12 project-list">
+        <div class="card">
+          <div class="row">
+            <div class="col-md-6">
+              <ul class="nav nav-tabs border-tab" id="top-tab" role="tablist">
+                <li class="nav-item" role="presentation"><a class="nav-link active" id="top-home-tab" data-bs-toggle="tab" href="#top-home" role="tab" aria-controls="top-home" aria-selected="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-target"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>Tout</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" id="profile-top-tab" data-bs-toggle="tab" href="#top-profile" role="tab" aria-controls="top-profile" aria-selected="false" tabindex="-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="8"></line></svg>En cour</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" id="contact-top-tab" data-bs-toggle="tab" href="#top-contact" role="tab" aria-controls="top-contact" aria-selected="false" tabindex="-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>Terminé</a></li>
+              </ul>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group mb-0 me-0"></div><a data-bs-toggle="modal" data-bs-target="#create-task-modal" class="btn btn-primary" href="projectcreate.html"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-square"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>ILD</a>
+              <div class="form-group mb-0 me-0"></div><a data-bs-toggle="modal" data-bs-target="#create-activity-modal" class="btn btn-primary" href="projectcreate.html"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-square"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>Appuie Technique</a>
+                <div class="modal" id="create-task-modal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">Ajouter un Indicateur de decaissement</div>
+                            <div class="modal-body">
+                                <form action="{% url 'plan:create-ild' %}" method="post">
+                                    {% csrf_token %}
+                                    {{ IldCreateForm.as_p }}
+                                    <button class="btn btn-primary">Enregistrer</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal" id="create-activity-modal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">Ajouter une activité</div>
+                            <div class="modal-body">
+                                <form action="" method="post">
+                                    {% csrf_token %}
+
+                                    <button class="btn btn-primary">Enregistrer</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
           </div>
-          <!-- Container-fluid starts-->
-          <div class="container-fluid">
-            <div class="row project-cards">
-              <div class="col-md-12 project-list">
-                <div class="card">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <ul class="nav nav-tabs border-tab" id="top-tab" role="tablist">
-                        <li class="nav-item" role="presentation"><a class="nav-link active" id="top-home-tab" data-bs-toggle="tab" href="#top-home" role="tab" aria-controls="top-home" aria-selected="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-target"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>Tout</a></li>
-                        <li class="nav-item" role="presentation"><a class="nav-link" id="profile-top-tab" data-bs-toggle="tab" href="#top-profile" role="tab" aria-controls="top-profile" aria-selected="false" tabindex="-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="8"></line></svg>En cour</a></li>
-                        <li class="nav-item" role="presentation"><a class="nav-link" id="contact-top-tab" data-bs-toggle="tab" href="#top-contact" role="tab" aria-controls="top-contact" aria-selected="false" tabindex="-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>Terminé</a></li>
-                      </ul>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-group mb-0 me-0"></div><a class="btn btn-primary" href="projectcreate.html"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-square"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>Activité</a>
-                      <div class="form-group mb-0 me-0"></div><a class="btn btn-primary" href="projectcreate.html"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-square"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>Tache</a>
-                    </div>
-                  </div>
-                </div>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="card recent-order">
+              <div class="card-header card-no-border total-revenue">
+                <h4 class="m-0">All Project Table</h4>
+                <div class="header-top"></div><a href="product.html">View All </a>
               </div>
-              <div class="col-sm-12">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="tab-content" id="top-tabContent">
-                      <div class="tab-pane fade show active" id="top-home" role="tabpanel" aria-labelledby="top-home-tab">
-                        <div class="row">
-                          <div class="col-xxl-4 col-lg-6 box-col-6">
-                            <div class="project-box b-light1-primary"> <span class="badge badge-primary">Doing</span>
-                              <h5 class="f-w-500">Endless admin Design</h5>
-                              <div class="d-flex"><img class="img-20 me-1 rounded-circle" src="../assets/images/user/3.jpg" alt="" data-original-title="" title="">
-                                <div class="flex-grow-1">
-                                  <p>Themeforest, australia </p>
+              <div class="card-body pt-0">
+                <div class="project-table table-responsive custom-scrollbar">
+                  <table class="order-table project-table w-100">
+                    <thead>
+                      <tr>
+                        <th>Intitulé</th>
+                        <th>Date debut</th>
+                        <th>Date de fin</th>
+                        <th>Status</th>
+                        <th>Progression</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {% for ild in ilds %}
+                            <tr>
+                        <td>
+                          <div class="project-comment  d-flex gap-2">
+                            <div class="radial-chart-wrap">
+                              <div class="widgetsChart" id="widgetsChart1" style="min-height: 68.7px;"><div id="apexchartswtrgrjsyg" class="apexcharts-canvas apexchartswtrgrjsyg apexcharts-theme-light" style="width: 100px; height: 68.7px;"><svg id="SvgjsSvg1348" width="100" height="68.69999999999999" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev" class="apexcharts-svg" xmlns:data="ApexChartsNS" transform="translate(-5, -15)" style="background: transparent;"><g id="SvgjsG1350" class="apexcharts-inner apexcharts-graphical" transform="translate(18, 0)"><defs id="SvgjsDefs1349"><clipPath id="gridRectMaskwtrgrjsyg"><rect id="SvgjsRect1352" width="72" height="90" x="-3" y="-1" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath><clipPath id="forecastMaskwtrgrjsyg"></clipPath><clipPath id="nonForecastMaskwtrgrjsyg"></clipPath><clipPath id="gridRectMarkerMaskwtrgrjsyg"><rect id="SvgjsRect1353" width="70" height="92" x="-2" y="-2" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath></defs><g id="SvgjsG1354" class="apexcharts-radialbar"><g id="SvgjsG1355"><g id="SvgjsG1356" class="apexcharts-tracks"><g id="SvgjsG1357" class="apexcharts-radialbar-track apexcharts-track" rel="1"><path id="apexcharts-radialbarTrack-0" d="M 33 17.075000000000003 A 15.924999999999997 15.924999999999997 0 1 1 32.997220563180306 17.075000242551624" fill="none" fill-opacity="1" stroke="var(--theme-deafult)" stroke-opacity="0.2" stroke-linecap="round" stroke-width="3.4080121951219513" stroke-dasharray="0" class="apexcharts-radialbar-area" data:pathOrig="M 33 17.075000000000003 A 15.924999999999997 15.924999999999997 0 1 1 32.997220563180306 17.075000242551624"></path></g></g><g id="SvgjsG1359"><g id="SvgjsG1364" class="apexcharts-series apexcharts-radial-series" seriesName="series-1" rel="1" data:realIndex="0"><path id="SvgjsPath1365" d="M 33 17.075000000000003 A 15.924999999999997 15.924999999999997 0 1 1 17.075000000000003 33" fill="none" fill-opacity="0.85" stroke="var(--theme-deafult)" stroke-opacity="1" stroke-linecap="round" stroke-width="3.5134146341463417" stroke-dasharray="0" class="apexcharts-radialbar-area apexcharts-radialbar-slice-0" data:angle="270" data:value="75" index="0" j="0" data:pathOrig="M 33 17.075000000000003 A 15.924999999999997 15.924999999999997 0 1 1 17.075000000000003 33"></path></g><circle id="SvgjsCircle1360" r="9.220993902439021" cx="33" cy="33" class="apexcharts-radialbar-hollow" fill="transparent"></circle><g id="SvgjsG1361" class="apexcharts-datalabels-group" transform="translate(0, 0) scale(1)" style="opacity: 1;"><text id="SvgjsText1362" font-family="Helvetica, Arial, sans-serif" x="33" y="33" text-anchor="middle" dominant-baseline="auto" font-size="16px" font-weight="600" fill="var(--theme-deafult)" class="apexcharts-text apexcharts-datalabel-label" style="font-family: Helvetica, Arial, sans-serif;">series-1</text><text id="SvgjsText1363" font-family="Helvetica, Arial, sans-serif" x="33" y="37" text-anchor="middle" dominant-baseline="auto" font-size="10px" font-weight="400" fill="var(--tag-text-color--edit)" class="apexcharts-text apexcharts-datalabel-value" style="font-family: Helvetica, Arial, sans-serif;">75%</text></g></g></g></g><line id="SvgjsLine1366" x1="0" y1="0" x2="66" y2="0" stroke="#b6b6b6" stroke-dasharray="0" stroke-width="1" stroke-linecap="butt" class="apexcharts-ycrosshairs"></line><line id="SvgjsLine1367" x1="0" y1="0" x2="66" y2="0" stroke-dasharray="0" stroke-width="0" stroke-linecap="butt" class="apexcharts-ycrosshairs-hidden"></line></g><g id="SvgjsG1351" class="apexcharts-annotations"></g></svg><div class="apexcharts-legend"></div></div></div>
+                            </div>
+                            <div> <a class="f-w-500 f-14 " href="">{{ ild.label }}</a>
+                                {% if false %}
+                              <div class="project-comment-icon">
+                                <div class="project-link">
+                                  <svg>
+                                    <use href="../assets/svg/icon-sprite.svg#messages-2"></use>
+                                  </svg><span class="f-w-500 f-light f-12">20</span>
+                                </div>
+                                <div class="project-link">
+                                  <svg>
+                                    <use href="../assets/svg/icon-sprite.svg#paperclip"></use>
+                                  </svg><span class="f-w-500 f-light f-12">7</span>
                                 </div>
                               </div>
-                              <p>Endless Admin is a full featured, multipurpose, premium bootstrap admin template.</p>
-                              <div class="row details">
-                                <div class="col-6"><span>Issues </span></div>
-                                <div class="col-6 font-primary">12 </div>
-                                <div class="col-6"> <span>Resolved</span></div>
-                                <div class="col-6 font-primary">5</div>
-                                <div class="col-6"> <span>Comment</span></div>
-                                <div class="col-6 font-primary">7</div>
-                              </div>
-                              <div class="customers">
-                                <ul>
-                                  <li class="d-inline-block"><img class="img-30 rounded-circle" src="../assets/images/user/3.jpg" alt="" data-original-title="" title=""></li>
-                                  <li class="d-inline-block"><img class="img-30 rounded-circle" src="../assets/images/user/5.jpg" alt="" data-original-title="" title=""></li>
-                                  <li class="d-inline-block"><img class="img-30 rounded-circle" src="../assets/images/user/1.jpg" alt="" data-original-title="" title=""></li>
-                                  <li class="d-inline-block ms-2">
-                                    <p class="f-12">+10 More</p>
-                                  </li>
-                                </ul>
-                              </div>
-                              <div class="project-status mt-4">
-                                <div class="d-flex mb-0">
-                                  <p>70% </p>
-                                  <div class="flex-grow-1 text-end"><span>Done</span></div>
-                                </div>
-                                <div class="progress" style="height: 5px">
-                                  <div class="progress-bar-animated bg-primary progress-bar-striped" role="progressbar" style="width: 70%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                              </div>
+                                {% endif %}
                             </div>
                           </div>
-                        </div>
-                      </div>
+                        </td>
+                        <td>
+                          <div class="product-sub"><a class="f-w-500 f-14 " href="product.html">Darrell Steward</a><span class="f-w-500 f-light f-12 d-block">darrells@example.com</span></div>
+                        </td>
+                        <td>
+                          <div class="product-sub"><a class="f-w-500 f-14 " href="product.html">15 Nov, 2024</a><span class="f-w-500 f-light f-12 d-block">8 Days Left</span></div>
+                        </td>
+                        <td>
+                          <div class="product-sub"><a class="f-w-500 f-14 " href="product.html">Team Roha</a><span class="f-w-500 f-light f-12 d-block">12 Member</span></div>
+                        </td>
+                        <td>
+                          <div class="txt-primary d-flex gap-2 align-items-center justify-content-center"><span class="pending bg-primary"></span><span class="f-w-500 f-13 txt-primary">Active</span></div>
+                        </td>
+                        <td>
+                          <div class="product-sub">
+                            <div class="dropdown">
+                              <div id="dropdownMenuButtonicon11" data-bs-toggle="dropdown" aria-expanded="false" role="menu">
+                                <svg class="invoice-icon">
+                                  <use href="../assets/svg/icon-sprite.svg#more-horizontal"></use>
+                                </svg>
+                              </div>
+                              <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButtonicon11"><span class="dropdown-item">Last Month</span><span class="dropdown-item">Last Week</span><span class="dropdown-item">Last Day </span></div>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                        {% empty %}
 
-                    </div>
-                  </div>
+                        {% endfor %}
+
+
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
-          </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}

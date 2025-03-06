@@ -25,6 +25,8 @@ urlpatterns = [
     path('', include(auth_urls)),
     path('', core.views.HomePageView.as_view(), name='home'),
     path('cartographie/', core.views.CartigraphieView.as_view(), name='cartographie'),
-    path('analyse/', core.views.CartigraphieView.as_view(), name='analyse'),
-    path('planification/', include('planification.urls', namespace='plan')),
+    path('analyse/', core.views.AnalyseView.as_view(), name='analyse'),
+    path('planification/', include('planification.urls', namespace='plan',)),
+    path('rapportage/', include('rapportage.urls', namespace='rapport')),
+    path('suivi/', include('suivi.urls', namespace='suivi')),
 ]

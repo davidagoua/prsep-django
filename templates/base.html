@@ -39,6 +39,10 @@
     <link id="color" rel="stylesheet" href="{% static '/assets/css/color-1.css' %}" media="screen">
     <!-- Responsive css-->
     <link rel="stylesheet" type="text/css" href="{% static '/assets/css/responsive.css' %}">
+      <script src="//unpkg.com/alpinejs" defer></script>
+      {% block styles %}
+      	
+      {% endblock %}
   </head>
   <body>
     <!-- loader starts-->
@@ -83,5 +87,11 @@
     <script src="{% static '/assets/js/form-validation-custom.js' %}"></script>
     <script src="{% static '/assets/js/script.js' %}"></script>
     <script src="{% static '/assets/js/theme-customizer/customizer.js' %}"></script>
+    <script>
+        $('input, select').addClass('form-control')
+    </script>
+  {% block scripts %}
+  	
+  {% endblock %}
   </body>
 </html>

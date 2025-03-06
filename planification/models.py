@@ -25,7 +25,7 @@ class ComposantProjet(TimeStampedModel, models.Model):
 class SousComposantProjet(TimeStampedModel, models.Model):
     label = models.CharField(max_length=100)
     sigle = models.CharField(max_length=100, null=True, blank=True)
-    composant = models.ForeignKey(ComposantProjet, on_delete=models.CASCADE)
+    composant = models.ForeignKey(ComposantProjet, on_delete=models.CASCADE, related_name='souscomposants')
     status = models.IntegerField(default=0)
 
     def __str__(self):
@@ -33,6 +33,9 @@ class SousComposantProjet(TimeStampedModel, models.Model):
 
 
 class ILD(TimeStampedModel, models.Model):
+
+    souscomposant = models.ForeignKey(ComposantProjet, on_delete=models.CASCADE, related_name='ildcomposants')
+
     label = models.CharField(max_length=100)
     sous_composant = models.ForeignKey(SousComposantProjet, on_delete=models.CASCADE)
     status = models.IntegerField(default=0)
@@ -80,3 +83,13 @@ class Activite(TimeStampedModel, models.Model):
     parent = GenericForeignKey('parent_type', 'parent_id')
 
     def __str__(self): return str(self.label)
+
+
+
+class PPM(TimeStampedModel, models.Model):
+    file = models.FileField(null=True, blank=True)
+    label = models.CharField(max_length=100)
+    status = models.IntegerField(default=0)
+
+    def __str__(self):
+        return str(self.label)
