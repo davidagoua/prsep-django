@@ -1,6 +1,7 @@
 from django.contrib import admin
-from .models import PTBAProjet, ComposantProjet, SousComposantProjet, ILD, AppuiTechnique, Tache, Activite, RLD
-
+from .models import PTBAProjet, ComposantProjet, SousComposantProjet, ILD, AppuiTechnique, Tache, Activite, RLD, \
+    Indicateur
+from .models import CategorieDepense, TypeUnite, TypeProcedureAcquisition, Decaissement, TypeUGP
 
 @admin.register(PTBAProjet)
 class PTBAProjetAdmin(admin.ModelAdmin):
@@ -60,12 +61,25 @@ class AppuiTechniqueAdmin(admin.ModelAdmin):
 
 @admin.register(Tache)
 class TacheAdmin(admin.ModelAdmin):
-    list_display = ('label', 'categorie', 'unite', 'montant_engage', 'parent', 'created')
-    search_fields = ('label', 'categorie')
-    list_filter = ('categorie', 'parent')
-    fieldsets = ((
-        (None, {'fields': ('label', 'categorie', 'unite', 'montant_engage', 'parent')}),
-    ))
+    list_display = ('label', 'type', 'categorie', 'indicateur', 'status', 'unite', 'montant_engage', 'cout', 'quantite', 'ugp', 'date_debut', 'date_fin', 'responsable')
+    list_filter = ('type', 'categorie', 'indicateur', 'status', 'unite', 'ugp')
+    search_fields = ('label', 'responsable')
+    date_hierarchy = 'date_debut'
+    filter_horizontal = ('depends_on',) # Use for ManyToMany fields
+    fieldsets = (
+        ('Informations générales', {
+            'fields': ('label', 'type', 'categorie', 'indicateur', 'unite', 'ugp', 'responsable')
+        }),
+        ('Détails financiers', {
+            'fields': ('montant_engage', 'cout', 'quantite')
+        }),
+        ('Planification', {
+            'fields': ('date_debut', 'date_fin', 'frequence')
+        }),
+        ('Statut et dépendances', {
+            'fields': ('status', 'depends_on')
+        }),
+    )
 
 
 
@@ -77,5 +91,39 @@ class ActiviteAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {'fields': ('label', 'categorie', 'unite', 'montant_engage', 'parent')}),
     )
+
+
+@admin.register(Indicateur)
+class IndicateurAdmin(admin.ModelAdmin):
+    list_display = ('label', 'sous_composant', 'created')
+
+
+
+@admin.register(CategorieDepense)
+class CategorieDepenseAdmin(admin.ModelAdmin):
+    list_display = ('label',) # Affiche le champ 'label' dans la liste des catégories
+
+
+@admin.register(TypeUnite)
+class TypeUniteAdmin(admin.ModelAdmin):
+    list_display = ('label',) # Affiche le champ 'label' dans la liste des types d'unités
+
+
+@admin.register(TypeProcedureAcquisition)
+class TypeProcedureAcquisitionAdmin(admin.ModelAdmin):
+    list_display = ('label',) # Affiche le champ 'label' dans la liste des types de procédures
+
+
+@admin.register(Decaissement)
+class DecaissementAdmin(admin.ModelAdmin):
+    list_display = ('montant', 'status', 'in_drf', 'order', 'created', 'modified') # Affiche les champs spécifiés
+    list_filter = ('status', 'in_drf') # Ajoute des filtres pour 'status' et 'in_drf'
+    search_fields = ('pk', 'montant') # Ajoute une barre de recherche pour le pk et le montant
+    date_hierarchy = 'created' # Permet de naviguer par date de création
+
+
+@admin.register(TypeUGP)
+class TypeUGPAdmin(admin.ModelAdmin):
+    list_display = ('label',)
 
 

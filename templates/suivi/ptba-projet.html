@@ -37,20 +37,43 @@
                                       <th>Status</th>
                                   </tr>
                                   {% for composant in composants %}
-                                  	<tr class="bg-primary text-white white">
-                                        <td colspan="4">{{ composant.label }}</td>
+                                  	<tr class="bg-primary text-white white  collapsible">
+                                        <td >
+                                            <button class="btn btn-link text-white toggle-btn">Composante: {{ composant.label }}</button>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
                                     </tr>
-                                      <tr>
-                                        <td colspan="4">
+                                      <tr class="content">
+                                        <td >
                                             <table class="table table-borderless table-responsive">
                                                 {% for souscomposant in composant.souscomposants.all %}
-                                                	<tr><td colspan="4">{{ souscomposant.label }}</td></tr>
-                                                	<tr>
-                                                        <td colspan="4">
-                                                            <table>
-                                                                {% for enfant in souscomposant.enfants.all %}
-                                                                	<tr><td>{{ enfant.label }}</td></tr>
-                                                                	<tr><td></td></tr>
+                                                	<tr class="collapsible" style="background-color: rgba(106,181,231,0.5)">
+                                                        <td >
+                                                            <button class="btn btn-link toggle-btn">S/C: {{ souscomposant.label }}</button>
+                                                        </td>
+                                                    </tr>
+                                                	<tr class="content">
+                                                        <td >
+                                                            <table class="table table-borderless table-reponsive">
+                                                                {% for enfant in souscomposant.indicateur_set.all %}
+                                                                	<tr class="collapsible">
+                                                                        <td><button class="btn btn-link toggle-btn">{{ enfant.type }} :{{ enfant.label }}</button></td>
+                                                                    </tr>
+                                                                	<tr class="content">
+                                                                        <td>
+                                                                            <table class="table table-borderless table-responsive">
+                                                                                {% for rld in enfant.rld_set.all %}
+                                                                                	<tr>
+                                                                                        <td>{{ rdl.label }}</td>
+                                                                                    </tr>
+                                                                                {% endfor %}
+
+                                                                            </table>
+
+                                                                        </td>
+                                                                    </tr>
                                                                 {% endfor %}
 
 
@@ -78,12 +101,70 @@
                         </div>
                       </div>
                       <div class="tab-pane fade " id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                        <ul class="pt-3 d-flex flex-column gap-1">
-                          <li>Us Technology offers web &amp; mobile development solutions for all industry verticals.Include a short form using fields that'll help your business understand who's contacting them.</li>
-                          <li> <strong>Visit Us: </strong> 2600 Hollywood Blvd,Florida, United States-	33020</li>
-                          <li> <strong>Mail Us:</strong> contact@us@gmail.com</li>
-                          <li> <strong>Contact Number: </strong> (954) 357-7760</li>
-                        </ul>
+                        <div class="row mt-3">
+
+                              <table class="table table-responsive">
+                                  <tr>
+                                      <th>Intitulé</th>
+                                      <th>Montant Engagé</th>
+                                      <th>Coût total 2024</th>
+                                      <th>Coût total 2025</th>
+                                      <th>Coût à executer 2025</th>
+                                  </tr>
+                                  {% for composant in composants %}
+                                  	<tr class="bg-primary text-white white  collapsible">
+                                        <td >
+                                            <button class="btn btn-link text-white toggle-btn">Composante: {{ composant.label }}</button>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                      <tr class="content">
+                                        <td >
+                                            <table class="table table-borderless table-responsive">
+                                                {% for souscomposant in composant.souscomposants.all %}
+                                                	<tr class="collapsible">
+                                                        <td >
+                                                            <button class="btn btn-link toggle-btn">S/C: {{ souscomposant.label }}</button>
+                                                        </td>
+                                                    </tr>
+                                                	<tr class="content">
+                                                        <td >
+                                                            <table class="table table-borderless table-reponsive">
+                                                                {% for enfant in souscomposant.indicateur_set.all %}
+                                                                	<tr class="collapsible">
+                                                                        <td><button class="btn btn-link toggle-btn">{{ enfant.type }} :{{ enfant.label }}</button></td>
+                                                                    </tr>
+                                                                	<tr class="content">
+                                                                        <td>
+                                                                            <table class="table table-borderless table-responsive">
+                                                                                {% for rld in enfant.rld_set.all %}
+                                                                                	<tr>
+                                                                                        <td>{{ rdl.label }}</td>
+                                                                                    </tr>
+                                                                                {% endfor %}
+
+                                                                            </table>
+
+                                                                        </td>
+                                                                    </tr>
+                                                                {% endfor %}
+
+
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </table>
+                                        </td>
+                                      </tr>
+                                  {% empty %}
+
+                                  {% endfor %}
+
+                              </table>
+                          </div>
                       </div>
                     </div>
                   </div>
@@ -92,4 +173,35 @@
           </div>
           <!-- Container-fluid Ends-->
         </div>
+{% endblock %}
+
+{% block styles %}
+<style>
+ tr.content {
+    display: none;
+}
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const collapsibleRows = document.querySelectorAll('tr.collapsible');
+
+    collapsibleRows.forEach(row => {
+        const toggleBtn = row.querySelector('.toggle-btn');
+        const contentRow = row.nextElementSibling;
+
+        toggleBtn.addEventListener('click', function() {
+            if (contentRow.style.display === 'table-row') {
+                contentRow.style.display = 'none';
+
+            } else {
+                contentRow.style.display = 'table-row';
+
+            }
+        });
+    });
+});
+</script>
 {% endblock %}
