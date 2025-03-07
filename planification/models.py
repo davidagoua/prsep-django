@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
@@ -126,6 +128,10 @@ class Tache(TimeStampedModel, models.Model):
     depends_on = models.ManyToManyField('Tache', null=True, blank=True)
 
     def __str__(self): return str(self.label)
+
+    @property
+    def from_last_year(self) -> bool:
+        return self.date_fin.year < date.today().year
 
 
 class Activite(TimeStampedModel, models.Model):

@@ -47,7 +47,7 @@
                                     </tr>
                                       <tr class="content">
                                         <td >
-                                            <table class="table table-borderless table-responsive">
+                                            <table class="table m-0 table-borderless table-responsive">
                                                 {% for souscomposant in composant.souscomposants.all %}
                                                 	<tr class="collapsible" style="background-color: rgba(106,181,231,0.5)">
                                                         <td >
@@ -56,17 +56,19 @@
                                                     </tr>
                                                 	<tr class="content">
                                                         <td >
-                                                            <table class="table table-borderless table-reponsive">
+                                                            <table class="table table-borderless m-0 table-reponsive">
                                                                 {% for enfant in souscomposant.indicateur_set.all %}
                                                                 	<tr class="collapsible">
                                                                         <td><button class="btn btn-link toggle-btn">{{ enfant.type }} :{{ enfant.label }}</button></td>
                                                                     </tr>
                                                                 	<tr class="content">
                                                                         <td>
-                                                                            <table class="table table-borderless table-responsive">
-                                                                                {% for rld in enfant.rld_set.all %}
-                                                                                	<tr>
-                                                                                        <td>{{ rdl.label }}</td>
+                                                                            <table class="table m-0 table-borderless table-responsive">
+                                                                                {% for tache in enfant.tache_set.all %}
+                                                                                	<tr style="
+                                                                                    {% if tache.from_last_year  %} color: lightslategray; {% endif %}
+                                                                                    ">
+                                                                                        <td>{{ tache.type }}: {{ tache.label }}</td>
                                                                                     </tr>
                                                                                 {% endfor %}
 

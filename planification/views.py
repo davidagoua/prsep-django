@@ -1,7 +1,7 @@
 from django.shortcuts import render, resolve_url
 from django.views import generic
 
-from planification.forms import IldCreateForm
+from planification.forms import IldCreateForm, TacheForm
 from planification.models import ILD, PPM
 
 
@@ -10,13 +10,13 @@ class PlanPTBAProjet(generic.TemplateView):
 
     def get_context_data(self, **kwargs):
         return kwargs | {
-            'IldCreateForm': IldCreateForm,
+            'IldCreateForm': TacheForm,
             'ilds': ILD.objects.all(),
         }
 
 
-class ILDCreateView(generic.FormView):
-    form_class = IldCreateForm
+class TacheCreateFormView(generic.FormView):
+    form_class = TacheForm
 
     def form_valid(self, form):
         ild = form.save(commit=False)
