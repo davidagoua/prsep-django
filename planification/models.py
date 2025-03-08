@@ -5,6 +5,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django_extensions.db.models import TimeStampedModel
 
+from core.models import Departement
 
 
 class PTBAProjet(TimeStampedModel, models.Model  ):
@@ -113,6 +114,12 @@ class TypeUGP(models.Model):
         return str(self.label)
 
 
+class TachePublicManager(models.Manager):
+
+    def get_queryset(self):
+        return Tache.objects.all()
+
+
 class Tache(TimeStampedModel, models.Model):
     type = models.CharField(max_length=100, choices=models.TextChoices("type_composant",'RLD V'), null=True, blank=True)
     label = models.TextField()
@@ -123,13 +130,16 @@ class Tache(TimeStampedModel, models.Model):
     montant_engage = models.PositiveBigIntegerField(default=0)
     cout = models.BigIntegerField(default=0)
     quantite = models.PositiveIntegerField(default=0)
-    frequence = models.CharField(max_length=100, null=True, blank=True)
+    frequence = models.PositiveBigIntegerField(default=1)
     ugp = models.ForeignKey(TypeUGP, on_delete=models.SET_NULL, null=True)
     date_debut = models.DateField(null=True, blank=True)
     date_fin = models.DateField(null=True, blank=True)
-    status = models.IntegerField(default=0)
     responsable = models.CharField(max_length=100, null=True, blank=True)
     depends_on = models.ManyToManyField('Tache', null=True, blank=True)
+    departement = models.ForeignKey(Departement, on_delete=models.SET_NULL, null=True, blank=True)
+
+    objects = models.Manager()
+    public = TachePublicManager()
 
     def __str__(self): return str(self.label)
 

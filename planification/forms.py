@@ -13,7 +13,7 @@ class IldCreateForm(forms.ModelForm):
 class TacheForm(forms.ModelForm):
     class Meta:
         model = Tache
-        fields = '__all__'  # Ou spécifier les champs explicitement
+        exclude = ['status','user','departement','montant_engage','depends_on']  # Ou spécifier les champs explicitement
         widgets = {
             'date_debut': forms.DateInput(attrs={'type': 'date'}),
             'date_fin': forms.DateInput(attrs={'type': 'date'}),

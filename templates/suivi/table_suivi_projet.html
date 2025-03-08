@@ -1,0 +1,64 @@
+<div>
+    <table class="table table-responsive" x-data="{ openComposants: {}, openSousComposants: {}, openIndiacteurs: {} }">
+        <tr>
+            <th style="width: 25px"></th>
+            <th>Composants/Indicateurs/Activités</th>
+            <th>Montant</th>
+        </tr>
+        {% for composant in composants %}
+            <tr style="background-color: #0a53be; color: white">
+                <td style="width: 25px"></td>
+                <td class="">
+                    <button @click="openComposants['{{ composant.pk }}'] = !openComposants['{{ composant.pk }}']" class="btn btn-link text-white white white-text" style="text-decoration: none">{{ composant.label }}</button>
+                </td>
+                <td>
+                    0
+                </td>
+            </tr>
+                {% for sous_compo in composant.souscomposants.all %}
+                    <tr x-show="openComposants['{{ composant.pk }}']" style="background-color: #7298ce">
+                        <td style="width: 25px"></td>
+                        <td width="500px">
+                            <button
+                                class="btn btn-link text-let"
+                                style="color: white; text-decoration: none; text-align: left"
+                                @click="openSousComposants['{{ sous_compo.pk }}'] = !openSousComposants['{{ sous_compo.pk }}']"
+                            >{{ sous_compo.label }}</button>
+                        </td>
+                        <td>0</td>
+                    </tr>
+                    {% for indicateur in sous_compo.indicateur_set.all %}
+                    	<tr
+                            style="background-color: #d5e3f3"
+                            x-show="openSousComposants['{{ sous_compo.pk }}'] && openComposants['{{ composant.pk }}']"
+                        >
+                            <td style="width: 25px"></td>
+                            <td>
+                                <button
+                                    class="btn btn-link text-left"
+                                    style="text-align: left"
+                                    @click="openIndiacteurs['{{ indicateur.pk }}'] = !openIndiacteurs['{{ indicateur.pk }}']"
+                                >
+                                    <b>{{ indicateur.type }}{{ indicateur.pk }}</b>: {{ indicateur.label }}
+                                </button>
+                            </td>
+                            <td>0</td>
+                        </tr>
+                        {% for tache in indicateur.tache_set.all %}
+                        	<tr
+                                x-show="openIndiacteurs['{{ indicateur.pk }}'] && openSousComposants['{{ sous_compo.pk }}'] && openComposants['{{ composant.pk }}']"
+                            >
+                                {% include 'suivi/action_suivi_projet.html' with tache=tache %}
+                                <td>{{ tache.label }}</td>
+                                <td>0</td>
+                            </tr>
+                        {% endfor %}
+
+                    {% endfor %}
+
+                {% endfor %}
+
+        {% endfor %}
+
+    </table>
+</div>

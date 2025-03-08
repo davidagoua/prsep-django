@@ -61,7 +61,7 @@ class AppuiTechniqueAdmin(admin.ModelAdmin):
 
 @admin.register(Tache)
 class TacheAdmin(admin.ModelAdmin):
-    list_display = ('label', 'type', 'categorie', 'indicateur', 'status', 'unite', 'montant_engage', 'cout', 'quantite', 'ugp', 'date_debut', 'date_fin', 'responsable')
+    list_display = ('departement','label', 'type', 'categorie', 'indicateur', 'status', 'unite', 'montant_engage', 'cout', 'quantite', 'ugp', 'date_debut', 'date_fin', 'responsable')
     list_filter = ('type', 'categorie', 'indicateur', 'status', 'unite', 'ugp')
     search_fields = ('label', 'responsable')
     date_hierarchy = 'date_debut'
@@ -77,7 +77,7 @@ class TacheAdmin(admin.ModelAdmin):
             'fields': ('date_debut', 'date_fin', 'frequence')
         }),
         ('Statut et dépendances', {
-            'fields': ('status', 'depends_on')
+            'fields': ('status', 'depends_on','departement')
         }),
     )
 
