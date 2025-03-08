@@ -1,42 +1,45 @@
-
-
 services:
   db:
-    build: ./postgres
+    image: postgres:latest
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
-      POSTGRES_DB: mydb
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - "5432:5432"
 
   web:
-    build: ./django
-    command: gunicorn myproject.wsgi:application --bind 0.0.0.0:8000
+    build:
+      context: ./
     volumes:
-      - ./django:/app
-      - static_volume:/app/staticfiles
+      - ./:/app
+      - static_volume:/app/static
+      - media_volume:/app/medias
     expose:
       - "8000"
     depends_on:
       - db
     environment:
-      DATABASE_URL: postgres://myuser:mypassword@db:5432/mydb
+      DATABASE_URL: ${DATABASE_URL}
       DEBUG: "True" # Change to "False" in production
       SECRET_KEY: "your_secret_key" # Change to a secure key in production
       ALLOWED_HOSTS: "*" # Configure allowed hosts in production
 
   nginx:
-    build: ./nginx
+    build:
+      context: ./nginx
     volumes:
       - static_volume:/app/staticfiles
+      - media_volume:/app/medias
     ports:
       - "80:80"
     depends_on:
       - web
 
+
 volumes:
   postgres_data:
   static_volume:
+  media_volume:
