@@ -4,8 +4,7 @@
         <tr>
             <th style="width: 25px"></th>
             <th>Composants/Indicateurs/Activités</th>
-            <th>Categorie Dépense</th>
-            <th>Unité</th>
+
             <th>Montant Planifié</th>
             <th>Montant Engagé</th>
             <th>Total DRF</th>
@@ -17,10 +16,6 @@
                 <td class="text-left">
                     <button @click="openComposants['{{ composant.pk }}'] = !openComposants['{{ composant.pk }}']" class="btn btn-link text-white white white-text" style="text-decoration: none; text-align: left">{{ composant.label }}</button>
                 </td>
-                <td  style="color: white">
-
-                </td>
-                <td></td>
                 <td style="color: white">{{ composant.montant_planifier|intcomma }}</td>
                 <td  style="color: white">{{ composant.montant_engage }}</td>
                 <td  style="color: white">{{ composant.somme_drf }}</td>
@@ -36,8 +31,6 @@
                                 @click="openSousComposants['{{ sous_compo.pk }}'] = !openSousComposants['{{ sous_compo.pk }}']"
                             >{{ sous_compo.label }}</button>
                         </td>
-                        <td style="color: white"></td>
-                        <td style="color: white"></td>
                         <td style="color: white">{{ sous_compo.montant_planifier|intcomma }}</td>
                         <td style="color: white">{{ sous_compo.montant_engage|intcomma }}</td>
                         <td style="color: white">{{ sous_compo.somme_drf|intcomma }}</td>
@@ -52,33 +45,17 @@
                             <td>
                                 <button
                                     class="btn btn-link text-left"
-                                    style="text-align: left"
+                                    style="text-align: left; text-decoration: none"
                                     @click="openIndiacteurs['{{ indicateur.pk }}'] = !openIndiacteurs['{{ indicateur.pk }}']"
                                 >
                                     <b>{{ indicateur.type }}{{ indicateur.pk }}</b>: {{ indicateur.label }}
                                 </button>
                             </td>
-                            <td></td>
-                            <td></td>
                             <td>{{ indicateur.montant_planifier|intcomma }}</td>
                             <td >{{ indicateur.montant_engage|intcomma }}</td>
                             <td >{{ indicateur.somme_drf|intcomma }}</td>
                             <td >{{ indicateur.reste_a_payer|intcomma }}</td>
                         </tr>
-                        {% for tache in indicateur.tache_set.all %}
-                        	<tr
-                                x-show="openIndiacteurs['{{ indicateur.pk }}'] && openSousComposants['{{ sous_compo.pk }}'] && openComposants['{{ composant.pk }}']"
-                            >
-                                {% include 'suivi/action_suivi_projet.html' with tache=tache %}
-                                <td>{{ tache.label }}</td>
-                                <td>{{ tache.categorie.label }}</td>
-                                <td>{{ tache.unite }}</td>
-                                <td>{{ tache.montant_planifier|intcomma }}</td>
-                                <td>{{ tache.montant_engage|intcomma }}</td>
-                                <td>{{ tache.total_decaissement|intcomma }}</td>
-                                <td>{{ tache.reste_paye }}</td>
-                            </tr>
-                        {% endfor %}
 
                     {% endfor %}
 

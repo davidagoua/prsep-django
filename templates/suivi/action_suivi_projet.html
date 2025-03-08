@@ -2,16 +2,8 @@
     <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
     <div class="dropdown-menu bg-primary" style="">
 
-        <a class="dropdown-item " href="#" data-bs-toggle="modal" data-bs-target="#update-tache-modal-{{ tache.pk }}"><b>Modifier</b></a>
-        <div class="modal fade" id="update-tache-modal-{{ tache.pk }}">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-body">
+        <a class="dropdown-item " href="{% url 'suivi:update_tache' pk=tache.pk %}" ><b>Modifier</b></a>
 
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <a class="dropdown-item " href="{% url 'suivi:add-decaissement-projet' pk=tache.pk %}" ><b>Decaissements</b></a>
         <div class="modal fade" id="update-decaissement-modal-{{ tache.pk }}">
@@ -29,6 +21,6 @@
             </div>
         </div>
 
-        <div class="dropdown-divider"></div><a class="dropdown-item" href="#">Details</a>
+        <div class="dropdown-divider"></div><a class="dropdown-item" href="{% url 'plan:tache_detail' id=tache.pk %}">Details</a>
   </div>
 </td>

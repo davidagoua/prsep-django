@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect, resolve_url
 
 from django.views import generic
+from django.views.generic.detail import SingleObjectTemplateResponseMixin
 
 from planification.forms import UpdateTacheForm, DecaissementFormSet
 from planification.models import SousComposantProjet, ComposantProjet, Tache, Decaissement
@@ -18,13 +19,21 @@ class SuiviPTBAProjetView(generic.TemplateView):
         }
 
 
-class UpdateTacheView(generic.UpdateView):
+class UpdateTacheView(SingleObjectTemplateResponseMixin, generic.FormView):
     form_class = UpdateTacheForm
+    template_name = 'suivi/update_tache.html'
+
+    def get_queryset(self):
+        return Tache.objects.all()
 
     def get_context_data(self, **kwargs):
+        object = Tache.objects.get(pk=self.kwargs['pk'])
         return kwargs | {
-            'updatetacheform': UpdateTacheForm,
+            'updatetacheform': UpdateTacheForm(instance=object),
+            'object': object
         }
+
+
 
 
 
@@ -82,4 +91,7 @@ def delete_decaissement(request, pk):
     tache = d.tache
     d.delete()
     return redirect('suivi:add-decaissement-projet', pk=tache.pk)
+
+
+
 

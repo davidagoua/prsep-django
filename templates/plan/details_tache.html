@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block content %}
+<div class="page-body">
+  <div class="container-fluid">
+    <div class="page-title">
+      <div class="row">
+        <div class="col-6">
+          <h4>Analyse</h4>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- Container-fluid starts-->
+  <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h3>Détails de la tâche</h3>
+                    </div>
+                    <div class="card-body">
+                        <h4>{{ tache.label }}</h4>
+                        <p class="text-muted">
+                            <b>
+                                {% if  %}
+                                	
+                                {% else %}
+                                	
+                                {% endif %} 
+                            </b>
+                        </p>
+                        <dl class="row mt-4">
+                            <dt class="col-sm-4">Catégorie</dt>
+                            <dd class="col-sm-8">{{ tache.categorie }}</dd>
+
+                            <dt class="col-sm-4">Indicateur</dt>
+                            <dd class="col-sm-8">{{ tache.indicateur }}</dd>
+
+                            <dt class="col-sm-4">Unité</dt>
+                            <dd class="col-sm-8">{{ tache.unite }}</dd>
+
+                            <dt class="col-sm-4">Montant engagé</dt>
+                            <dd class="col-sm-8">{{ tache.montant_engage|intcomma }} fcfa</dd>
+
+                            <dt class="col-sm-4">Montant planifié</dt>
+                            <dd class="col-sm-8">{{ tache.montant_planifier|intcomma }} fcfa</dd>
+
+                            <dt class="col-sm-4">Date de début</dt>
+                            <dd class="col-sm-8">{{ tache.date_debut }}</dd>
+
+                            <dt class="col-sm-4">Date de fin</dt>
+                            <dd class="col-sm-8">{{ tache.date_fin }}</dd>
+
+                            <dt class="col-sm-4">Responsable</dt>
+                            <dd class="col-sm-8">{{ tache.responsable }}</dd>
+
+                            <dt class="col-sm-4">Reste à payer</dt>
+                            <dd class="col-sm-8">{{ tache.reste_paye|intcomma }} fcfa</dd>
+
+
+                        </dl>
+                    </div>
+                    <div class="card-footer text-end">
+                        <a href="{% url 'suivi:ptba-projet' %}" class="btn btn-info">Associer un  rapport</a>
+                        <a href="{% url 'suivi:ptba-projet' %}" class="btn btn-secondary">Retour</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

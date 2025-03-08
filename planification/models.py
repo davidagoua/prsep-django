@@ -126,7 +126,13 @@ class Indicateur(TimeStampedModel, models.Model):
     def montant_engage(self) -> int:
         return sum(tache.montant_engage for tache in self.tache_set.all())
 
+    @property
+    def somme_drf(self) -> int:
+        return sum(tache.total_decaissement for tache in self.tache_set.all())
 
+    @property
+    def reste_a_payer(self) -> int:
+        return self.montant_engage - self.somme_drf
 
     class Meta:
         ordering = ('pk',)

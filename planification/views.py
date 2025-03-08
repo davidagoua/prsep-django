@@ -1,4 +1,4 @@
-from django.shortcuts import render, resolve_url
+from django.shortcuts import render, resolve_url, get_object_or_404
 from django.views import generic
 
 from planification.forms import IldCreateForm, TacheForm
@@ -41,4 +41,11 @@ class TacheCreateFormView(generic.FormView):
 class PPMListView(generic.ListView):
     template_name = 'plan/ppm.html'
     queryset = PPM.objects.all()
+
+
+def tache_detail(request, id):
+    # Récupérer la tâche ou renvoyer une page 404 si elle n'existe pas
+    tache = get_object_or_404(Tache, id=id)
+    return render(request, 'plan/details_tache.html', {'tache': tache})
+
 
