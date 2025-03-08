@@ -2,7 +2,7 @@
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import FileResponse
-from django.shortcuts import render, redirect, reverse, resolve_url
+from django.shortcuts import render, redirect, reverse, resolve_url, get_object_or_404
 from django.views import generic
 from django.views.generic import FormView, ListView
 from django.views.generic.detail import SingleObjectMixin
@@ -66,7 +66,10 @@ def upload_file(request, rapport):
     redirect(resolve_url('rapport:mensuel'))
 
 
-def update_state(request, rapport):
+def update_state(request, pk):
+    rapport = get_object_or_404(
+        Rapport,
+        pk=request.GET.get('pk'))
     rapport.state = request.GET.get('state')
     rapport.save()
     return redirect('rapport:mensuel')

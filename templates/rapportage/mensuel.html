@@ -18,7 +18,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="">
-                    <div class="list-product-header">
+                    <div class="list-product-header">pk
                       <div>
                         <div class="light-box"><a data-bs-toggle="collapse" href="#collapseProduct" role="button" aria-expanded="false" aria-controls="collapseProduct"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-filter filter-icon show"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg><i class="icon-close filter-close hide"></i></a></div><a class="btn btn-primary" href="#" data-bs-toggle="modal" data-bs-target="#add-rapport-modal"><i class="fa fa-plus"></i>Joindre</a>
                           <div class="modal" id="add-rapport-modal">
@@ -110,15 +110,7 @@
                                     {% endif %}
                                   </td>
                                 <td>
-                                    {% if object.state <= 3 %}
-                                    <a href="{% url 'rapport:update_state' rapport=rapport %}?state=4" class="btn btn-sm btn-primary"><span class="fa fa-check"></span> Soumettre</a>
-                                    {% elif object.state <= 6 %}
-                                    <a href="{% url 'rapport:update_state' rapport=rapport %}?state=8" class="btn btn-sm btn-primary"><span class="fa fa-check"></span> Soumettre</a>
-                                    {% elif object.state <= 8 %}
-                                    <a href="{% url 'rapport:update_state' rapport=rapport %}?state=10" class="btn btn-sm btn-primary"><span class="fa fa-check"></span> Soumettre</a>
-                                    {% else %}
-                                    <a href="{% url 'rapport:update_state' rapport=rapport %}?state=12" class="btn btn-sm btn-primary"><span class="fa fa-check"></span> Soumettre</a>
-                                    {% endif %}
+
                                     <button class="btn btn-sm btn-primary"><span class="fa fa-file-download"></span> Télécharger</button>
                                     <button class="btn btn-sm btn-primary"><span class="fa fa-file-upload"></span> Joindre</button>
                                 </td>

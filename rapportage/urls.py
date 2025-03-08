@@ -10,5 +10,5 @@ urlpatterns = [
     path('rapport-semestriel/', RapportSemestreView.as_view(), name='rapport-semestriel'),
     path('rapport-annuel/', RapportAnnuelView.as_view(), name='rapport-annuel'),
     path('rapport-consolide/', RapportConsolideView.as_view(), name='rapport-consolide'),
-    path('update-state/<rapport>', update_state, name='update_state'),
+    path('update-state/<int:pk>', update_state, name='update_state'),
 ]

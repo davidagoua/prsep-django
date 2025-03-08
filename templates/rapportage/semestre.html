@@ -1,10 +1,136 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block content %}
+<div class="page-body">
+  <div class="container-fluid">
+    <div class="page-title">
+      <div class="row">
+        <div class="col-6">
+          <h4>Rapport Semestriel</h4>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- Container-fluid starts-->
+  <div class="container-fluid">
+    <div class="row">
+        <div class="card">
+            <div class="card-body">
+                <div class="">
+                    <div class="list-product-header">
+                      <div>
+                        <div class="light-box"><a data-bs-toggle="collapse" href="#collapseProduct" role="button" aria-expanded="false" aria-controls="collapseProduct"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-filter filter-icon show"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg><i class="icon-close filter-close hide"></i></a></div><a class="btn btn-primary" href="#" data-bs-toggle="modal" data-bs-target="#add-rapport-modal"><i class="fa fa-plus"></i>Joindre</a>
+                          <div class="modal" id="add-rapport-modal">
+                              <div class="modal-dialog">
+                                  <div class="modal-content">
+                                      <div class="modal-body">
+                                          <form action="." method="post">
+                                              {% csrf_token %}
+                                              {{ form.as_p }}
+                                              <button class="btn btn-primary">Enregistrer</button>
+                                          </form>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="collapse" id="collapseProduct">
+                        <div class="card card-body list-product-body">
+                          <div class="row row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-2 g-3">
+                            <div class="col">
+                              <select class="form-select" aria-label="Default select example">
+                                <option selected="">Choose Product</option>
+                                <option value="1">Apple iphone 13 Pro</option>
+                                <option value="2">Wood Chair</option>
+                                <option value="3">M185 Compact Wireless Mouse</option>
+                              </select>
+                            </div>
+                            <div class="col">
+                              <select class="form-select" aria-label="Default select example">
+                                <option selected="">Choose Category</option>
+                                <option value="1">Furniture</option>
+                                <option value="2">Smart Gadgets</option>
+                                <option value="3">Electrics</option>
+                              </select>
+                            </div>
+                            <div class="col">
+                              <select class="form-select" aria-label="Default select example">
+                                <option selected="">Choose Sub Category</option>
+                                <option value="1">Smart Phones</option>
+                                <option value="2">Smart Watches</option>
+                                <option value="3">Wireless headphone</option>
+                              </select>
+                            </div>
+                            <div class="col">
+                              <select class="form-select" aria-label="Default select example">
+                                <option selected="">Status</option>
+                                <option value="1">Sold Out </option>
+                                <option value="2">In Stock</option>
+                                <option value="3">Pre Order</option>
+                                <option value="4">Limited Stock </option>
+                              </select>
+                            </div>
+                            <div class="col">
+                              <select class="form-select" aria-label="Default select example">
+                                <option selected="">Price</option>
+                                <option value="1">56000.00</option>
+                                <option value="2">19000.00</option>
+                                <option value="3">10000.00</option>
+                                <option value="3">15000.00</option>
+                                <option value="3">99000.00</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <table class="table table-responsive">
+                        <tr>
+                            <th>Intitulé</th>
+                            <th>Periode</th>
+                            <th>Departement</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                        {% for object in object_list %}
+                        	<tr>
+                                <td>{{ object.label }}</td>
+                                <td>{{ object.date_debut }} - {{ object.date_fin }}</td>
+                                <td>{{ request.user.group.first }}</td>
+                                <td>
+                                    {% if object.state <= 3 %}
+                                    <span class="badge bg-gray">En attente</span>
+                                    {% elif object.state <= 6 %}
+                                    <span class="badge bg-warning">En validation</span>
+                                    {% elif object.state <= 8 %}
+                                    <span class="badge bg-info">{{ object.state }}</span>
+                                    {% else %}
+                                    <span class="badge bg-success">Validé</span>
+                                    {% endif %}
+                                  </td>
+                                <td>
+                                    {% if object.state <= 3 %}
+                                    <a href="{% url 'rapport:update_state' rapport=rapport %}?state=4" class="btn btn-sm btn-primary"><span class="fa fa-check"></span> Soumettre</a>
+                                    {% elif object.state <= 6 %}
+                                    <a href="{% url 'rapport:update_state' rapport=rapport %}?state=8" class="btn btn-sm btn-primary"><span class="fa fa-check"></span> Soumettre</a>
+                                    {% elif object.state <= 8 %}
+                                    <a href="{% url 'rapport:update_state' rapport=rapport %}?state=10" class="btn btn-sm btn-primary"><span class="fa fa-check"></span> Soumettre</a>
+                                    {% else %}
+                                    <a href="{% url 'rapport:update_state' rapport=rapport %}?state=12" class="btn btn-sm btn-primary"><span class="fa fa-check"></span> Soumettre</a>
+                                    {% endif %}
+                                    <button class="btn btn-sm btn-primary"><span class="fa fa-file-download"></span> Télécharger</button>
+                                    <button class="btn btn-sm btn-primary"><span class="fa fa-file-upload"></span> Joindre</button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  <!-- Container-fluid Ends-->
+</div>
+{% endblock %}
