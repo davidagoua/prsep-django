@@ -20,7 +20,7 @@ class PlanPTBAProjet(generic.TemplateView):
     def get(self, request, *args, **kwargs):
         if (action := request.GET.get('action', None)) is not None:
             if action == 'soumettre':
-                self.get_queryset().update(status=request.GET.get('status', 10))
+                self.get_queryset().update(status_validation=request.GET.get('status', 10))
         return super().get(request, *args, **kwargs)
 
 

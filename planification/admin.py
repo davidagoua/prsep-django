@@ -116,7 +116,7 @@ class TypeProcedureAcquisitionAdmin(admin.ModelAdmin):
 
 @admin.register(Decaissement)
 class DecaissementAdmin(admin.ModelAdmin):
-    list_display = ('montant', 'status', 'in_drf', 'order', 'created', 'modified') # Affiche les champs spécifiés
+    list_display = ('tache','montant', 'status', 'in_drf', 'order', 'created', 'modified') # Affiche les champs spécifiés
     list_filter = ('status', 'in_drf') # Ajoute des filtres pour 'status' et 'in_drf'
     search_fields = ('pk', 'montant') # Ajoute une barre de recherche pour le pk et le montant
     date_hierarchy = 'created' # Permet de naviguer par date de création
@@ -125,5 +125,8 @@ class DecaissementAdmin(admin.ModelAdmin):
 @admin.register(TypeUGP)
 class TypeUGPAdmin(admin.ModelAdmin):
     list_display = ('label',)
+
+
+
 
 

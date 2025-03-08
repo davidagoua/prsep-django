@@ -6,16 +6,25 @@
         <div class="modal fade" id="update-tache-modal-{{ tache.pk }}">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-body"></div>
+                    <div class="modal-body">
+
+                    </div>
                 </div>
             </div>
         </div>
 
-        <a class="dropdown-item " href="#" data-bs-toggle="modal" data-bs-target="#update-decaissement-modal-{{ tache.pk }}"><b>Decaissmenents</b></a>
+        <a class="dropdown-item " href="{% url 'suivi:add-decaissement-projet' pk=tache.pk %}" ><b>Decaissements</b></a>
         <div class="modal fade" id="update-decaissement-modal-{{ tache.pk }}">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-body"></div>
+                    <div class="modal-body">
+                        <form action="">
+                            <div class="form-group mb-3">
+                                <label for="">Montant engagé</label>
+                                <input type="text" value="{{ tache.montant_engage }}" name="montant_engage" class="form-control">
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

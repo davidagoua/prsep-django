@@ -3,9 +3,12 @@ from datetime import date
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
+from django.db.models import Sum
+from django.utils.timezone import now
 from django_extensions.db.models import TimeStampedModel
 
-from core.models import Departement
+from core.models import Departement, User
+
 
 
 class PTBAProjet(TimeStampedModel, models.Model  ):
@@ -15,11 +18,50 @@ class PTBAProjet(TimeStampedModel, models.Model  ):
     def __str__(self):
         return str('ptba project '+self.created.__str__())
 
+    @property
+    def montant_planifier(self) -> int:
+        return sum(composant.montant_planifier for composant in self.composantprojet_set.all())
+
+    @property
+    def montant_engage(self) -> int:
+        return sum(composant.montant_engage for composant in self.composantprojet_set.all())
+
+    @property
+    def somme_drf(self) -> int:
+        return sum(composant.somme_drf for composant in self.composantprojet_set.all())
+
+    @property
+    def reste_a_payer(self) -> int:
+        return self.montant_engage - self.somme_drf
+
+    @property
+    def reste_a_planifier(self) -> int:
+        return self.montant_total - self.montant_engage
+
+    
+
 
 class ComposantProjet(TimeStampedModel, models.Model):
     label = models.CharField(max_length=100)
     ptba = models.ForeignKey(PTBAProjet, on_delete=models.CASCADE)
     status = models.IntegerField(default=0)
+
+
+    @property
+    def montant_planifier(self) -> int:
+        return sum(sous_composant.montant_planifier for sous_composant in self.souscomposants.all())
+
+    @property
+    def montant_engage(self) -> int:
+        return sum(sous_composant.montant_engage for sous_composant in self.souscomposants.all())
+
+    @property
+    def somme_drf(self) -> int:
+        return sum(sous_composant.somme_drf for sous_composant in self.souscomposants.all())
+
+    @property
+    def reste_a_payer(self) -> int:
+        return self.montant_engage - self.somme_drf
 
     def __str__(self):
         return str(self.label)
@@ -30,6 +72,24 @@ class SousComposantProjet(TimeStampedModel, models.Model):
     sigle = models.CharField(max_length=100, null=True, blank=True)
     composant = models.ForeignKey(ComposantProjet, on_delete=models.CASCADE, related_name='souscomposants')
     status = models.IntegerField(default=0)
+
+    @property
+    def montant_planifier(self) -> int:
+        return sum(indicateur.montant_planifier for indicateur in self.indicateur_set.all())
+
+    @property
+    def montant_engage(self) -> int:
+        return sum(indicateur.montant_engage for indicateur in self.indicateur_set.all())
+
+    @property
+    def somme_drf(self) -> int:
+        return sum(
+            tache.total_decaissement for indicateur in self.indicateur_set.all() for tache in indicateur.tache_set.all()
+        )
+
+    @property
+    def reste_a_payer(self) -> int:
+        return self.montant_engage - self.somme_drf
 
     def __str__(self):
         return str(self.label)
@@ -57,8 +117,20 @@ class Indicateur(TimeStampedModel, models.Model):
 
     def __str__(self): return str(self.label)
 
+    @property
+    def montant_planifier(self) -> int:
+        return sum(tache.montant_planifier for tache in self.tache_set.all())
+
+
+    @property
+    def montant_engage(self) -> int:
+        return sum(tache.montant_engage for tache in self.tache_set.all())
+
+
+
     class Meta:
         ordering = ('pk',)
+
 
 
 class RLD(TimeStampedModel, models.Model):
@@ -102,9 +174,10 @@ class Decaissement(TimeStampedModel, models.Model):
     in_drf = models.BooleanField(default=False)
     order = models.IntegerField(default=0)
     tache = models.ForeignKey('Tache', on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
-        return str('DRF:'+self.pk +self.montant)
+        return f'DRF:{self.pk} {self.montant}'
 
 
 class TypeUGP(models.Model):
@@ -137,6 +210,7 @@ class Tache(TimeStampedModel, models.Model):
     responsable = models.CharField(max_length=100, null=True, blank=True)
     depends_on = models.ManyToManyField('Tache', null=True, blank=True)
     departement = models.ForeignKey(Departement, on_delete=models.SET_NULL, null=True, blank=True)
+    status_validation = models.PositiveSmallIntegerField(default=0)
 
     objects = models.Manager()
     public = TachePublicManager()
@@ -146,6 +220,19 @@ class Tache(TimeStampedModel, models.Model):
     @property
     def from_last_year(self) -> bool:
         return self.date_fin.year < date.today().year
+
+    @property
+    def montant_planifier(self) -> int:
+        return self.frequence * self.quantite * self.cout
+
+    @property
+    def total_decaissement(self) -> int:
+        result = self.decaissement_set.aggregate(total=Sum('montant'))
+        return result['total'] or 0
+
+    @property
+    def reste_paye(self) -> int:
+        return self.montant_engage - self.total_decaissement
 
 
 class Activite(TimeStampedModel, models.Model):

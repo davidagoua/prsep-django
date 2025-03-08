@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static humanize %}
 {% block content %}
 	<div class="page-body">
           <div class="container-fluid">
@@ -823,117 +823,23 @@
                     {% endif %}
                 </div>
                 <div class="row">
-                  <div class="col-xl-12 col-sm-12">
-                    <div class="card o-hidden small-widget">
-                      <div class="card-body total-project border-b-primary border-2"><span class="f-light f-w-500 f-14">Montant total du Financement</span>
-                        <div class="project-details">
-                          <div class="project-counter">
-                            <h2 class="f-w-600">{{ nb_projects }}</h2><span class="f-12 f-w-400">(This month)</span>
-                          </div>
-                          <div class="product-sub bg-primary-light">
-                            <svg class="invoice-icon">
-                              <use href="{% static '/assets/svg/icon-sprite.svg#color-swatch' %}"></use>
-                            </svg>
-                          </div>
-                        </div>
-                        <ul class="bubbles">
-                          <li class="bubble"></li>
-                          <li class="bubble"></li>
-                          <li class="bubble"></li>
-                          <li class="bubble"></li>
-                          <li class="bubble"></li>
-                          <li class="bubble"></li>
-                          <li class="bubble"></li>
-                          <li class="bubble"></li>
-                          <li class="bubble"></li>
-                        </ul>
-                      </div>
-                    </div>
+                  <div class="col-xl-6 col-sm-12">
+                    {% include 'parts/resume_card.html' with label="Montant Total" value=ptba.montant_total %}
                   </div>
-
+                <div class="col-xl-6 col-sm-12">
+                    {% include 'parts/resume_card.html' with label="Reste a planifer 2025" value=ptba.reste_a_planifier %}
+                  </div>
                 </div>
                 <div class="row">
                   <div class="col-xl-4 col-sm-6">
-                    <div class="card o-hidden small-widget">
-                      <div class="card-body total-project border-b-primary border-2"><span class="f-light f-w-500 f-14">Montant Engagé</span>
-                        <div class="project-details">
-                          <div class="project-counter">
-                            <h2 class="f-w-600">{{ nb_projects }}</h2><span class="f-12 f-w-400">(This month)</span>
-                          </div>
-                          <div class="product-sub bg-primary-light">
-                            <svg class="invoice-icon">
-                              <use href="{% static '/assets/svg/icon-sprite.svg#color-swatch' %}"></use>
-                            </svg>
-                          </div>
-                        </div>
-                        <ul class="bubbles">
-                          <li class="bubble"></li>
-                          <li class="bubble"></li>
-                          <li class="bubble"></li>
-                          <li class="bubble"></li>
-                          <li class="bubble"></li>
-                          <li class="bubble"></li>
-                          <li class="bubble"></li>
-                          <li class="bubble"></li>
-                          <li class="bubble"></li>
-                        </ul>
-                      </div>
-                    </div>
+                    {% include 'parts/resume_card.html' with label="Montant Engagé" value=ptba.montant_engage %}
                   </div>
 
                   <div class="col-xl-4 col-sm-6">
-                    <div class="card o-hidden small-widget">
-                      <div class="card-body total-Complete border-b-secondary border-2"><span class="f-light f-w-500 f-14">Coût 2025</span>
-                        <div class="project-details">
-                          <div class="project-counter">
-                            <h2 class="f-w-600">{{ nb_projects_completed }}</h2><span class="f-12 f-w-400">(This month) </span>
-                          </div>
-                          <div class="product-sub bg-secondary-light">
-                            <svg class="invoice-icon">
-                              <use href="../assets/svg/icon-sprite.svg#add-square"></use>
-                            </svg>
-                          </div>
-                        </div>
-                        <ul class="bubbles">
-                          <li class="bubble"> </li>
-                          <li class="bubble"></li>
-                          <li class="bubble"></li>
-                          <li class="bubble"> </li>
-                          <li class="bubble"></li>
-                          <li class="bubble"> </li>
-                          <li class="bubble"></li>
-                          <li class="bubble"></li>
-                          <li class="bubble"> </li>
-                        </ul>
-                      </div>
-                    </div>
+                    {% include 'parts/resume_card.html' with label="Montant Décaissé" value=ptba.somme_drf %}
                   </div>
                   <div class="col-xl-4 col-sm-6">
-                    <div class="card o-hidden small-widget">
-                      <div class="card-body total-upcoming"><span class="f-light f-w-500 f-14">Reste à planifier 2025</span>
-                        <div class="project-details">
-                          <div class="project-counter">
-                            <h2 class="f-w-600">{{ nb_projects_upcoming }}</h2><span class="f-12 f-w-400">(This month) </span>
-                          </div>
-                          <div class="product-sub bg-light-light">
-                            <svg class="invoice-icon">
-                              <use href="../assets/svg/icon-sprite.svg#edit-2"></use>
-                            </svg>
-                          </div>
-                        </div>
-                        <ul class="bubbles">
-                          <li class="bubble"> </li>
-                          <li class="bubble"></li>
-                          <li class="bubble"></li>
-                          <li class="bubble"></li>
-                          <li class="bubble"></li>
-                          <li class="bubble"></li>
-                          <li class="bubble"></li>
-                          <li class="bubble"></li>
-                          <li class="bubble"></li>
-                        </ul>
-                      </div>
-                    </div>
+                    {% include 'parts/resume_card.html' with label="Reste à payer" value=ptba.reste_a_payer %}
                   </div>
 
                 </div>

@@ -1,19 +1,32 @@
+{% load humanize %}
 <div>
     <table class="table table-responsive" x-data="{ openComposants: {}, openSousComposants: {}, openIndiacteurs: {} }">
         <tr>
             <th style="width: 25px"></th>
             <th>Composants/Indicateurs/Activités</th>
-            <th>Montant</th>
+            <th>Categorie Dépense</th>
+            <th>Unité</th>
+            <th>Montant Planifié</th>
+            <th>Montant Engagé</th>
+            <th>Total DRF</th>
+            <th>Reste à payer</th>
+            <th>Reste à payer</th>
         </tr>
         {% for composant in composants %}
             <tr style="background-color: #0a53be; color: white">
                 <td style="width: 25px"></td>
-                <td class="">
-                    <button @click="openComposants['{{ composant.pk }}'] = !openComposants['{{ composant.pk }}']" class="btn btn-link text-white white white-text" style="text-decoration: none">{{ composant.label }}</button>
+                <td class="text-left">
+                    <button @click="openComposants['{{ composant.pk }}'] = !openComposants['{{ composant.pk }}']" class="btn btn-link text-white white white-text" style="text-decoration: none; text-align: left">{{ composant.label }}</button>
                 </td>
-                <td>
-                    0
+                <td  style="color: white">
+
                 </td>
+                <td></td>
+                <td style="color: white">{{ composant.montant_planifier|intcomma }}</td>
+                <td  style="color: white"></td>
+                <td  style="color: white"></td>
+                <td  style="color: white"></td>
+                <td  style="color: white"></td>
             </tr>
                 {% for sous_compo in composant.souscomposants.all %}
                     <tr x-show="openComposants['{{ composant.pk }}']" style="background-color: #7298ce">
@@ -25,7 +38,13 @@
                                 @click="openSousComposants['{{ sous_compo.pk }}'] = !openSousComposants['{{ sous_compo.pk }}']"
                             >{{ sous_compo.label }}</button>
                         </td>
-                        <td>0</td>
+                        <td style="color: white"></td>
+                        <td style="color: white"></td>
+                        <td style="color: white">{{ sous_compo.montant_planifier|intcomma }}</td>
+                        <td style="color: white"></td>
+                        <td style="color: white"></td>
+                        <td style="color: white"></td>
+                        <td style="color: white"></td>
                     </tr>
                     {% for indicateur in sous_compo.indicateur_set.all %}
                     	<tr
@@ -42,7 +61,13 @@
                                     <b>{{ indicateur.type }}{{ indicateur.pk }}</b>: {{ indicateur.label }}
                                 </button>
                             </td>
-                            <td>0</td>
+                            <td></td>
+                            <td></td>
+                            <td>{{ indicateur.montant_planifier|intcomma }}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                         </tr>
                         {% for tache in indicateur.tache_set.all %}
                         	<tr
@@ -50,7 +75,13 @@
                             >
                                 {% include 'suivi/action_suivi_projet.html' with tache=tache %}
                                 <td>{{ tache.label }}</td>
-                                <td>0</td>
+                                <td>{{ tache.categorie.label }}</td>
+                                <td>{{ tache.unite }}</td>
+                                <td>{{ tache.montant_planifier|intcomma }}</td>
+                                <td>{{ tache.montant_engage|intcomma }}</td>
+                                <td>{{ tache.total_drf }}</td>
+                                <td></td>
+                                <td></td>
                             </tr>
                         {% endfor %}
 
