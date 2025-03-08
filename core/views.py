@@ -1,10 +1,11 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.views import generic
 
 from planification.models import ILD, AppuiTechnique
 
 
-class HomePageView(generic.TemplateView):
+class HomePageView(LoginRequiredMixin, generic.TemplateView):
     template_name = "home.html"
 
     def get_context_data(self, **kwargs):
@@ -16,9 +17,9 @@ class HomePageView(generic.TemplateView):
         }
 
 
-class CartigraphieView(generic.TemplateView):
+class CartigraphieView(LoginRequiredMixin, generic.TemplateView):
     template_name = "carto.html"
 
 
-class AnalyseView(generic.TemplateView):
+class AnalyseView(LoginRequiredMixin, generic.TemplateView):
     template_name = "analyse.html"

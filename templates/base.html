@@ -39,6 +39,8 @@
     <link id="color" rel="stylesheet" href="{% static '/assets/css/color-1.css' %}" media="screen">
     <!-- Responsive css-->
     <link rel="stylesheet" type="text/css" href="{% static '/assets/css/responsive.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/js/all.min.js" integrity="sha512-b+nQTCdtTBIRIbraqNEwsjB6UvL3UEMkXnhzd8awtCYh0Kcsjl9uEgwVFVbhoj3uu1DO1ZMacNvLoyJJiNfcvg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
       <script src="//unpkg.com/alpinejs" defer></script>
       {% block styles %}
       	
@@ -88,7 +90,7 @@
     <script src="{% static '/assets/js/script.js' %}"></script>
     <script src="{% static '/assets/js/theme-customizer/customizer.js' %}"></script>
     <script>
-        $('input, select').addClass('form-control')
+        $('input, select, textarea').addClass('form-control')
         $('.c-pills-tab').style.display = 'none'
     </script>
   {% block scripts %}

@@ -1,5 +1,7 @@
 from django import forms
-from .models import ILD, Tache
+from django.forms import inlineformset_factory
+
+from .models import ILD, Tache, Decaissement
 
 
 class IldCreateForm(forms.ModelForm):
@@ -64,3 +66,50 @@ class TacheForm(forms.ModelForm):
                 raise forms.ValidationError("Le montant engagé doit être supérieur ou égal au coût total (quantité * coût unitaire).")
 
         return cleaned_data
+
+
+class UpdateTacheForm(forms.ModelForm):
+
+    class Meta:
+        model = Tache
+        exclude = ['type','indicateur']  # Ou spécifier les champs explicitement
+        widgets = {
+            'date_debut': forms.DateInput(attrs={'type': 'date'}),
+            'date_fin': forms.DateInput(attrs={'type': 'date'}),
+            'depends_on': forms.SelectMultiple(attrs={'class': 'select2'}), #Utilise select2 si installé
+        }
+        labels = {
+            'label': 'Libellé de la tâche',
+            'categorie': 'Catégorie de dépense',
+            'indicateur': 'Indicateur associé',
+            'unite': 'Unité de mesure',
+            'montant_engage': 'Montant engagé (FCFA)',
+            'cout': 'Coût unitaire (FCFA)',
+            'quantite': 'Quantité',
+            'ugp': 'Unité de gestion de projet',
+            'date_debut': 'Date de début',
+            'date_fin': 'Date de fin',
+            'responsable': 'Nom du responsable',
+            'depends_on': 'Tâches dépendantes',
+        }
+        help_texts = {
+            'montant_engage': 'Le montant total alloué à cette tâche.',
+            'cout': 'Le coût unitaire pour une unité de la tâche.',
+            'quantite': 'Le nombre d\'unités de la tâche.',
+            'depends_on': 'Sélectionnez les tâches qui doivent être terminées avant celle-ci.',
+        }
+
+
+class DecaissementForm(forms.ModelForm):
+    class Meta:
+        model = Decaissement
+        fields = ['montant', 'in_drf',]
+
+
+DecaissementFormSet = inlineformset_factory(
+    Tache,
+    Decaissement,
+    form=DecaissementForm,
+    extra=1,  # Nombre de formulaires vides à afficher
+    can_delete=True,
+)

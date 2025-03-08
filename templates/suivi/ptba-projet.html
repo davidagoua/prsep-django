@@ -38,7 +38,7 @@
                                   </tr>
                                   {% for composant in composants %}
                                   	<tr class="bg-primary text-white white  collapsible">
-                                        <td >
+                                        <td colspan="10">
                                             <button class="btn btn-link text-white toggle-btn">Composante: {{ composant.label }}</button>
                                         </td>
                                         <td></td>
@@ -49,26 +49,45 @@
                                         <td >
                                             <table class="table m-0 table-borderless table-responsive">
                                                 {% for souscomposant in composant.souscomposants.all %}
-                                                	<tr class="collapsible" style="background-color: rgba(106,181,231,0.5)">
-                                                        <td >
+                                                	<tr class="collapsible"  style="background-color: rgba(106,181,231,0.5)">
+                                                        <td colspan="10" >
                                                             <button class="btn btn-link toggle-btn">S/C: {{ souscomposant.label }}</button>
                                                         </td>
                                                     </tr>
                                                 	<tr class="content">
-                                                        <td >
+                                                        <td colspan="10" >
                                                             <table class="table table-borderless m-0 table-reponsive">
                                                                 {% for enfant in souscomposant.indicateur_set.all %}
                                                                 	<tr class="collapsible">
-                                                                        <td><button class="btn btn-link toggle-btn">{{ enfant.type }} :{{ enfant.label }}</button></td>
+                                                                        <td><button class="btn btn-link toggle-btn">{{ enfant.label }}</button></td>
                                                                     </tr>
                                                                 	<tr class="content">
-                                                                        <td>
+                                                                        <td colspan="5">
                                                                             <table class="table m-0 table-borderless table-responsive">
                                                                                 {% for tache in enfant.tache_set.all %}
                                                                                 	<tr style="
-                                                                                    {% if tache.from_last_year  %} color: lightslategray; {% endif %}
-                                                                                    ">
+                                                                           ">
                                                                                         <td>{{ tache.type }}: {{ tache.label }}</td>
+                                                                                        <td></td>
+                                                                                        <td></td>
+                                                                                        <td></td>
+                                                                                        <td></td>
+                                                                                        <td>
+                                                                                            <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#update-tache-{{ tache.pk }}">Modifier</button>
+                                                                                            <div class="modal modal-lg fade" id="update-tache-{{ tache.pk }}">
+                                                                                                <div class="modal-dialog bg-white text-black">
+                                                                                                    <div class="modal-content">
+                                                                                                        <div class="modal-body">
+                                                                                                            <form action="{% url 'suivi:update_tache' tache.pk %}" method="post">
+                                                                                                                {% csrf_token %}
+                                                                                                                {{ updatetacheform.as_p }}
+                                                                                                                <button class="btn btn-primary btn-sm">Enregistrer</button>
+                                                                                                            </form>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </td>
                                                                                     </tr>
                                                                                 {% endfor %}
 

@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-a%!!z9$&zosed-v4nt(_u^*rl6ups&nqw9j4pl*1u(7056vz&p
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.201.28','localhost']
 
 
 # Application definition
@@ -121,6 +121,9 @@ USE_TZ = True
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
+MEDIA_URL = '/medias/'
+MEDIA_ROOT = BASE_DIR / "medias"
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
@@ -134,4 +137,4 @@ STATICFILES_DIRS = [
 
 LOGIN_URL = "/login"
 LOGIN_REDIRECT_URL = "/"
-LOGOUT_REDIRECT_URL = LOGIN_URL
+LOGOUT_REDIRECT_URL = "/login"

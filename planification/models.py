@@ -56,6 +56,9 @@ class Indicateur(TimeStampedModel, models.Model):
 
     def __str__(self): return str(self.label)
 
+    class Meta:
+        ordering = ('pk',)
+
 
 class RLD(TimeStampedModel, models.Model):
     ild = models.ForeignKey(Indicateur, on_delete=models.CASCADE)
@@ -74,6 +77,13 @@ class AppuiTechnique(TimeStampedModel, models.Model):
     def __str__(self): return str(self.label)
 
 
+class CategorieDepense(models.Model):
+    label = models.CharField(max_length=100)
+
+    def __str__(self):
+        return str(self.label)
+
+
 class TypeUnite(models.Model):
     label = models.CharField(max_length=100)
 
@@ -90,6 +100,7 @@ class Decaissement(TimeStampedModel, models.Model):
     status = models.IntegerField(default=0)
     in_drf = models.BooleanField(default=False)
     order = models.IntegerField(default=0)
+    tache = models.ForeignKey('Tache', on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return str('DRF:'+self.pk +self.montant)
@@ -104,7 +115,7 @@ class TypeUGP(models.Model):
 
 class Tache(TimeStampedModel, models.Model):
     type = models.CharField(max_length=100, choices=models.TextChoices("type_composant",'RLD V'), null=True, blank=True)
-    label = models.TextField(max_length=100)
+    label = models.TextField()
     categorie = models.ForeignKey(CategorieDepense, on_delete=models.SET_NULL, null=True)
     indicateur = models.ForeignKey(Indicateur, on_delete=models.SET_NULL, null=True)
     status = models.IntegerField(default=0)

@@ -25,9 +25,9 @@
                               <div class="modal-dialog">
                                   <div class="modal-content">
                                       <div class="modal-body">
-                                          <form action="" method="post">
+                                          <form action="." method="post">
                                               {% csrf_token %}
-                                              {{ create_form.as_p }}
+                                              {{ form.as_p }}
                                               <button class="btn btn-primary">Enregistrer</button>
                                           </form>
                                       </div>
@@ -87,18 +87,41 @@
                     </div>
                     <table class="table table-responsive">
                         <tr>
-                            <th>Identifiant</th>
                             <th>Intitulé</th>
                             <th>Periode</th>
                             <th>Departement</th>
+                            <th>Status</th>
                             <th></th>
                         </tr>
                         {% for object in object_list %}
                         	<tr>
-                                <td>{{ object.id }}</td>
                                 <td>{{ object.label }}</td>
                                 <td>{{ object.date_debut }} - {{ object.date_fin }}</td>
-                                <td>{{ request.user }}</td>
+                                <td>{{ request.user.group.first }}</td>
+                                <td>
+                                    {% if object.state <= 3 %}
+                                    <span class="badge bg-gray">En attente</span>
+                                    {% elif object.state <= 6 %}
+                                    <span class="badge bg-warning">En validation</span>
+                                    {% elif object.state <= 8 %}
+                                    <span class="badge bg-info">{{ object.state }}</span>
+                                    {% else %}
+                                    <span class="badge bg-success">Validé</span>
+                                    {% endif %}
+                                  </td>
+                                <td>
+                                    {% if object.state <= 3 %}
+                                    <a href="{% url 'rapport:update_state' rapport=rapport %}?state=4" class="btn btn-sm btn-primary"><span class="fa fa-check"></span> Soumettre</a>
+                                    {% elif object.state <= 6 %}
+                                    <a href="{% url 'rapport:update_state' rapport=rapport %}?state=8" class="btn btn-sm btn-primary"><span class="fa fa-check"></span> Soumettre</a>
+                                    {% elif object.state <= 8 %}
+                                    <a href="{% url 'rapport:update_state' rapport=rapport %}?state=10" class="btn btn-sm btn-primary"><span class="fa fa-check"></span> Soumettre</a>
+                                    {% else %}
+                                    <a href="{% url 'rapport:update_state' rapport=rapport %}?state=12" class="btn btn-sm btn-primary"><span class="fa fa-check"></span> Soumettre</a>
+                                    {% endif %}
+                                    <button class="btn btn-sm btn-primary"><span class="fa fa-file-download"></span> Télécharger</button>
+                                    <button class="btn btn-sm btn-primary"><span class="fa fa-file-upload"></span> Joindre</button>
+                                </td>
                             </tr>
                         {% endfor %}
 

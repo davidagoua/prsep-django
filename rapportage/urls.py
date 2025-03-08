@@ -1,6 +1,7 @@
 from django.urls import path
 
-from rapportage.views import RapportMensuelView, RapportAnnuelView, RapportSemestreView, RapportConsolideView, RapportTrimestreView
+from rapportage.views import (RapportMensuelView, update_state,
+                              RapportAnnuelView, RapportSemestreView, RapportConsolideView, RapportTrimestreView)
 
 app_name = "analyse"
 urlpatterns = [
@@ -9,4 +10,5 @@ urlpatterns = [
     path('rapport-semestriel/', RapportSemestreView.as_view(), name='rapport-semestriel'),
     path('rapport-annuel/', RapportAnnuelView.as_view(), name='rapport-annuel'),
     path('rapport-consolide/', RapportConsolideView.as_view(), name='rapport-consolide'),
+    path('update-state/<rapport>', update_state, name='update_state'),
 ]
