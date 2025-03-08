@@ -110,7 +110,7 @@ class CategorieDepense(TimeStampedModel, models.Model):
 
 
 class Indicateur(TimeStampedModel, models.Model):
-    type = models.CharField(max_length=100, choices=models.TextChoices("type_composant",(('ILD','Indicateur_Lie_Decaissement'), ('Appui Technique','Appui Technique'))), null=True, blank=True)
+    type = models.CharField(max_length=100, choices=models.TextChoices("type_composant",(('ILD','ILD'), ('HORS_ILD','HORS ILD'))), null=True, blank=True)
     label = models.CharField(max_length=100)
     sous_composant = models.ForeignKey(SousComposantProjet, on_delete=models.CASCADE)
     status = models.IntegerField(default=0)
@@ -194,7 +194,7 @@ class TachePublicManager(models.Manager):
 
 
 class Tache(TimeStampedModel, models.Model):
-    type = models.CharField(max_length=100, choices=models.TextChoices("type_composant",'RLD V'), null=True, blank=True)
+    type = models.CharField(max_length=100, choices=models.TextChoices("type_composant",'RLD HORS_RLD'), null=True, blank=True)
     label = models.TextField()
     categorie = models.ForeignKey(CategorieDepense, on_delete=models.SET_NULL, null=True)
     indicateur = models.ForeignKey(Indicateur, on_delete=models.SET_NULL, null=True)
