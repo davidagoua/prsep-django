@@ -2,7 +2,7 @@ from django.shortcuts import render, resolve_url, get_object_or_404
 from django.views import generic
 
 from planification.forms import IldCreateForm, TacheForm
-from planification.models import ILD, PPM, Tache
+from planification.models import ILD, PPM, Tache, Exercice
 
 
 class PlanPTBAProjet(generic.TemplateView):
@@ -12,10 +12,13 @@ class PlanPTBAProjet(generic.TemplateView):
         return Tache.objects.all()
 
     def get_context_data(self, **kwargs):
-        return kwargs | {
-            'IldCreateForm': TacheForm,
-            'activites': Tache.objects.all(),
-        }
+        current_exercice = Exercice.objects.last()
+        IldCreateForm = TacheForm
+        activites = Tache.objects.filter(
+            departement=self.request.user.departement,
+            exercice=current_exercice,
+        )
+        return kwargs | locals()
 
     def get(self, request, *args, **kwargs):
         if (action := request.GET.get('action', None)) is not None:

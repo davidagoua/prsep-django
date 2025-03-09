@@ -19,13 +19,7 @@
       <div class="col-md-12 project-list">
         <div class="card">
           <div class="row">
-            <div class="col-md-6">
-              <ul class="nav nav-tabs border-tab" id="top-tab" role="tablist">
-                <li class="nav-item" role="presentation"><a class="nav-link active" id="top-home-tab" data-bs-toggle="tab" href="" role="tab" aria-controls="top-home" aria-selected="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-target"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>Tout</a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link" id="profile-top-tab" data-bs-toggle="tab" href="" role="tab" aria-controls="top-profile" aria-selected="false" tabindex="-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="8"></line></svg>En cour</a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link" id="contact-top-tab" data-bs-toggle="tab" href="" role="tab" aria-controls="top-contact" aria-selected="false" tabindex="-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>Terminé</a></li>
-              </ul>
-            </div>
+            <div class="col-md-6"></div>
             <div class="col-md-6">
               <div class="form-group mb-0 me-0"></div><a   class="btn  btn-outline-primary" href=""> Télécharger Modèle</a>
               <div class="form-group mb-0 me-0"></div><a data-bs-toggle="modal" data-bs-target="#create-activity-modal"  class="btn btn-primary" href=""> Joindre</a>
@@ -70,7 +64,18 @@
         <div class="card recent-order">
               <div class="card-header card-no-border total-revenue">
                 <h4 class="m-0">Toutes les activités</h4>
-                <div class="header-top"></div><a href="?action=soumettre&status=20" class="btn btn-sm btn-primary">Soumettre</a>
+
+                <div class="header-top"></div>
+                    {% if request.user.role.name == 'PointFocal' %}
+                  	    <a href="?action=soumettre&status=0" class="btn btn-sm btn-primary">Soumettre</a>
+                        {% elif request.user.role.name == 'DirecteurLocal' %}
+                        <a href="?action=soumettre&status=10" class="btn btn-sm btn-primary">Soumettre</a>
+                        {% elif request.user.role.name == 'Directeur' %}
+                        <a href="?action=soumettre&status=20" class="btn btn-sm btn-primary">Soumettre</a>
+                        {% elif request.user.role.name == 'Coordination' %}
+                        <a href="?action=soumettre&status=30" class="btn btn-sm btn-primary">Soumettre</a>
+                  {% endif %}
+
               </div>
               <div class="card-body pt-0">
                 <div class="project-table table-responsive custom-scrollbar">

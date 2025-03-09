@@ -72,7 +72,7 @@ class UpdateTacheForm(forms.ModelForm):
 
     class Meta:
         model = Tache
-        exclude = ['type','indicateur']  # Ou spécifier les champs explicitement
+        exclude = ['type','indicateur','depends_on','status_validation','status_execution','status']  # Ou spécifier les champs explicitement
         widgets = {
             'date_debut': forms.DateInput(attrs={'type': 'date'}),
             'date_fin': forms.DateInput(attrs={'type': 'date'}),
