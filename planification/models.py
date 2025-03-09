@@ -63,6 +63,19 @@ class ComposantProjet(TimeStampedModel, models.Model):
     def reste_a_payer(self) -> int:
         return self.montant_engage - self.somme_drf
 
+    @property
+    def couts_total_annee(self) -> list:
+        return [
+            sum(colonne)
+            for colonne in zip(*[
+                souscomposant.couts_total_annee for souscomposant in self.souscomposants.all()
+            ])
+        ]
+
+    @property
+    def sum_couts_total_annee(self) -> int:
+        return sum(self.couts_total_annee)
+
     def __str__(self):
         return str(self.label)
 
@@ -90,6 +103,19 @@ class SousComposantProjet(TimeStampedModel, models.Model):
     @property
     def reste_a_payer(self) -> int:
         return self.montant_engage - self.somme_drf
+
+    @property
+    def couts_total_annee(self) -> list:
+        return [
+            sum(colonne)
+             for colonne in zip(*[
+                indicateur.couts_total_annee_by_exercice for indicateur in self.indicateur_set.all()
+            ])
+        ]
+
+    @property
+    def sum_couts_total_annee(self) -> int:
+        return sum(self.couts_total_annee)
 
     def __str__(self):
         return str(self.label)
@@ -133,6 +159,28 @@ class Indicateur(TimeStampedModel, models.Model):
     @property
     def reste_a_payer(self) -> int:
         return self.montant_engage - self.somme_drf
+
+    @property
+    def couts_total_annee(self) -> list:
+        return [
+            sum(
+                tache.montant_planifier_by_exercice for tache in self.tache_set.filter(exercice=exercice)
+            )
+            for exercice in Exercice.objects.filter(tache__indicateur=self).distinct()
+        ]
+
+    @property
+    def couts_total_annee_by_exercice(self) -> list:
+        return [
+
+            sum([ plan.montant_planifier for plan in PlanificationCout.objects.filter(tache__indicateur_id=self.pk, exercice=exo)] )
+            for exo in Exercice.objects.all()
+        ]
+
+    @property
+    def sum_couts_total_annee_by_exercice(self) -> int:
+        return sum(self.couts_total_annee_by_exercice)
+
 
     class Meta:
         ordering = ('pk',)
@@ -268,6 +316,13 @@ class Tache(TimeStampedModel, models.Model):
     @property
     def montant_planifier(self) -> int:
         return self.frequence * self.quantite * self.cout
+
+    @property
+    def montant_planifier_by_exercice(self) -> list:
+        return [
+            sum([plan.montant_planifier for plan in PlanificationCout.objects.filter(exercice=exercice, tache=self)])
+            for exercice in Exercice.objects.all()
+        ]
 
     @property
     def total_decaissement(self) -> int:
