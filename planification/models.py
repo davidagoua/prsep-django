@@ -204,9 +204,16 @@ class Exercice(TimeStampedModel, models.Model):
     label = models.CharField(max_length=100)
     date_debut = models.DateField()
     date_fin = models.DateField()
+    montant_total = models.BigIntegerField(default=0)
+    status = models.IntegerField(default=0)
 
     def __str__(self):
         return str(self.label)
+
+    def save(self, **kwargs):
+        if self.montant_total == 0:
+            self.montant_total = self.objects.last().reste_a_planifier
+        return super().save(**kwargs)
 
 
     @property
