@@ -210,12 +210,6 @@ class Exercice(TimeStampedModel, models.Model):
     def __str__(self):
         return str(self.label)
 
-    def save(self, **kwargs):
-        if self.montant_total == 0:
-            self.montant_total = self.objects.last().reste_a_planifier
-        return super().save(**kwargs)
-
-
     @property
     def montant_planifier(self) -> int:
         return sum(tache.montant_planifier for tache in self.tache_set.filter(status=30))
