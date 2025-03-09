@@ -26,10 +26,10 @@ services:
       DEBUG: "True" # Change to "False" in production
       SECRET_KEY: ${SECRET_KEY} # Change to a secure key in production
       ALLOWED_HOSTS: "*" # Configure allowed hosts in production
-    command: >
-      python manage.py collectstatic --no-input
-      python manage.py migrate
-      gunicorn --bind 0.0.0.0:8000 prsep.wsgi:application
+    command:
+      - python3 manage.py collectstatic --no-input
+      - python3 manage.py migrate
+      - gunicorn --bind 0.0.0.0:8000 prsep.wsgi:application
 
   nginx:
     build:
