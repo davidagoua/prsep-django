@@ -24,6 +24,10 @@ class PlanPTBAProjet(generic.TemplateView):
         return super().get(request, *args, **kwargs)
 
 
+class PlanPTBAProgramme(generic.TemplateView):
+    template_name = "plan/ptba-programme.html"
+
+
 class TacheCreateFormView(generic.FormView):
     form_class = TacheForm
 

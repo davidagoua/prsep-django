@@ -19,18 +19,12 @@
             <div class="col-md-8 offset-md-2">
                 <div class="card">
                     <div class="card-header bg-primary text-white">
-                        <h3>Détails de la tâche</h3>
+                        <h3>Détails de l'activité</h3>
                     </div>
                     <div class="card-body">
                         <h4>{{ tache.label }}</h4>
                         <p class="text-muted">
-                            <b>
-                                {% if  %}
-                                	
-                                {% else %}
-                                	
-                                {% endif %} 
-                            </b>
+
                         </p>
                         <dl class="row mt-4">
                             <dt class="col-sm-4">Catégorie</dt>
@@ -64,8 +58,17 @@
                         </dl>
                     </div>
                     <div class="card-footer text-end">
-                        <a href="{% url 'suivi:ptba-projet' %}" class="btn btn-info">Associer un  rapport</a>
-                        <a href="{% url 'suivi:ptba-projet' %}" class="btn btn-secondary">Retour</a>
+                        {% if tache.status_execution == 0 %}
+                            <a href="{% url 'suivi:update_state' pk=tache.pk %}?status=10" class="btn btn-info">Debuter</a>
+                            {% elif tache.status_execution == 10 %}
+                            <a href="{% url 'suivi:update_state' pk=tache.pk %}?status=20" class="btn btn-outline-info">Terminer</a>
+                            {% else %}
+                            <a href="" disabled="" class="btn btn-outline-success">Terminée</a>
+                        {% endif %}
+
+                        <a href="{% url 'suivi:ptba-projet' %}" onclick="return confirm('Etes-vous sûr de vouloir executer cette action ?')" class="btn btn-danger">
+                            <span class="fa fa-trash"></span>
+                        </a>
                     </div>
                 </div>
             </div>

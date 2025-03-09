@@ -32,4 +32,5 @@ urlpatterns = [
     path('create-user/', core.views.create_user_view, name='create_user'),
     path('delete-user/<int:pk>', core.views.delete_user_view, name='delete_user'),
     path('deconnexion/', core.views.logout_view, name='deconnexion'),
+    path('parametres/', include('setting.urls', namespace='setting')),
 ]

@@ -22,14 +22,17 @@
                     <h6 class="lan-1">Général</h6>
                   </div>
                 </li>
-                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="{% url 'home' %}">
+                <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{% url 'home' %}">
+                    <span class="fa text-white fa-home ml-2"></span>
                     <span>Tableau de bord</span></a>
                 </li>
-                  <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="{% url 'cartographie' %}">
-                    <span>Cartographie</span></a>
+                  <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{% url 'cartographie' %}">
+                        <span class="fa text-white fa-map ml-2"></span>
+                      <span>Cartographie</span></a>
                 </li>
-                  <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="{% url 'analyse' %}">
-                    <span>Analyse</span></a>
+                  <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{% url 'analyse' %}">
+                        <span class="fa text-white fa-pie-chart ml-2"></span>
+                      <span>Analyse</span></a>
                 </li>
 
                 <li class="sidebar-main-title">
@@ -38,30 +41,36 @@
                   </div>
                 </li>
 
-                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="{% url 'plan:ptba-projet' %}">
+                <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{% url 'plan:ptba-projet' %}">
+                    <span class="fa text-white fa-calendar ml-2"></span>
                     <span>PTBA Projet</span></a>
                 </li>
-                  <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="file-manager.html">
-                    <span>PTBA Programme</span></a>
+                  <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{% url 'plan:ptba-programme' %}">
+                    <span class="fa text-white fa-calendar ml-2"></span>
+                      <span>PTBA Programme</span></a>
                 </li>
-                  <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="{% url 'plan:ppm-list' %}">
-                    <span>PPM</span></a>
+                  <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{% url 'plan:ppm-list' %}">
+                        <span class="fa text-white fa-handshake-simple ml-2"></span>
+                      <span>PPM</span></a>
                 </li>
-                {% if request.user.role.name == 'Coordination' %}
+                {% if request.user.role.name == 'Coordination' or request.user.is_staff %}
                 <li class="sidebar-main-title">
                   <div>
                     <h6 class="">Suivi & Planification</h6>
                   </div>
                 </li>
 
-                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="{% url 'suivi:ptba-projet' %}">
+                <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{% url 'suivi:ptba-projet' %}">
+                    <span class="fa text-white fa-binoculars ml-2"></span>
                     <span>Suivi PTBA Projet</span></a>
                 </li>
-                  <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="file-manager.html">
-                    <span>Suivi PTBA Programme</span></a>
+                  <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="file-manager.html">
+                        <span class="fa text-white fa-binoculars ml-2"></span>
+                      <span>PTBA Programme</span></a>
                 </li>
-                  <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="file-manager.html">
-                    <span>Suivi PPM</span></a>
+                  <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="file-manager.html">
+                        <span class="fa text-white fa-binoculars ml-2"></span>
+                      <span>Suivi PPM</span></a>
                 </li>
                 {% endif %}
 
@@ -71,21 +80,29 @@
                   </div>
                 </li>
 
-                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i>
+                <li class="sidebar-list">
                     <a class="sidebar-link sidebar-title link-nav" href="{% url 'rapport:rapport-mensuel' %}">
-                    <span>Rapport Mensuel</span></a>
+                        <span class="fa text-white fa-file-pen ml-2"></span>
+                        <span>Rapport Mensuel</span>
+                    </a>
                 </li>
-                  <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="{%  url 'rapport:rapport-trimestriel' %}">
-                    <span>Rapport Trimestriel</span></a>
+                  <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{%  url 'rapport:rapport-trimestriel' %}">
+                        <span class="fa text-white fa-file-pen ml-2"></span>
+                      <span>Rapport Trimestriel</span></a>
                 </li>
-                  <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="{%  url 'rapport:rapport-semestriel' %}">
-                    <span>Rapport Semestriel</span></a>
+                  <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{%  url 'rapport:rapport-semestriel' %}">
+                        <span class="fa text-white fa-file-pen ml-2"></span>
+                      <span>Rapport Semestriel</span></a>
                 </li>
-                  <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="{%  url 'rapport:rapport-annuel' %}">
-                    <span>Rapport Annuel</span></a>
+                  <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{%  url 'rapport:rapport-annuel' %}">
+                    <span class="fa text-white fa-file-pen ml-2"></span>
+                      <span>Rapport Annuel</span></a>
                 </li>
-                  <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="{%  url 'rapport:rapport-consolide' %}">
-                    <span>Rapport Consolidé</span></a>
+                  <li class="sidebar-list">
+                      <a class="sidebar-link sidebar-title link-nav" href="{%  url 'rapport:rapport-consolide' %}">
+                        <span class="fa text-white fa-file-pen ml-2"></span>
+                      <span>Rapport Consolidé</span>
+                  </a>
                 </li>
 
                 {% if request.user.is_staff %}
@@ -95,9 +112,17 @@
                   </div>
                 </li>
 
-                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i>
+                <li class="sidebar-list">
                     <a class="sidebar-link sidebar-title link-nav" href="{% url 'create_user' %}">
-                    <span>Utilisateurs</span></a>
+                        <span class="fa text-white fa-users ml-2"></span>
+                        <span>Utilisateurs</span>
+                    </a>
+                </li>
+                <li class="sidebar-list">
+                    <a class="sidebar-link sidebar-title link-nav" href="{% url 'setting:composantes' %}">
+                        <span class="fa text-white fa-boxes-stacked ml-2"></span>
+                        <span>Composantes</span>
+                    </a>
                 </li>
                 {% endif %}
               </ul>

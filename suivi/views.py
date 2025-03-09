@@ -93,5 +93,11 @@ def delete_decaissement(request, pk):
     return redirect('suivi:add-decaissement-projet', pk=tache.pk)
 
 
-
+def update_state(request, pk):
+    tache = get_object_or_404(
+        Tache,
+        pk=pk)
+    tache.status_execution = request.GET.get('status')
+    tache.save()
+    return redirect('plan:tache_detail', pk=tache.pk)
 

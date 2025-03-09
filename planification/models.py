@@ -254,6 +254,7 @@ class Tache(TimeStampedModel, models.Model):
     departement = models.ForeignKey(Departement, on_delete=models.SET_NULL, null=True, blank=True)
     status_validation = models.PositiveSmallIntegerField(default=0)
     exercice = models.ForeignKey(Exercice, on_delete=models.SET_NULL, null=True, blank=True)
+    status_execution = models.PositiveSmallIntegerField(default=0)
 
     objects = models.Manager()
     public = TachePublicManager()
