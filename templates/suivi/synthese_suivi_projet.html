@@ -1,14 +1,18 @@
 {% load humanize %}
-<div>
+<div x-data="{'current_year': Date.now().getFullYear()}">
     <table class="table " x-data="{ openComposants: {}, openSousComposants: {}, openIndiacteurs: {} }">
         <tr>
             <th style="width: 25px"></th>
             <th>Composants/Indicateurs/Activités</th>
 
-            <th>Montant Planifié</th>
             <th>Montant Engagé</th>
-            <th>Total DRF</th>
-            <th>Reste à payer</th>
+            {% for exercice in exercices %}
+            	<th>Coût Total {{ exercice.label }}</th>
+            {% endfor %}
+            <th>
+                Coût Total à executer PTBA {{ year }}
+            </th>
+
         </tr>
         {% for composant in composants %}
             <tr style="background-color: #0a53be; color: white">

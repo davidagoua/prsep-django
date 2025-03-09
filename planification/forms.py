@@ -69,14 +69,14 @@ class TacheForm(forms.ModelForm):
 
 
 class UpdateTacheForm(forms.ModelForm):
-
     class Meta:
         model = Tache
-        exclude = ['type','indicateur','depends_on','status_validation','status_execution','status']  # Ou spécifier les champs explicitement
+        exclude = ['type', 'indicateur', 'depends_on', 'status_validation', 'status_execution',
+                   'status']  # Ou spécifier les champs explicitement
         widgets = {
             'date_debut': forms.DateInput(attrs={'type': 'date'}),
             'date_fin': forms.DateInput(attrs={'type': 'date'}),
-            'depends_on': forms.SelectMultiple(attrs={'class': 'select2'}), #Utilise select2 si installé
+            'depends_on': forms.SelectMultiple(attrs={'class': 'select2'}),  # Utilise select2 si installé
         }
         labels = {
             'label': 'Libellé de la tâche',
@@ -91,12 +91,14 @@ class UpdateTacheForm(forms.ModelForm):
             'date_fin': 'Date de fin',
             'responsable': 'Nom du responsable',
             'depends_on': 'Tâches dépendantes',
+            'planificationcout_set': 'Planifications des coûts',
         }
         help_texts = {
             'montant_engage': 'Le montant total alloué à cette tâche.',
             'cout': 'Le coût unitaire pour une unité de la tâche.',
             'quantite': 'Le nombre d\'unités de la tâche.',
             'depends_on': 'Sélectionnez les tâches qui doivent être terminées avant celle-ci.',
+            'planificationcout_set': 'Sélectionnez ou ajoutez des planifications de coûts liées à cette tâche.',
         }
 
 

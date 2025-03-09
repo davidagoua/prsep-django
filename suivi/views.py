@@ -1,11 +1,12 @@
 from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect, resolve_url
+from django.utils.timezone import now
 
 from django.views import generic
 from django.views.generic.detail import SingleObjectTemplateResponseMixin
 
 from planification.forms import UpdateTacheForm, DecaissementFormSet
-from planification.models import SousComposantProjet, ComposantProjet, Tache, Decaissement
+from planification.models import SousComposantProjet, ComposantProjet, Tache, Decaissement, Exercice
 
 
 class SuiviPTBAProjetView(generic.TemplateView):
@@ -16,6 +17,8 @@ class SuiviPTBAProjetView(generic.TemplateView):
         return kwargs | {
             'updatetacheform': UpdateTacheForm,
             'composants': ComposantProjet.objects.all().order_by('pk'),
+            'exercices': Exercice.objects.all(),
+            'year': now().year
         }
 
 
@@ -99,5 +102,5 @@ def update_state(request, pk):
         pk=pk)
     tache.status_execution = request.GET.get('status')
     tache.save()
-    return redirect('plan:tache_detail', pk=tache.pk)
+    return redirect(resolve_url('plan:tache_detail', pk=tache.pk))
 

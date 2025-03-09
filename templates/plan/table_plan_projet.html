@@ -6,10 +6,10 @@
             <th>Composants/Indicateurs/Activités</th>
             <th>Categorie Dépense</th>
             <th>Unité</th>
+            <th>Coût</th>
+            <th>Quantité</th>
+            <th>Fréquence</th>
             <th>Montant Planifié</th>
-            <th>Montant Engagé</th>
-            <th>Total DRF</th>
-            <th>Reste à payer</th>
         </tr>
         {% for composant in composants %}
             <tr style="background-color: #FFFF00; color: black">
@@ -23,10 +23,11 @@
 
                 </td>
                 <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
                 <td style="color: black">{{ composant.montant_planifier|intcomma }}</td>
-                <td style="color: black">{{ composant.montant_engage }}</td>
-                <td style="color: black">{{ composant.somme_drf }}</td>
-                <td style="color: black">{{ composant.reste_a_payer }}</td>
+
             </tr>
                 {% for sous_compo in composant.souscomposants.all %}
                     <tr x-show="openComposants['{{ composant.pk }}']" style="background-color: #DDEBF7">
@@ -40,10 +41,11 @@
                         </td>
                         <td style="color: black"></td>
                         <td style="color: black"></td>
+                        <td style="color: black"></td>
+                        <td style="color: black"></td>
+                        <td style="color: black"></td>
                         <td style="color: black">{{ sous_compo.montant_planifier|intcomma }}</td>
-                        <td style="color: black">{{ sous_compo.montant_engage|intcomma }}</td>
-                        <td style="color: black">{{ sous_compo.somme_drf|intcomma }}</td>
-                        <td style="color: black">{{ sous_compo.reste_a_payer|intcomma }}</td>
+
                     </tr>
                     {% for indicateur in sous_compo.indicateur_set.all %}
                     	<tr
@@ -62,10 +64,11 @@
                             </td>
                             <td></td>
                             <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                             <td><b>{{ indicateur.montant_planifier|intcomma }}</b></td>
-                            <td><b>{{ indicateur.montant_engage|intcomma }}</b></td>
-                            <td><b>{{ indicateur.somme_drf|intcomma }}</b></td>
-                            <td><b>{{ indicateur.reste_a_payer|intcomma }}</b></td>
+
                         </tr>
                         {% for tache in indicateur.tache_set.all %}
                         	<tr
@@ -75,10 +78,10 @@
                                 <td>{{ tache.label }}</td>
                                 <td>{{ tache.categorie.label }}</td>
                                 <td>{{ tache.unite }}</td>
-                                <td>{{ tache.montant_planifier|intcomma }}</td>
-                                <td>{{ tache.montant_engage|intcomma }}</td>
-                                <td>{{ tache.total_decaissement|intcomma }}</td>
-                                <td>{{ tache.reste_paye }}</td>
+                                <td>{{ tache.planificationcout_set.last.cout }}</td>
+                                <td>{{ tache.planificationcout_set.last.quantite }}</td>
+                                <td>{{ tache.planificationcout_set.last.frequence }}</td>
+                                <td>{{ tache.planificationcout_set.last.montant_planifier|intcomma }}</td>
                             </tr>
                         {% endfor %}
 

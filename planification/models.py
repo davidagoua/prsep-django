@@ -303,4 +303,21 @@ class PPM(TimeStampedModel, models.Model):
         return str(self.label)
 
 
+class PlanificationCout(TimeStampedModel, models.Model):
+    quantite = models.PositiveIntegerField(default=0)
+    cout = models.BigIntegerField(default=0)
+    frequence = models.PositiveBigIntegerField(default=1)
+    exercice = models.ForeignKey(Exercice, on_delete=models.CASCADE)
+    departement = models.ForeignKey(Departement, on_delete=models.CASCADE)
+    status = models.IntegerField(default=0)
+    tache = models.ForeignKey(Tache, on_delete=models.CASCADE)
+
+    @property
+    def montant_planifier(self) -> int:
+        return self.frequence * self.quantite * self.cout
+
+    def __str__(self):
+        return f"{self.tache.label} - {self.exercice.label}"
+
+
 

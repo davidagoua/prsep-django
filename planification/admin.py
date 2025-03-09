@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import PTBAProjet, ComposantProjet, SousComposantProjet, ILD, AppuiTechnique, Tache, Activite, RLD, \
-    Indicateur, Exercice
+    Indicateur, Exercice, PlanificationCout
 from .models import CategorieDepense, TypeUnite, TypeProcedureAcquisition, Decaissement, TypeUGP
 
 @admin.register(PTBAProjet)
@@ -67,6 +67,10 @@ class ExerciceAdmin(admin.ModelAdmin):
     date_hierarchy = 'created'
 
 
+class PlanificationCoutAdmin(admin.TabularInline):
+    model = PlanificationCout
+    extra = 0
+
 @admin.register(Tache)
 class TacheAdmin(admin.ModelAdmin):
     list_display = ('label', 'type', 'categorie', 'indicateur', 'status', 'unite', 'montant_engage', 'cout', 'quantite', 'ugp', 'date_debut', 'date_fin', 'responsable')
@@ -89,6 +93,7 @@ class TacheAdmin(admin.ModelAdmin):
             'fields': ('status', 'depends_on','departement')
         }),
     )
+    inlines = [PlanificationCoutAdmin]
 
 
 
@@ -134,6 +139,8 @@ class DecaissementAdmin(admin.ModelAdmin):
 @admin.register(TypeUGP)
 class TypeUGPAdmin(admin.ModelAdmin):
     list_display = ('label',)
+
+
 
 
 

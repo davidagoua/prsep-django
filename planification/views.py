@@ -2,7 +2,7 @@ from django.shortcuts import render, resolve_url, get_object_or_404
 from django.views import generic
 
 from planification.forms import IldCreateForm, TacheForm
-from planification.models import ILD, PPM, Tache, Exercice
+from planification.models import ILD, PPM, Tache, Exercice, ComposantProjet
 
 
 class PlanPTBAProjet(generic.TemplateView):
@@ -18,6 +18,7 @@ class PlanPTBAProjet(generic.TemplateView):
             departement=self.request.user.departement,
             exercice=current_exercice,
         )
+        composants = ComposantProjet.objects.all()
         return kwargs | locals()
 
     def get(self, request, *args, **kwargs):

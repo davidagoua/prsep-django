@@ -63,7 +63,7 @@
       <div class="col-sm-12">
         <div class="card recent-order">
               <div class="card-header card-no-border total-revenue">
-                <h4 class="m-0">Toutes les activités</h4>
+                <h4 class="m-0">Toutes les activités {{ current_exercice.label }}</h4>
 
                 <div class="header-top"></div>
                     {% if request.user.role.name == 'PointFocal' %}
@@ -79,37 +79,7 @@
               </div>
               <div class="card-body pt-0">
                 <div class="project-table table-responsive custom-scrollbar">
-                  <table class="order-table project-table w-100">
-                    <thead>
-                      <tr>
-                        <th>Intitulé</th>
-                        <th>Status</th>
-                        <th></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    {% for activite in activites %}
-                        <tr>
-                            <td>{{ activite.label }}</td>
-                            <td>
-                                {% if activite.status == 0 %}
-                                    <span class="badge bg-gray">En attente de soumission</span>
-                                {% elif activite.status == 10 or activite.status == 20 %}
-                                    <span class="badge bg-info">En attente de validation</span>
-                                {% elif activite.status == 30 %}
-                                    <span class="badge bg-success">Validé</span>
-                                {% else %}
-                                    <span class="badge bg-gray">Inconnu</span>
-                                {% endif %}
-                            </td>
-                            <td></td>
-                        </tr>
-                    {% endfor %}
-
-
-
-                    </tbody>
-                  </table>
+                  {% include 'plan/table_plan_projet.html' with composants=composants %}
                 </div>
               </div>
             </div>
