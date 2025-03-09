@@ -15,7 +15,7 @@
 
         </tr>
         {% for composant in composants %}
-            <tr style="background-color: yellow; color: black">
+            <tr style="background-color: yellow; color: black; font-weight: bold">
                 <td style="width: 25px"></td>
                 <td class="text-left">
                     <button @click="openComposants['{{ composant.pk }}'] = !openComposants['{{ composant.pk }}']" class="btn btn-link text-black" style="text-decoration: none; text-align: left"><b>{{ composant.label }}</b> </button>
@@ -55,10 +55,10 @@
                                     style="text-align: left; text-decoration: none"
                                     @click="openIndiacteurs['{{ indicateur.pk }}'] = !openIndiacteurs['{{ indicateur.pk }}']"
                                 >
-                                    <b>{{ indicateur.type }} {% if indicateur.type == 'ILD' %} {{ indicateur.pk }} {% endif %}</b>: {{ indicateur.label }}
+                                    <b> {% if indicateur.type == 'ILD' %} {{ indicateur.type }} {{ indicateur.status }}: {% endif %}</b> {{ indicateur.label }}
                                 </button>
                             </td>
-                            <td>{{ indicateur.montant_engage }}</td>
+                            <td>{{ indicateur.montant_engage|intcomma }}</td>
                             {% for cout_total in indicateur.couts_total_annee_by_exercice %}
                             	<td>{{ cout_total|intcomma }}</td>
                             {% endfor %}

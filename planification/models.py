@@ -260,7 +260,7 @@ class Exercice(TimeStampedModel, models.Model):
 
     @property
     def montant_planifier(self) -> int:
-        return sum(tache.montant_planifier for tache in self.tache_set.filter(status=30))
+        return sum(tache.montant_planifier for tache in self.planificationcout_set.filter(status__gte=30))
 
     @property
     def montant_engage(self) -> int:
@@ -298,7 +298,7 @@ class Tache(TimeStampedModel, models.Model):
     date_debut = models.DateField(null=True, blank=True)
     date_fin = models.DateField(null=True, blank=True)
     responsable = models.CharField(max_length=100, null=True, blank=True)
-    depends_on = models.ManyToManyField('Tache', null=True, blank=True)
+    depends_on = models.ManyToManyField('Tache',  blank=True)
     departement = models.ForeignKey(Departement, on_delete=models.SET_NULL, null=True, blank=True)
     status_validation = models.PositiveSmallIntegerField(default=0)
     exercice = models.ForeignKey(Exercice, on_delete=models.SET_NULL, null=True, blank=True)

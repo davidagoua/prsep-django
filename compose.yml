@@ -40,6 +40,19 @@ services:
       - web
 
 
+  notification_system:
+    image: quay.io/soketi/soketi:1.4-16-debian
+    ports:
+      - 6001:6001
+      - 9601:9601
+    environment:
+      - SOKETI_DEBUG=1
+    command:
+      - soketi start --config=/socketi/config.json
+    volumes:
+      - ./socketi/config.json:/socketi/config.json
+
+
 volumes:
   postgres_data:
   static_volume:

@@ -21,7 +21,7 @@ class HomePageView(LoginRequiredMixin, generic.TemplateView):
             'nb_projects': Tache.objects.all().count() + AppuiTechnique.objects.all().count(),
             'nb_projects_pending': Tache.objects.filter(status_execution=10).count(),
             'nb_projects_completed': Tache.objects.filter(status_execution=20).count() ,
-            'nb_projects_upcoming': Tache.objects.filter(status=0).count() ,
+            'nb_projects_upcoming': Tache.objects.filter(status_execution=0).count() ,
             'ptba': ptba,
         }
 

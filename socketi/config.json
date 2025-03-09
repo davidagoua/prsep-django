@@ -1,0 +1,17 @@
+{
+    "debug": true,
+    "port": 6001,
+    "appManager.array.apps": [
+        {
+            "id": "some-id",
+            "key": "some-key",
+            "secret": "some-secret",
+            "webhooks": [
+                {
+                    "url": "http://notification_system",
+                    "event_types": ["channel_occupied"]
+                }
+            ]
+        }
+    ]
+}
