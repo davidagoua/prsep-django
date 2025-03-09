@@ -4,7 +4,13 @@ from django.contrib.auth.admin import UserAdmin, GroupAdmin, AdminUserCreationFo
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import Group
 
-from core.models import User, Departement
+from core.models import User, Departement, Role
+
+
+
+@admin.register(Role)
+class RoleAdmin(admin.ModelAdmin):
+    list_display = ('name',)
 
 
 class CustomUserCreationForm(UserCreationForm):

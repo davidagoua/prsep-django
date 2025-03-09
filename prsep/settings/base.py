@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.humanize",
-    "core","planification","suivi","rapportage","django_extensions"
+    "core","planification","suivi","rapportage","django_extensions",
+    "setting"
 ]
 
 MIDDLEWARE = [
@@ -138,4 +139,4 @@ STATICFILES_DIRS = [
 
 LOGIN_URL = "/login"
 LOGIN_REDIRECT_URL = "/"
-LOGOUT_REDIRECT_URL = "/login"
+LOGOUT_REDIRECT_URL = "/"

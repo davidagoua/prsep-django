@@ -2,6 +2,7 @@ from django.urls import path
 
 from rapportage.views import (RapportMensuelView, update_state,
                               RapportAnnuelView, RapportSemestreView, RapportConsolideView, RapportTrimestreView)
+from rapportage.views import update_file_and_label, download_file
 
 app_name = "analyse"
 urlpatterns = [
@@ -11,4 +12,6 @@ urlpatterns = [
     path('rapport-annuel/', RapportAnnuelView.as_view(), name='rapport-annuel'),
     path('rapport-consolide/', RapportConsolideView.as_view(), name='rapport-consolide'),
     path('update-state/<int:pk>', update_state, name='update_state'),
+    path('update-file-and-label/<int:pk>', update_file_and_label, name='update_file_and_label'),
+    path('download-file/<int:pk>', download_file, name='download_file'),
 ]

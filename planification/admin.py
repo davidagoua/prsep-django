@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import PTBAProjet, ComposantProjet, SousComposantProjet, ILD, AppuiTechnique, Tache, Activite, RLD, \
-    Indicateur
+    Indicateur, Exercice
 from .models import CategorieDepense, TypeUnite, TypeProcedureAcquisition, Decaissement, TypeUGP
 
 @admin.register(PTBAProjet)
@@ -59,14 +59,23 @@ class AppuiTechniqueAdmin(admin.ModelAdmin):
     )
 
 
+@admin.register(Exercice)
+class ExerciceAdmin(admin.ModelAdmin):
+    list_display = ('label', 'date_debut', 'date_fin',)
+    search_fields = ('label',)
+    list_filter = ('created',)
+    date_hierarchy = 'created'
+
+
 @admin.register(Tache)
 class TacheAdmin(admin.ModelAdmin):
-    list_display = ('departement','label', 'type', 'categorie', 'indicateur', 'status', 'unite', 'montant_engage', 'cout', 'quantite', 'ugp', 'date_debut', 'date_fin', 'responsable')
+    list_display = ('label', 'type', 'categorie', 'indicateur', 'status', 'unite', 'montant_engage', 'cout', 'quantite', 'ugp', 'date_debut', 'date_fin', 'responsable')
     list_filter = ('type', 'categorie', 'indicateur', 'status', 'unite', 'ugp')
     search_fields = ('label', 'responsable')
     date_hierarchy = 'date_debut'
     filter_horizontal = ('depends_on',) # Use for ManyToMany fields
     fieldsets = (
+        (None, {'fields': ('exercice',)}),
         ('Informations générales', {
             'fields': ('label', 'type', 'categorie', 'indicateur', 'unite', 'ugp', 'responsable')
         }),

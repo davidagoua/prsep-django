@@ -29,4 +29,7 @@ urlpatterns = [
     path('planification/', include('planification.urls', namespace='plan',)),
     path('rapportage/', include('rapportage.urls', namespace='rapport')),
     path('suivi/', include('suivi.urls', namespace='suivi')),
+    path('create-user/', core.views.create_user_view, name='create_user'),
+    path('delete-user/<int:pk>', core.views.delete_user_view, name='delete_user'),
+    path('deconnexion/', core.views.logout_view, name='deconnexion'),
 ]

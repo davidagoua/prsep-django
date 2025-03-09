@@ -47,7 +47,7 @@
                   <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="{% url 'plan:ppm-list' %}">
                     <span>PPM</span></a>
                 </li>
-
+                {% if request.user.role.name == 'Coordination' %}
                 <li class="sidebar-main-title">
                   <div>
                     <h6 class="">Suivi & Planification</h6>
@@ -63,6 +63,7 @@
                   <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="file-manager.html">
                     <span>Suivi PPM</span></a>
                 </li>
+                {% endif %}
 
                 <li class="sidebar-main-title">
                   <div>
@@ -87,8 +88,18 @@
                     <span>Rapport Consolidé</span></a>
                 </li>
 
+                {% if request.user.is_staff %}
+                <li class="sidebar-main-title">
+                  <div>
+                    <h6 class="">Paramètres</h6>
+                  </div>
+                </li>
 
-
+                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i>
+                    <a class="sidebar-link sidebar-title link-nav" href="{% url 'create_user' %}">
+                    <span>Utilisateurs</span></a>
+                </li>
+                {% endif %}
               </ul>
               <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>
             </div>
