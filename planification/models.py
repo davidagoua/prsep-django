@@ -253,7 +253,7 @@ class Tache(TimeStampedModel, models.Model):
     depends_on = models.ManyToManyField('Tache', null=True, blank=True)
     departement = models.ForeignKey(Departement, on_delete=models.SET_NULL, null=True, blank=True)
     status_validation = models.PositiveSmallIntegerField(default=0)
-    exercice = models.ForeignKey(Exercice, on_delete=models.SET_NULL, null=True, blank=True, default=Exercice.objects.last())
+    exercice = models.ForeignKey(Exercice, on_delete=models.SET_NULL, null=True, blank=True)
 
     objects = models.Manager()
     public = TachePublicManager()
