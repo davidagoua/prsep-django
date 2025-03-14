@@ -289,7 +289,7 @@ class Tache(TimeStampedModel, models.Model):
     categorie = models.ForeignKey(CategorieDepense, on_delete=models.SET_NULL, null=True)
     indicateur = models.ForeignKey(Indicateur, on_delete=models.SET_NULL, null=True)
     status = models.IntegerField(default=0)
-    unite = models.ForeignKey(TypeUnite, on_delete=models.CASCADE)
+    unite = models.ForeignKey(TypeUnite, on_delete=models.SET_NULL, null=True, blank=True)
     montant_engage = models.PositiveBigIntegerField(default=0)
     cout = models.BigIntegerField(default=0)
     quantite = models.PositiveIntegerField(default=0)
@@ -311,6 +311,7 @@ class Tache(TimeStampedModel, models.Model):
 
     @property
     def from_last_year(self) -> bool:
+
         return self.date_fin.year < date.today().year
 
     @property

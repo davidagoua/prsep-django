@@ -9,4 +9,5 @@ urlpatterns = [
     path('ppm-list/', PPMListView.as_view(), name='ppm-list'),
     path('tache/<int:id>/', tache_detail, name='tache_detail'),
 
+
 ]

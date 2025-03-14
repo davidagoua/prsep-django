@@ -1,12 +1,16 @@
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q, Count
+from django.http import HttpResponse, FileResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect, resolve_url
 from django.utils.timezone import now
-
 from django.views import generic
 from django.views.generic.detail import SingleObjectTemplateResponseMixin
 
 from planification.forms import UpdateTacheForm, DecaissementFormSet
 from planification.models import SousComposantProjet, ComposantProjet, Tache, Decaissement, Exercice
+from .forms import CancelTDRForm
+from .models import TDR
 
 
 class SuiviPTBAProjetView(generic.TemplateView):
@@ -103,4 +107,112 @@ def update_state(request, pk):
     tache.status_execution = request.GET.get('status')
     tache.save()
     return redirect(resolve_url('plan:tache_detail', pk=tache.pk))
+
+
+
+class ActivitiesListView(LoginRequiredMixin, generic.ListView):
+
+    template_name = 'suivi/list_activities.html'
+
+    def get_queryset(self):
+        return Tache.objects.filter(responsable=self.request.user.departement.name).filter(
+        Q(tdr__isnull=True) | Q(tdr__state=0)
+    )
+
+
+class TDRLocalListView(LoginRequiredMixin, generic.ListView):
+    template_name = "suivi/local_list_activities.html"
+
+    def get_queryset(self):
+        return Tache.objects.filter(responsable=self.request.user.departement.name).filter(
+         Q(tdr__state=10)
+    )
+
+
+
+class TDRTechniqueListView(LoginRequiredMixin, generic.ListView):
+    template_name = "suivi/technique_list_activities.html"
+
+    def get_queryset(self):
+        return Tache.objects.filter(responsable=self.request.user.departement.name).filter(
+         Q(tdr__state=20)
+    )
+
+
+class TDRCoordinationListView(LoginRequiredMixin, generic.ListView):
+    template_name = "suivi/coordination_list_activities.html"
+
+    def get_queryset(self):
+        return Tache.objects.filter(responsable=self.request.user.departement.name).filter(
+         Q(tdr__state=30)
+    )
+
+
+
+def delete_tdr(request, pk):
+    tdr = get_object_or_404(TDR, pk=pk)
+    tdr.delete()
+    messages.success(request, "TDR annulée")
+    return redirect('suivi:list_activities')
+
+
+class CreateTDRView(LoginRequiredMixin, generic.CreateView):
+    model = TDR
+    fields = ['file','label']
+
+    def get_success_url(self):
+        return resolve_url('suivi:list_activities')
+
+    def form_valid(self, form):
+        tdr = form.save(commit=False)
+        tdr.user = self.request.user
+        tdr.activity = Tache.objects.get(pk=self.request.POST.get('activity_id'))
+        tdr.save()
+        return super().form_valid(form)
+
+
+class UpdateTDRView(LoginRequiredMixin, generic.UpdateView):
+    fields = [
+        'file','label'
+    ]
+
+    def get_success_url(self):
+        return resolve_url(self.kwargs['next'])
+
+    def form_valid(self, form):
+        tdr = form.save(commit=False)
+        tdr.user = self.request.user
+        tdr.state = self.request.POST.get('state')
+        tdr.save()
+        return super().form_valid(form)
+
+
+def update_tdr_state(request, pk):
+    tdr = get_object_or_404(TDR, pk=pk)
+    tdr.state = request.GET.get('state')
+    tdr.save()
+    return redirect(request.GET.get('next'))
+
+def download_tdr(request, pk):
+    tdr = get_object_or_404(TDR, pk=pk)
+    return FileResponse(open(tdr.file.path, 'rb'), content_type='application/octet-stream')
+
+
+def get_tdr_stats(request):
+    stats = TDR.objects.values('state').annotate(count=Count('state'))
+    result = {item['state']: item['count'] for item in stats}
+    return JsonResponse(result)
+
+def cancel_tdr(request, pk):
+    if request.method == 'POST':
+        tdr = TDR.objects.get(pk=pk)
+        tdr.state = request.POST.get('state')
+        tdr.save()
+        form = CancelTDRForm(request.POST)
+        comment = form.save(commit=False)
+        comment.user = request.user
+        comment.tdr = tdr
+        comment.save()
+    return redirect(request.GET.get('next'))
+
 

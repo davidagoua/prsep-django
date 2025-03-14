@@ -1,12 +1,14 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
 from django.contrib.auth import logout
 
 from core.forms import UserCreationWithRoleForm
 from core.models import User
+from core.services import upload_ptba
 from planification.models import ILD, AppuiTechnique, Tache, PTBAProjet
 
 
@@ -65,4 +67,8 @@ def delete_user_view(request, pk):
     messages.success(request, 'Utilisateur supprimé avec succès.')
     return redirect('create_user')  # Redirigez vers la liste des utilisateurs (modifiez selon vos besoins)
 
+
+
+def test_import(request):
+    return JsonResponse(upload_ptba(), safe=False)
 

@@ -8,7 +8,9 @@
           <nav class="sidebar-main">
             <div class="left-arrow" id="left-arrow"><i data-feather="arrow-left"></i></div>
             <div id="sidebar-menu">
-              <ul class="sidebar-links" id="simple-bar">
+              <ul x-data="{
+                tdr_stats: []
+              }" x-init="tdr_stats = await (await fetch('{%  url 'suivi:get_tdr_stats' %}')).json()" class="sidebar-links" id="simple-bar">
                 <li class="back-btn"><a href="index.html"><img class="img-fluid" height="auto" width="70" src="{% static '/assets/images/logo/logo.png' %}" alt=""></a>
                   <div class="mobile-back text-end"> <span>Back </span><i class="fa fa-angle-right ps-2" aria-hidden="true"></i></div>
                 </li>
@@ -79,9 +81,29 @@
                     <h6 class="">Suivi Execution</h6>
                   </div>
                 </li>
-                <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{% url 'suivi:ptba-projet' %}">
+                <li class="sidebar-list"><a class="sidebar-link d-flex justify-content-between sidebar-title link-nav" href="{% url 'suivi:list_activities' %}">
                     <span class="fa text-white fa-binoculars ml-2"></span>
-                    <span>Préparation</span></a>
+                    <span class="flex-grow-1">Point Focal</span></a>
+                </li>
+                <li class="sidebar-list"><a class="sidebar-link d-flex justify-content-between sidebar-title link-nav" href="{% url 'suivi:tdr_local' %}">
+                    <span class="fa text-white fa-binoculars ml-2"></span>
+                    <span class="flex-grow-1">Direction Locale</span>
+                    <div class="">
+                        <span x-text="tdr_stats[10] ?? 0" class="badge-warning product-sub badge rounded-pill"></span>
+                    </div>
+                </a>
+                </li>
+                <li class="sidebar-list"><a class="sidebar-link sidebar-title d-flex justify-content-between link-nav" href="{% url 'suivi:tdr_technique' %}">
+                    <span class="fa text-white fa-binoculars ml-2"></span>
+                    <span class="flex-grow-1">Direction Technique</span></a>
+                    <div class="badge-warning product-sub badge rounded-pill " x-text="tdr_stats[20] ?? 0"></div>
+                </li>
+
+                  <li class="sidebar-list"><a class="sidebar-link d-flex d-block justify-content-between sidebar-title link-nav" href="{% url 'suivi:tdr_coordination' %}">
+                    <span class="fa text-white fa-binoculars ml-2"></span>
+                    <span class="flex-grow-1">Coordination</span>
+                      <div class="badge-warning product-sub badge rounded-pill " x-text="tdr_stats[30] ?? 0"></div>
+                  </a>
                 </li>
 
                 <li class="sidebar-main-title">
