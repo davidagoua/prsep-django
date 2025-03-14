@@ -2,11 +2,26 @@ import json
 from pathlib import Path
 
 from django.core.exceptions import MultipleObjectsReturned
-
+from django.conf import global_settings
 from planification.models import *
 
+
+def decoder_texte(texte_encode):
+    encodages = ['utf-8', 'latin-1', 'windows-1252', 'iso-8859-1']
+    for encodage in encodages:
+        try:
+            texte_decode = texte_encode.encode('latin-1').decode(encodage)
+            return texte_decode
+        except UnicodeDecodeError:
+            pass
+        except UnicodeEncodeError:
+            pass
+
+    return texte_encode
+
+
 def upload_ptba():
-    file = Path("./ptba.json")
+    file = Path(Path(__file__).parent / "./ptba.json")
     ptba = json.load(file.open('r'))
 
 
@@ -14,19 +29,19 @@ def upload_ptba():
         c = ComposantProjet.objects.create(label=composant['name'], ptba=PTBAProjet.objects.first())
 
         for sous_composant in composant['scs']:
-            sc = SousComposantProjet.objects.create(label=str(sous_composant['name']).encode('utf-8'), composant=c)
+            sc = SousComposantProjet.objects.create(label=decoder_texte(sous_composant['name']), composant=c)
 
             for indicateur in sous_composant['ilds']:
                 ind = Indicateur.objects.create(
                     type = 'ILD' if indicateur['type'] == 'Ild' else 'HORS_ILD',
-                    label = str(indicateur['name']).encode('utf-8'),
+                    label = decoder_texte(indicateur['name']),
                     sous_composant=sc,
                 )
 
                 for tache in indicateur['activities']:
                     try:
                         t = Tache.objects.create(
-                            label = str(tache['name']).encode('utf-8'),
+                            label = decoder_texte(tache['name']),
                             unite= TypeUnite.objects.get_or_create(label=tache['unity'] if tache['unity'] is not None else '')[0],
                             categorie= CategorieDepense.objects.get_or_create(label=tache['category'] if tache['category'] is not None else '')[0],
                             indicateur=ind,
