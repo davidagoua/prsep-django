@@ -201,6 +201,9 @@ def download_tdr(request, pk):
 def get_tdr_stats(request):
     stats = TDR.objects.values('state').annotate(count=Count('state'))
     result = {item['state']: item['count'] for item in stats}
+    result['pointFocal'] = Tache.objects.filter(responsable=request.user.departement.name).filter(
+        Q(tdr__isnull=True) | Q(tdr__state=0)
+    ).count()
     return JsonResponse(result)
 
 def cancel_tdr(request, pk):

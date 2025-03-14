@@ -83,26 +83,27 @@
                 </li>
                 <li class="sidebar-list"><a class="sidebar-link d-flex justify-content-between sidebar-title link-nav" href="{% url 'suivi:list_activities' %}">
                     <span class="fa text-white fa-binoculars ml-2"></span>
-                    <span class="flex-grow-1">Point Focal</span></a>
+                    <span class="flex-grow-1">Point Focal</span>
+                    <span x-text="tdr_stats['pointFocal'] ?? 0" class="bg-danger p-1 rounded-pill"></span>
+                </a>
                 </li>
-                <li class="sidebar-list"><a class="sidebar-link d-flex justify-content-between sidebar-title link-nav" href="{% url 'suivi:tdr_local' %}">
+                <li class="sidebar-list"><a class="sidebar-link d-flex w-100 justify-content-between sidebar-title link-nav" href="{% url 'suivi:tdr_local' %}">
                     <span class="fa text-white fa-binoculars ml-2"></span>
                     <span class="flex-grow-1">Direction Locale</span>
-                    <div class="">
-                        <span x-text="tdr_stats[10] ?? 0" class="badge-warning product-sub badge rounded-pill"></span>
-                    </div>
+                        <span x-text="tdr_stats[10] ?? 0" class="bg-warning p-1 rounded-pill"></span>
                 </a>
                 </li>
                 <li class="sidebar-list"><a class="sidebar-link sidebar-title d-flex justify-content-between link-nav" href="{% url 'suivi:tdr_technique' %}">
                     <span class="fa text-white fa-binoculars ml-2"></span>
-                    <span class="flex-grow-1">Direction Technique</span></a>
-                    <div class="badge-warning product-sub badge rounded-pill " x-text="tdr_stats[20] ?? 0"></div>
+                    <span class="flex-grow-1">Dir. Technique</span>
+                    <span class="bg-light-info p-1 rounded-pill" x-text="tdr_stats[20] ?? 0"></span>
+                    </a>
                 </li>
 
                   <li class="sidebar-list"><a class="sidebar-link d-flex d-block justify-content-between sidebar-title link-nav" href="{% url 'suivi:tdr_coordination' %}">
                     <span class="fa text-white fa-binoculars ml-2"></span>
                     <span class="flex-grow-1">Coordination</span>
-                      <div class="badge-warning product-sub badge rounded-pill " x-text="tdr_stats[30] ?? 0"></div>
+                      <span class="bg-success p-1 rounded-pill" x-text="tdr_stats[30] ?? 0"></span>
                   </a>
                 </li>
 
