@@ -137,7 +137,7 @@ class CategorieDepense(TimeStampedModel, models.Model):
 
 class Indicateur(TimeStampedModel, models.Model):
     type = models.CharField(max_length=100, choices=models.TextChoices("type_composant",(('ILD','ILD'), ('HORS_ILD','HORS ILD'))), null=True, blank=True)
-    label = models.CharField(max_length=100)
+    label = models.TextField()
     sous_composant = models.ForeignKey(SousComposantProjet, on_delete=models.CASCADE)
     status = models.IntegerField(default=0)
 
