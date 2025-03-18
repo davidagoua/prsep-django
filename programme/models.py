@@ -7,6 +7,7 @@ from planification.models import Exercice
 class ComposantesProgram(models.Model):
     label = models.CharField(max_length=100)
     description = models.TextField(null=True, blank=True)
+    sous_domain = models.ForeignKey('SousDomainResult', on_delete=models.CASCADE)
 
     def __str__(self): return self.label
 
