@@ -1,6 +1,6 @@
 from django.db import models
 from django_extensions.db.models import TimeStampedModel
-from soupsieve.util import lower
+
 
 from planification.models import Exercice
 
@@ -72,7 +72,7 @@ class Activite(TimeStampedModel,models.Model):
 
     @property
     def is_sous(self):
-        return lower(self.label).__contains__('sous')
+        return (self.label).lower().__contains__('sous')
 
 
 class Quarter(TimeStampedModel,models.Model):
