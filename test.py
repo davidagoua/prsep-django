@@ -229,6 +229,7 @@ def ingest(sheet_name: str = "1. ASN-Prg"):
                     location=row[7],
                     partenaire=row[8],
                     activite=Activite.objects.last(),
+                    activite_id=Activite.objects.last().pk,
                     indicateur=IndicateurProgram.objects.filter(order=row[25]).first() if row[25] is not None else None,
                     source=row[26],
                     ref_ddp=row[33],
@@ -254,7 +255,6 @@ def ingest(sheet_name: str = "1. ASN-Prg"):
                 gros_json['taches'].append(True)
         except Exception as e:
             print(e)
-            print(row)
             continue
 
     return gros_json
