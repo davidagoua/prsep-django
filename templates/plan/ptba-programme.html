@@ -36,7 +36,7 @@
                                         <th>ILD en lien</th>
                                     </tr>
 
-                                    {% for composant in sousdomaine.composantprogram_set.all %}
+                                    {% for composant in sousdomaine.composantesprogram_set.all %}
                                     	<tr style="background-color: #414242; color: white;" class="text-white">
                                             <td class="text-white">{{ composant.label }}</td>
                                             <td colspan="5" class="text-white">{{ composant.description }}</td>
