@@ -24,9 +24,9 @@
                                     <li class="nav-item" role="presentation"><a class="nav-link txt-primary active" id="home-tab-{{ sousdomaine.pk }}" data-bs-toggle="tab" href="#tab-{{ sousdomaine.pk }}" role="tab" aria-controls="home" aria-selected="true">{{ sousdomaine.label }}</a></li>
                                 {% endfor %}
                             </ul>
-                            <div class="tab-content" id="myTabContent">
+                            <div >
                                     {% for sousdomaine in sousdomaines %}
-                                  <div class="tab-pane fade " id="tab-{{ sousdomaine.pk }}" role="tabpanel" aria-labelledby="home-tab-{{ sousdomaine.pk }}">
+                                  <div  id="tab-{{ sousdomaine.pk }}" role="tabpanel" aria-labelledby="home-tab-{{ sousdomaine.pk }}">
                                     <table class="table  table-bordered table-hover table-sm">
                                     <tr>
                                         <th>Domaine</th>
@@ -36,7 +36,7 @@
                                         <th>ILD en lien</th>
                                     </tr>
 
-                                    {% for composant in sousdomaine.composantesprogram_set.all %}
+                                    {% for composant in composants %}
                                     	<tr style="background-color: #414242; color: white;" class="text-white">
                                             <td class="text-white">{{ composant.label }}</td>
                                             <td colspan="5" class="text-white">{{ composant.description }}</td>
