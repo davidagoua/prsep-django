@@ -3,7 +3,7 @@ from django.views import generic
 
 from planification.forms import  TacheForm
 from planification.models import  PPM, Tache, Exercice, ComposantProjet
-from programme.models import TacheProgram, ComposantesProgram
+from programme.models import TacheProgram, ComposantesProgram, SousDomainResult
 
 
 class PlanPTBAProjet(generic.TemplateView):
@@ -35,6 +35,7 @@ class PlanPTBAProgramme(generic.TemplateView):
     def get_context_data(self, **kwargs):
         current_exercice = Exercice.objects.last()
         composants = ComposantesProgram.objects.all()
+        souscomposants = SousDomainResult.objects.all()
         return kwargs | locals()
 
 

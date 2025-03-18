@@ -2,7 +2,7 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.views import generic
 
-from programme.models import ComposantesProgram, DomainResult, SousDomainResult
+from programme.models import ComposantesProgram, DomainResult, SousDomainResult, TacheProgram
 from test import ingest
 
 
@@ -19,3 +19,12 @@ class SuiviTemplateView(generic.TemplateView):
         domain_result = DomainResult.objects.all()
         souscomposants = SousDomainResult.objects.all()
         return kwargs | locals()
+
+
+class ListTache(generic.ListView):
+    template_name = 'programme/liste_tache.html'
+
+    def get_queryset(self):
+        return TacheProgram.objects.all()
+
+

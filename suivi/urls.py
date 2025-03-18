@@ -2,7 +2,8 @@ from django.urls import path
 
 from suivi.views import SuiviPTBAProjetView, UpdateTacheView, ajouter_decaissements, AddDecaissementView, \
     delete_decaissement, update_state, ActivitiesListView, CreateTDRView, update_tdr_state, delete_tdr, \
-    TDRLocalListView, TDRTechniqueListView, download_tdr, TDRCoordinationListView, get_tdr_stats, cancel_tdr
+    TDRLocalListView, TDRTechniqueListView, download_tdr, TDRCoordinationListView, get_tdr_stats, cancel_tdr, \
+    CreateTDRProgrammeView, update_tdrprogram_state
 
 app_name = 'suivi'
 
@@ -14,7 +15,9 @@ urlpatterns = [
     path('update-state/<int:pk>', update_state, name='update_state'),
     path('activites/', ActivitiesListView.as_view(), name='list_activities'),
     path('tdr/create', CreateTDRView.as_view(), name='create_tdr'),
+    path('tdr-programme/create', CreateTDRProgrammeView.as_view(), name='create_tdr_programme'),
     path('update-tdr-state/<int:pk>/', update_tdr_state, name='update-tdr-state'),
+    path('update-tdrprogram-state/<int:pk>/', update_tdrprogram_state, name='update-tdrprogram-state'),
     path('tdr/<int:pk>/delete', delete_tdr, name='delete_tdr'),
     path('tdr-local/', TDRLocalListView.as_view(), name='tdr_local'),
     path('tdr-technique/', TDRTechniqueListView.as_view(), name='tdr_technique'),

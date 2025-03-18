@@ -1,5 +1,6 @@
 from django.db import models
 from django_extensions.db.models import TimeStampedModel
+from soupsieve.util import lower
 
 from planification.models import Exercice
 
@@ -69,6 +70,9 @@ class Activite(TimeStampedModel,models.Model):
     def __str__(self):
         return self.label
 
+    @property
+    def is_sous(self):
+        return lower(self.label).__contains__('sous')
 
 
 class Quarter(TimeStampedModel,models.Model):
@@ -105,6 +109,7 @@ class TacheProgram(TimeStampedModel,models.Model):
     ppm = models.CharField(max_length=100, null=True, blank=True)
     order = models.CharField(max_length=100, null=True, blank=True)
     nature_economique = models.CharField(max_length=100, null=True, blank=True)
+
 
 
 class PlanificationCoutProgram(TimeStampedModel,models.Model):

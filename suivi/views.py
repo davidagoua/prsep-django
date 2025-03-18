@@ -9,8 +9,9 @@ from django.views.generic.detail import SingleObjectTemplateResponseMixin
 
 from planification.forms import UpdateTacheForm, DecaissementFormSet
 from planification.models import SousComposantProjet, ComposantProjet, Tache, Decaissement, Exercice
+from programme.models import TacheProgram
 from .forms import CancelTDRForm
-from .models import TDR
+from .models import TDR, TDRProgramme
 
 
 class SuiviPTBAProjetView(generic.TemplateView):
@@ -168,6 +169,20 @@ class CreateTDRView(LoginRequiredMixin, generic.CreateView):
         tdr.save()
         return super().form_valid(form)
 
+class CreateTDRProgrammeView(LoginRequiredMixin, generic.CreateView):
+    model = TDRProgramme
+    fields = ['file','label']
+
+    def get_success_url(self):
+        return resolve_url('programme:liste-tache')
+
+    def form_valid(self, form):
+        tdr = form.save(commit=False)
+        tdr.user = self.request.user
+        tdr.activity = TacheProgram.objects.get(pk=self.request.POST.get('activity_id'))
+        tdr.save()
+        return super().form_valid(form)
+
 
 class UpdateTDRView(LoginRequiredMixin, generic.UpdateView):
     fields = [
@@ -187,6 +202,12 @@ class UpdateTDRView(LoginRequiredMixin, generic.UpdateView):
 
 def update_tdr_state(request, pk):
     tdr = get_object_or_404(TDR, pk=pk)
+    tdr.state = request.GET.get('state')
+    tdr.save()
+    return redirect(request.GET.get('next'))
+
+def update_tdrprogram_state(request, pk):
+    tdr = get_object_or_404(TDRProgramme, pk=pk)
     tdr.state = request.GET.get('state')
     tdr.save()
     return redirect(request.GET.get('next'))

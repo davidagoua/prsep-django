@@ -9,8 +9,9 @@
             <div class="left-arrow" id="left-arrow"><i data-feather="arrow-left"></i></div>
             <div id="sidebar-menu">
               <ul x-data="{
-                tdr_stats: []
-              }" x-init="tdr_stats = await (await fetch('{%  url 'suivi:get_tdr_stats' %}')).json()" class="sidebar-links" id="simple-bar">
+                tdr_stats: [],
+                tdr_stats_programme: [],
+              }" x-init="tdr_stats = await (await fetch('{%  url 'suivi:get_tdr_stats' %}')).json(); " class="sidebar-links" id="simple-bar">
                 <li class="back-btn"><a href="index.html"><img class="img-fluid" height="auto" width="70" src="{% static '/assets/images/logo/logo.png' %}" alt=""></a>
                   <div class="mobile-back text-end"> <span>Back </span><i class="fa fa-angle-right ps-2" aria-hidden="true"></i></div>
                 </li>
@@ -78,7 +79,7 @@
 
                 <li class="sidebar-main-title">
                   <div>
-                    <h6 class="">Suivi Execution</h6>
+                    <h6 class="">Suivi Execution Projet</h6>
                   </div>
                 </li>
                 <li class="sidebar-list"><a class="sidebar-link d-flex justify-content-between sidebar-title link-nav" href="{% url 'suivi:list_activities' %}">
@@ -99,11 +100,34 @@
                     <span class="bg-light-info p-1 rounded-pill" x-text="tdr_stats[20] ?? 0"></span>
                     </a>
                 </li>
+                <li class="sidebar-main-title">
+                  <div>
+                    <h6 class="">Suivi Execution Programme</h6>
+                  </div>
+                </li>
+                <li class="sidebar-list"><a class="sidebar-link d-flex justify-content-between sidebar-title link-nav" href="{% url 'programme:liste-tache' %}">
+                    <span class="fa text-white fa-binoculars ml-2"></span>
+                    <span class="flex-grow-1">Point Focal</span>
+                    <span x-text="tdr_stats_programme['pointFocal'] ?? 0" class="bg-danger p-1 rounded-pill"></span>
+                </a>
+                </li>
+                <li class="sidebar-list"><a class="sidebar-link d-flex w-100 justify-content-between sidebar-title link-nav" href="{% url 'suivi:tdr_local' %}">
+                    <span class="fa text-white fa-binoculars ml-2"></span>
+                    <span class="flex-grow-1">Direction Locale</span>
+                        <span x-text="tdr_stats_programme[10] ?? 0" class="bg-warning p-1 rounded-pill"></span>
+                </a>
+                </li>
+                <li class="sidebar-list"><a class="sidebar-link sidebar-title d-flex justify-content-between link-nav" href="{% url 'suivi:tdr_technique' %}">
+                    <span class="fa text-white fa-binoculars ml-2"></span>
+                    <span class="flex-grow-1">Dir. Technique</span>
+                    <span class="bg-light-info p-1 rounded-pill" x-text="tdr_stats_programme[20] ?? 0"></span>
+                    </a>
+                </li>
 
                   <li class="sidebar-list"><a class="sidebar-link d-flex d-block justify-content-between sidebar-title link-nav" href="{% url 'suivi:tdr_coordination' %}">
                     <span class="fa text-white fa-binoculars ml-2"></span>
                     <span class="flex-grow-1">Coordination</span>
-                      <span class="bg-success p-1 rounded-pill" x-text="tdr_stats[30] ?? 0"></span>
+                      <span class="bg-success p-1 rounded-pill" x-text="tdr_stats_programme[30] ?? 0"></span>
                   </a>
                 </li>
 
