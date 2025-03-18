@@ -7,7 +7,7 @@ from programme.models import ComposantesProgram, Action, Activite, IndicateurPro
 
 @admin.register(ComposantesProgram)
 class ComposantesProgramAdmin(admin.ModelAdmin):
-    list_display = ('id', 'label')
+    list_display = ('id', 'label','description')
 
 
 @admin.register(DomainResult)
