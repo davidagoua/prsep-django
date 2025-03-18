@@ -35,7 +35,7 @@ class PlanPTBAProgramme(generic.TemplateView):
     def get_context_data(self, **kwargs):
         current_exercice = Exercice.objects.last()
         composants = ComposantesProgram.objects.all()
-        souscomposants = SousDomainResult.objects.all()
+        sousdomaines = SousDomainResult.objects.all()
         return kwargs | locals()
 
 

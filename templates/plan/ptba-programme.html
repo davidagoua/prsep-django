@@ -20,12 +20,14 @@
                     <div class="card-body">
                         <div>
                             <ul class="simple-wrapper nav nav-tabs" id="myTab" role="tablist">
-                                {% for souscomposant in souscomposants %}
-                                    <li class="nav-item" role="presentation"><a class="nav-link txt-primary active" id="home-tab" data-bs-toggle="tab" href="#tab-{{ souscomposant.pk }}" role="tab" aria-controls="home" aria-selected="true">{{ souscomposant.label }}</a></li>
+                                {% for sousdomaine in sousdomaines %}
+                                    <li class="nav-item" role="presentation"><a class="nav-link txt-primary active" id="home-tab" data-bs-toggle="tab" href="#tab-{{ sousdomaine.pk }}" role="tab" aria-controls="home" aria-selected="true">{{ sousdomaine.label }}</a></li>
                                 {% endfor %}
                             </ul>
-                            <div class="table-responsive">
-                                <table class="table  table-bordered table-hover table-sm">
+                            <div class="tab-content" id="myTabContent">
+                                    {% for sousdomaine in sousdomaines %}
+                                  <div class="tab-pane fade " id="tab-{{ sousdomaine.pk }}" role="tabpanel" aria-labelledby="home-tab">
+                                    <table class="table  table-bordered table-hover table-sm">
                                     <tr>
                                         <th>Domaine</th>
                                         <th>Libellé</th>
@@ -34,7 +36,7 @@
                                         <th>ILD en lien</th>
                                     </tr>
 
-                                    {% for composant in composants %}
+                                    {% for composant in sousdomaine.composantprogram_set.all %}
                                     	<tr style="background-color: #414242; color: white;" class="text-white">
                                             <td class="text-white">{{ composant.label }}</td>
                                             <td colspan="5" class="text-white">{{ composant.description }}</td>
@@ -73,6 +75,11 @@
                                     {% endfor %}
 
                                 </table>
+                                  </div>
+                                {% endfor %}
+                                </div>
+                            <div class="table-responsive">
+
                             </div>
                         </div>
                     </div>
