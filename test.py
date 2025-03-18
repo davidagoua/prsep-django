@@ -108,7 +108,7 @@ def get_status(data) -> int:
         return 0
     return 1
 
-def ingest():
+def ingest(sheet_name: str = "1. ASN-Prg"):
     fichier = Path('./ptba_programme_remake.xlsx')
 
 
@@ -119,7 +119,7 @@ def ingest():
         'taches': []
     }
 
-    df = pd.read_excel(fichier, skiprows=22, sheet_name='1. ASN-Prg')
+    df = pd.read_excel(fichier, skiprows=22, sheet_name=sheet_name)
 
 
     for row in df.itertuples():
