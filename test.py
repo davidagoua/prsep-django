@@ -109,7 +109,7 @@ def get_status(data) -> int:
     return 1
 
 def ingest():
-    fichier = Path('./data/ptba_programme_remake.xlsx')
+    fichier = Path('./ptba_programme_remake.xlsx')
 
 
     gros_json = {
