@@ -21,12 +21,12 @@
                         <div>
                             <ul class="simple-wrapper nav nav-tabs" id="myTab" role="tablist">
                                 {% for sousdomaine in sousdomaines %}
-                                    <li class="nav-item" role="presentation"><a class="nav-link txt-primary active" id="home-tab" data-bs-toggle="tab" href="#tab-{{ sousdomaine.pk }}" role="tab" aria-controls="home" aria-selected="true">{{ sousdomaine.label }}</a></li>
+                                    <li class="nav-item" role="presentation"><a class="nav-link txt-primary active" id="home-tab-{{ sousdomaine.pk }}" data-bs-toggle="tab" href="#tab-{{ sousdomaine.pk }}" role="tab" aria-controls="home" aria-selected="true">{{ sousdomaine.label }}</a></li>
                                 {% endfor %}
                             </ul>
                             <div class="tab-content" id="myTabContent">
                                     {% for sousdomaine in sousdomaines %}
-                                  <div class="tab-pane fade " id="tab-{{ sousdomaine.pk }}" role="tabpanel" aria-labelledby="home-tab">
+                                  <div class="tab-pane fade " id="tab-{{ sousdomaine.pk }}" role="tabpanel" aria-labelledby="home-tab-{{ sousdomaine.pk }}">
                                     <table class="table  table-bordered table-hover table-sm">
                                     <tr>
                                         <th>Domaine</th>
