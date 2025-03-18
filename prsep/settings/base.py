@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.humanize",
     "core","planification","suivi","rapportage","django_extensions",
-    "setting"
+    "setting","programme"
 ]
 
 MIDDLEWARE = [

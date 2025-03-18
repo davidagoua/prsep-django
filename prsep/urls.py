@@ -34,4 +34,5 @@ urlpatterns = [
     path('deconnexion/', core.views.logout_view, name='deconnexion'),
     path('parametres/', include('setting.urls', namespace='setting')),
     path('test/', core.views.test_import, name='test'),
+    path('programme/', include('programme.urls', namespace='programme')),
 ]

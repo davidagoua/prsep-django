@@ -121,20 +121,6 @@ class SousComposantProjet(TimeStampedModel, models.Model):
         return str(self.label)
 
 
-class ILD(TimeStampedModel, models.Model):
-    type = models.CharField(max_length=100, choices=models.TextChoices("type_composant",'ILD AT'), null=True, blank=True)
-    label = models.CharField(max_length=100)
-    sous_composant = models.ForeignKey(SousComposantProjet, on_delete=models.CASCADE)
-    status = models.IntegerField(default=0)
-
-    def __str__(self): return str(self.label)
-
-
-class CategorieDepense(TimeStampedModel, models.Model):
-    label = models.CharField(max_length=100)
-    status = models.IntegerField(default=0)
-
-
 class Indicateur(TimeStampedModel, models.Model):
     type = models.CharField(max_length=100, choices=models.TextChoices("type_composant",(('ILD','ILD'), ('HORS_ILD','HORS ILD'))), null=True, blank=True)
     label = models.TextField()
@@ -186,22 +172,6 @@ class Indicateur(TimeStampedModel, models.Model):
         ordering = ('pk',)
 
 
-
-class RLD(TimeStampedModel, models.Model):
-    ild = models.ForeignKey(Indicateur, on_delete=models.CASCADE)
-    label = models.CharField(max_length=100)
-    status = models.IntegerField(default=0)
-
-    def __str__(self):
-        return str(self.label)
-
-class AppuiTechnique(TimeStampedModel, models.Model):
-    label = models.CharField(max_length=100)
-    status = models.IntegerField(default=0)
-    sous_composant = models.ForeignKey(SousComposantProjet, on_delete=models.CASCADE)
-
-
-    def __str__(self): return str(self.label)
 
 
 class CategorieDepense(models.Model):
@@ -335,18 +305,6 @@ class Tache(TimeStampedModel, models.Model):
         return self.montant_engage - self.total_decaissement
 
 
-class Activite(TimeStampedModel, models.Model):
-    label = models.CharField(max_length=100)
-    categorie = models.CharField(max_length=100)
-    status = models.IntegerField(default=0)
-    unite = models.CharField(max_length=100)
-    montant_engage = models.PositiveBigIntegerField()
-    cout = models.BigIntegerField(default=0)
-    parent_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    parent_id = models.PositiveIntegerField()
-    parent = GenericForeignKey('parent_type', 'parent_id')
-
-    def __str__(self): return str(self.label)
 
 
 

@@ -9,7 +9,7 @@ from django.contrib.auth import logout
 from core.forms import UserCreationWithRoleForm
 from core.models import User
 from core.services import upload_ptba
-from planification.models import ILD, AppuiTechnique, Tache, PTBAProjet
+from planification.models import Tache, PTBAProjet
 
 
 class HomePageView(LoginRequiredMixin, generic.TemplateView):
@@ -20,7 +20,7 @@ class HomePageView(LoginRequiredMixin, generic.TemplateView):
         ptba = PTBAProjet.objects.first()
 
         return kwargs | {
-            'nb_projects': Tache.objects.all().count() + AppuiTechnique.objects.all().count(),
+            'nb_projects': Tache.objects.all().count() ,
             'nb_projects_pending': Tache.objects.filter(status_execution=10).count(),
             'nb_projects_completed': Tache.objects.filter(status_execution=20).count() ,
             'nb_projects_upcoming': Tache.objects.filter(status_execution=0).count() ,

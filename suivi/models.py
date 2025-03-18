@@ -11,7 +11,7 @@ class TDR(TimeStampedModel,models.Model):
     file = models.FileField(verbose_name='Fichier', upload_to='tdr')
     label = models.CharField(max_length=100, null=True, blank=True)
     state = models.IntegerField(default=0)
-    activity = models.OneToOneField(Tache, null=True, blank=True, on_delete=models.SET_NULL, verbose_name="Activité")
+    activity = models.ForeignKey(Tache, null=True, blank=True, on_delete=models.SET_NULL, verbose_name="Activité")
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):

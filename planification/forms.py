@@ -1,13 +1,9 @@
 from django import forms
 from django.forms import inlineformset_factory
 
-from .models import ILD, Tache, Decaissement
+from .models import  Tache, Decaissement
 
 
-class IldCreateForm(forms.ModelForm):
-    class Meta:
-        model = ILD
-        exclude = ('user','status')
 
 
 class TacheForm(forms.ModelForm):

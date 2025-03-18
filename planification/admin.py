@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import PTBAProjet, ComposantProjet, SousComposantProjet, ILD, AppuiTechnique, Tache, Activite, RLD, \
+from .models import PTBAProjet, ComposantProjet, SousComposantProjet, Tache, \
     Indicateur, Exercice, PlanificationCout
 from .models import CategorieDepense, TypeUnite, TypeProcedureAcquisition, Decaissement, TypeUGP
 
@@ -29,34 +29,6 @@ class SousComposantProjetAdmin(admin.ModelAdmin):
 
 
 
-@admin.register(ILD)
-class ILDAdmin(admin.ModelAdmin):
-    list_display = ('label', 'sous_composant', 'created')
-    search_fields = ('label',)
-    list_filter = ('sous_composant',)
-    fieldsets = (
-        (None, {'fields': ('label', 'sous_composant', 'description')}),
-    )
-
-
-@admin.register(RLD)
-class RLDAdmin(admin.ModelAdmin):
-    list_display = ('label', 'ild', 'created')
-    search_fields = ('label',)
-    list_filter = ('ild',)
-    fieldsets = (
-        (None, {'fields': ('label', 'ild')}),
-    )
-
-
-@admin.register(AppuiTechnique)
-class AppuiTechniqueAdmin(admin.ModelAdmin):
-    list_display = ('label', 'sous_composant', 'created')
-    search_fields = ('label',)
-    list_filter = ('sous_composant',)
-    fieldsets = (
-        (None, {'fields': ('label', 'sous_composant', 'description')}),
-    )
 
 
 @admin.register(Exercice)
@@ -94,17 +66,6 @@ class TacheAdmin(admin.ModelAdmin):
         }),
     )
     inlines = [PlanificationCoutAdmin]
-
-
-
-@admin.register(Activite)
-class ActiviteAdmin(admin.ModelAdmin):
-    list_display = ('label', 'categorie', 'unite', 'montant_engage', 'parent', 'created')
-    search_fields = ('label', 'categorie')
-    list_filter = ('categorie', 'parent')
-    fieldsets = (
-        (None, {'fields': ('label', 'categorie', 'unite', 'montant_engage', 'parent')}),
-    )
 
 
 @admin.register(Indicateur)

@@ -1,8 +1,9 @@
 from django.shortcuts import render, resolve_url, get_object_or_404
 from django.views import generic
 
-from planification.forms import IldCreateForm, TacheForm
-from planification.models import ILD, PPM, Tache, Exercice, ComposantProjet
+from planification.forms import  TacheForm
+from planification.models import  PPM, Tache, Exercice, ComposantProjet
+from programme.models import TacheProgram, ComposantesProgram
 
 
 class PlanPTBAProjet(generic.TemplateView):
@@ -30,6 +31,11 @@ class PlanPTBAProjet(generic.TemplateView):
 
 class PlanPTBAProgramme(generic.TemplateView):
     template_name = "plan/ptba-programme.html"
+
+    def get_context_data(self, **kwargs):
+        current_exercice = Exercice.objects.last()
+        composants = ComposantesProgram.objects.all()
+        return kwargs | locals()
 
 
 class TacheCreateFormView(generic.FormView):
