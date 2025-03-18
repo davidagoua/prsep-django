@@ -143,7 +143,7 @@ def ingest(sheet_name: str = "1. ASN-Prg"):
                     responsable=Departement.objects.filter(name=row[6]).first() if row[6] is not None else None,
                     localisation=row[7],
                     type_activite=row[9],
-                    indicateur=Indicateur.objects.filter(order=row[25]).first() if row[25] is not None else None,
+                    indicateur=IndicateurProgram.objects.filter(order=row[25]).first() if row[25] is not None else None,
                     action_id=Action.objects.last().pk
                 )
                 ActiviteMonth.objects.create(
