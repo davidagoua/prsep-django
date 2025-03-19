@@ -41,7 +41,7 @@
 
 
                                                 <div class="d-flex">
-                                                    <a href="{% url 'suivi:update-tdrprogram-state' pk=tdr.id %}?state=20&next={% url 'suivi:tdr_local' %}" class="btn btn-xs btn-success"><span class="fa fa-check"></span>Soumettre</a>
+                                                    <a href="{% url 'suivi:update-tdrprogram-state' pk=tdr.id %}?state=20&next={% url 'programme:liste-tache-local'  %}" class="btn btn-xs btn-success"><span class="fa fa-check"></span>Soumettre</a>
                                                     <button data-bs-target="#cancel-tdr-{{ tdr.pk }}" data-bs-toggle="modal" class="btn btn-xs btn-outline btn-danger"> <span class="fa fa-times"></span>Annuler</button>
                                                     <button class="btn btn-xs btn-primary" data-bs-toggle="modal"
                                                             data-bs-target="#add-tdr-{{ tdr.pk }}"> <span class="fa fa-file-upload"></span> joindre
@@ -53,7 +53,7 @@
                                                                     <h5 class="modal-title">Ajouter un TDR à cette activité</h5>
                                                                 </div>
                                                                 <div class="modal-body text-black">
-                                                                    <form action="{% url 'suivi:cancel_tdr' pk=tdr.pk %}?state=0&next={% url 'suivi:tdr_local' %}" method="post"
+                                                                    <form action="{% url 'suivi:cancel_tdr' pk=tdr.pk %}?state=0&next={% url 'programme:liste-tache-local' %}" method="post"
                                                                           enctype="multipart/form-data">
                                                                         {% csrf_token %}
                                                                         <div class="mb-3">
