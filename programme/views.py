@@ -68,7 +68,7 @@ class TDRProgramCoordListView(LoginRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         return TacheProgram.objects.filter(
-         Q(pk__in=[tdr.activity.pk for tdr in TDRProgramme.objects.filter(state__gte=30)])
+         Q(pk__in=[tdr.activity.pk for tdr in TDRProgramme.objects.filter(state__gte=20)])
     )
 
     def get_context_data(
