@@ -1,8 +1,11 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.views import generic
 
 from programme.models import ComposantesProgram, DomainResult, SousDomainResult, TacheProgram
+from suivi.models import TDRProgramme
 from test import ingest
 
 
@@ -28,3 +31,11 @@ class ListTache(generic.ListView):
         return TacheProgram.objects.all()
 
 
+
+class TDRProgramLocalListView(LoginRequiredMixin, generic.ListView):
+    template_name = "programme/local_list_activities.html"
+
+    def get_queryset(self):
+        return TacheProgram.objects.filter(
+         Q(pk__in=[tdr.activity.pk for tdr in TDRProgramme.objects.filter(state=10)])
+    )

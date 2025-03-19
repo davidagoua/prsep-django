@@ -76,8 +76,17 @@
                                             <td></td>
                                             <td>
                                                 <div class="d-flex">
-                                                    <a href="{% url 'suivi:update-tdrprogram-state' pk=tdr.id %}?state=10&next={% url 'programme:liste-tache' %}" class="btn btn-xs btn-success">Soumettre</a>
+                                                    {% if tdr.state < 10 %}
+                                                    	<a href="{% url 'suivi:update-tdrprogram-state' pk=tdr.id %}?state=10&next={% url 'programme:liste-tache' %}" class="btn btn-xs btn-success">Soumettre</a>
                                                     <a href="{% url 'suivi:delete_tdr' pk=tdr.id %}" class="btn btn-xs btn-outline btn-danger">Annuler</a>
+                                                    {% else %}
+                                                        <a href="{% url 'suivi:update-tdrprogram-state' pk=tdr.id %}?state=10&next={% url 'programme:liste-tache' %}" class="btn btn-xs btn-info">
+                                                            <span class="fa fa-upload"></span>
+                                                            Tdr Fin D'activité
+                                                        </a>
+
+                                                    {% endif %}
+
                                                 </div>
                                             </td>
                                         </tr>
