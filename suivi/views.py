@@ -124,7 +124,7 @@ class TDRLocalListView(LoginRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         return TacheProgram.objects.filter(responsable=self.request.user.departement.name).filter(
-         Q(tdr__state=10)
+         Q(tdrprogramme__state=10)
     )
 
 
