@@ -133,33 +133,61 @@
 
                 <li class="sidebar-main-title">
                   <div>
-                    <h6 class="">Rapportage</h6>
+                    <h6 class="">Rapportage Projet</h6>
                   </div>
                 </li>
 
                 <li class="sidebar-list">
                     <a class="sidebar-link sidebar-title link-nav" href="{% url 'rapport:rapport-mensuel' %}">
                         <span class="fa text-white fa-file-pen ml-2"></span>
-                        <span>Rapport Mensuel</span>
+                        <span>Fiche Mensuelle</span>
                     </a>
                 </li>
                   <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{%  url 'rapport:rapport-trimestriel' %}">
                         <span class="fa text-white fa-file-pen ml-2"></span>
                       <span>Rapport Trimestriel</span></a>
                 </li>
-                  <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{%  url 'rapport:rapport-semestriel' %}">
+
+
+              <li class="sidebar-main-title">
+                  <div>
+                    <h6 class="">Rapportage Programme</h6>
+                  </div>
+                </li>
+
+                <li class="sidebar-list">
+                    <a class="sidebar-link sidebar-title link-nav" href="{% url 'rapport:rapport-mensuel' %}">
                         <span class="fa text-white fa-file-pen ml-2"></span>
-                      <span>Rapport Semestriel</span></a>
+                        <span>Fiche Mensuelle</span>
+                    </a>
+                </li>
+                  <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{%  url 'rapport:rapport-trimestriel' %}">
+                        <span class="fa text-white fa-file-pen ml-2"></span>
+                      <span>Rapport Trimestriel</span></a>
                 </li>
                   <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{%  url 'rapport:rapport-annuel' %}">
                     <span class="fa text-white fa-file-pen ml-2"></span>
                       <span>Rapport Annuel</span></a>
                 </li>
-                  <li class="sidebar-list">
-                      <a class="sidebar-link sidebar-title link-nav" href="{%  url 'rapport:rapport-consolide' %}">
+
+                  <li class="sidebar-main-title">
+                  <div>
+                    <h6 class="">Autres Rapports</h6>
+                  </div>
+                </li>
+
+
+                  <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{%  url 'rapport:rapport-trimestriel' %}">
                         <span class="fa text-white fa-file-pen ml-2"></span>
-                      <span>Rapport Consolidé</span>
-                  </a>
+                      <span>Rapport Semestriel</span></a>
+                </li>
+                  <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{%  url 'rapport:rapport-annuel' %}">
+                    <span class="fa text-white fa-file-pen ml-2"></span>
+                      <span>Rapport Annuels</span></a>
+                </li>
+                  <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{%  url 'rapport:rapport-annuel' %}">
+                    <span class="fa text-white fa-file-pen ml-2"></span>
+                      <span>Rapport Circonstanciels</span></a>
                 </li>
 
                 {% if request.user.is_staff %}
