@@ -39,3 +39,20 @@ class TDRProgramLocalListView(LoginRequiredMixin, generic.ListView):
         return TacheProgram.objects.filter(
          Q(pk__in=[tdr.activity.pk for tdr in TDRProgramme.objects.filter(state=10)])
     )
+
+class TDRProgramTechniqueListView(LoginRequiredMixin, generic.ListView):
+    template_name = "programme/local_list_activities.html"
+
+    def get_queryset(self):
+        return TacheProgram.objects.filter(
+         Q(pk__in=[tdr.activity.pk for tdr in TDRProgramme.objects.filter(state=20)])
+    )
+
+
+class TDRProgramCoordListView(LoginRequiredMixin, generic.ListView):
+    template_name = "programme/local_list_activities.html"
+
+    def get_queryset(self):
+        return TacheProgram.objects.filter(
+         Q(pk__in=[tdr.activity.pk for tdr in TDRProgramme.objects.filter(state__gte=10)])
+    )
