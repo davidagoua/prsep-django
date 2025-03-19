@@ -112,6 +112,7 @@ class TacheProgram(TimeStampedModel,models.Model):
 
 
 
+
 class PlanificationCoutProgram(TimeStampedModel,models.Model):
     montant = models.FloatField(default=0, null=True, blank=True)
     unite = models.CharField(max_length=100, null=True, blank=True)
