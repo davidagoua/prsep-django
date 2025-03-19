@@ -123,7 +123,7 @@ class TDRLocalListView(LoginRequiredMixin, generic.ListView):
     template_name = "suivi/local_list_activities.html"
 
     def get_queryset(self):
-        return Tache.objects.filter(responsable=self.request.user.departement.name).filter(
+        return TacheProgram.objects.filter(responsable=self.request.user.departement.name).filter(
          Q(tdr__state=10)
     )
 
