@@ -43,6 +43,7 @@ class TDRProgramLocalListView(LoginRequiredMixin, generic.ListView):
     def get_context_data(
         self,**kwargs
     ):
+        object_list = self.get_queryset()
         state = 20
         return kwargs | locals()
 
@@ -57,6 +58,7 @@ class TDRProgramTechniqueListView(LoginRequiredMixin, generic.ListView):
     def get_context_data(
         self,**kwargs
     ):
+        object_list = self.get_queryset()
         state = 30
         return kwargs | locals()
 
@@ -73,4 +75,5 @@ class TDRProgramCoordListView(LoginRequiredMixin, generic.ListView):
         self,**kwargs
     ):
         state = 40
+        object_list = self.get_queryset()
         return kwargs | locals()
