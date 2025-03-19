@@ -40,6 +40,12 @@ class TDRProgramLocalListView(LoginRequiredMixin, generic.ListView):
          Q(pk__in=[tdr.activity.pk for tdr in TDRProgramme.objects.filter(state=10)])
     )
 
+    def get_context_data(
+        self,**kwargs
+    ):
+        state = 20
+        return kwargs | locals()
+
 class TDRProgramTechniqueListView(LoginRequiredMixin, generic.ListView):
     template_name = "programme/local_list_activities.html"
 
@@ -47,6 +53,12 @@ class TDRProgramTechniqueListView(LoginRequiredMixin, generic.ListView):
         return TacheProgram.objects.filter(
          Q(pk__in=[tdr.activity.pk for tdr in TDRProgramme.objects.filter(state=20)])
     )
+
+    def get_context_data(
+        self,**kwargs
+    ):
+        state = 30
+        return kwargs | locals()
 
 
 class TDRProgramCoordListView(LoginRequiredMixin, generic.ListView):
@@ -56,3 +68,9 @@ class TDRProgramCoordListView(LoginRequiredMixin, generic.ListView):
         return TacheProgram.objects.filter(
          Q(pk__in=[tdr.activity.pk for tdr in TDRProgramme.objects.filter(state__gte=30)])
     )
+
+    def get_context_data(
+        self,**kwargs
+    ):
+        state = 40
+        return kwargs | locals()

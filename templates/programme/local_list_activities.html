@@ -53,7 +53,7 @@
                                                                     <h5 class="modal-title">Ajouter un TDR à cette activité</h5>
                                                                 </div>
                                                                 <div class="modal-body text-black">
-                                                                    <form action="{% url 'suivi:cancel_tdr' pk=tdr.pk %}?state=0&next={% url 'programme:liste-tache-local' %}" method="post"
+                                                                    <form action="{% url 'suivi:cancel_tdr' pk=tdr.pk %}?state={{ state }}&next={% url 'programme:liste-tache-local' %}" method="post"
                                                                           enctype="multipart/form-data">
                                                                         {% csrf_token %}
                                                                         <div class="mb-3">
