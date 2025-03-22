@@ -57,7 +57,6 @@ services:
     image: collabora/code
     ports:
       - 9980:9980
-    volumes:
     environment:
       - domain=${COLABORA_DOMAIN}
       - username=${COLABORA_USERNAME}
