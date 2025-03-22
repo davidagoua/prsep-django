@@ -56,12 +56,14 @@ services:
   colabora:
     image: collabora/code
     ports:
-      - 9980:9980
+      - 0.0.0.0:9980:9980
     environment:
       - domain=${COLABORA_DOMAIN}
       - username=${COLABORA_USERNAME}
       - password=${COLABORA_PASSWORD}
     restart: always
+    volumes:
+      - ./collabora/:/etc/coolwsd/
 
 volumes:
   postgres_data:
