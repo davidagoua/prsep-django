@@ -58,7 +58,7 @@ services:
   colabora:
     image: collabora/code:24.04.13.2.1
     ports:
-      - 0.0.0.0:9980:9980
+      - "173.212.246.10:9980:9980"
     environment:
       - domain=${COLABORA_DOMAIN}
       - username=${COLABORA_USERNAME}
