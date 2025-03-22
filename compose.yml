@@ -53,6 +53,17 @@ services:
       - ./socketi/config.json:/socketi/config.json
 
 
+  colabora:
+    image: collabora/code
+    ports:
+      - 9980:9980
+    volumes:
+    environment:
+      - domain=${COLABORA_DOMAIN}
+      - username=${COLABORA_USERNAME}
+      - password=${COLABORA_PASSWORD}
+    restart: always
+
 volumes:
   postgres_data:
   static_volume:
