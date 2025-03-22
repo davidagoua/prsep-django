@@ -64,6 +64,7 @@ services:
       - username=${COLABORA_USERNAME}
       - password=${COLABORA_PASSWORD}
     restart: always
+    dns: 192.168.1.1
     cap_add:
       - MKNOD
 #    volumes:
