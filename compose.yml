@@ -66,6 +66,8 @@ services:
     restart: always
 #    volumes:
 #      - ./coolwsd.xml:/etc/coolwsd/coolwsd.xml
+    command:
+      - "-cap-add MKNOD"
 
 volumes:
   postgres_data:
