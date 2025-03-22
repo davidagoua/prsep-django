@@ -12,9 +12,9 @@ services:
 
   web:
     build:
-      context: ./
+      context: ./app
     volumes:
-      - ./:/app
+      - ./app:/app
       - static_volume:/app/static
       - media_volume:/app/medias
     expose:
