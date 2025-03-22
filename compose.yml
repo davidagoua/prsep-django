@@ -64,6 +64,8 @@ services:
       - username=${COLABORA_USERNAME}
       - password=${COLABORA_PASSWORD}
     restart: always
+    cap_add:
+      - MKNOD
 #    volumes:
 #      - ./coolwsd.xml:/etc/coolwsd/coolwsd.xml
 
