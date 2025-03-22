@@ -61,6 +61,7 @@ services:
       - "173.212.246.10:9980:9980"
     environment:
       - domain=${COLABORA_DOMAIN}
+      - server_name=${COLABORA_DOMAIN}
       - username=${COLABORA_USERNAME}
       - password=${COLABORA_PASSWORD}
     restart: always
