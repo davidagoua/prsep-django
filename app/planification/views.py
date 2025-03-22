@@ -1,8 +1,10 @@
 from django.shortcuts import render, resolve_url, get_object_or_404
 from django.views import generic
+from pathlib import Path
+from django.http import FileResponse
 
-from planification.forms import  TacheForm
-from planification.models import  PPM, Tache, Exercice, ComposantProjet
+from planification.forms import TacheForm
+from planification.models import PPM, Tache, Exercice, ComposantProjet
 from programme.models import TacheProgram, ComposantesProgram, SousDomainResult
 
 
@@ -64,3 +66,6 @@ def tache_detail(request, id):
     return render(request, 'plan/details_tache.html', {'tache': tache})
 
 
+def upload_ptba_template(request):
+    template_file = Path(__file__).resolve().parent.parent / 'templates/models/ptba-projet.xlsx'
+    return FileResponse(open(template_file, 'rb'), as_attachment=True, filename='ptba-projet.xlsx')
