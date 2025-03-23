@@ -123,9 +123,9 @@ class TDRLocalListView(LoginRequiredMixin, generic.ListView):
     template_name = "suivi/local_list_activities.html"
 
     def get_queryset(self):
-        return Tache.objects.filter(
-         Q(tdr__state=10)
-    )
+        return TDR.objects.filter(
+            Q()
+        )
 
 
 
@@ -134,8 +134,8 @@ class TDRTechniqueListView(LoginRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         return Tache.objects.filter(responsable=self.request.user.departement.name).filter(
-         Q(tdr__state=20)
-    )
+            Q(pk__in=[tdr.tache.pk for tdr in TDR.objects.filter(state=20)])
+        )
 
 
 class TDRCoordinationListView(LoginRequiredMixin, generic.ListView):
@@ -143,8 +143,8 @@ class TDRCoordinationListView(LoginRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         return Tache.objects.filter(responsable=self.request.user.departement.name).filter(
-         Q(tdr__state=30)
-    )
+            Q(pk__in=[tdr.tache.pk for tdr in TDR.objects.filter(state=30)])
+        )
 
 
 

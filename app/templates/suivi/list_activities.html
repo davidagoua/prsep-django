@@ -75,10 +75,61 @@
                                             <td  colspan="2">{{ tdr.label }}</td>
                                             <td></td>
                                             <td>
-                                                <div class="d-flex">
-                                                    <a href="{% url 'suivi:update-tdr-state' pk=tdr.id %}?state=10&next={% url 'suivi:list_activities' %}" class="btn btn-xs btn-success">Soumettre</a>
-                                                    <a href="{% url 'suivi:delete_tdr' pk=tdr.id %}" class="btn btn-xs btn-outline btn-danger">Annuler</a>
-                                                </div>
+                                                <td>
+                                                    <div class="d-flex">
+                                                        {% if tdr.has_comments and tdr.state == 0 %}
+                                                            <a href="{% url 'suivi:tdr_download' pk=tdr.id %}" class="btn btn-sm btn-primary" title="Télécharger">
+                                                                Télécharger
+                                                            </a>
+                                                            <button class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                                                                    data-bs-target="#add-tdr-{{ tdr.pk }}"> Joindre
+                                                            </button>
+                                                            <div class="modal  fade" id="add-tdr-{{ tdr.pk }}">
+                                                                <div class="modal-dialog bg-white ">
+                                                                    <div class=" bg-white modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title">Joindre un TDR à cette activité</h5>
+                                                                        </div>
+                                                                        <div class="modal-body text-black">
+                                                                            <form action="{% url 'suivi:update_tdr' pk=tdr.pk %}?&next={{ request.path }}" method="post"
+                                                                                  enctype="multipart/form-data">
+                                                                                {% csrf_token %}
+                                                                                <div class="mb-3">
+                                                                                    <label for="">Fichier</label>
+                                                                                    <input type="file" name="file" id="" class="form-control">
+                                                                                </div>
+                                                                                <input type="hidden" name="state" value="0">
+                                                                                
+                                                                                <div class="text-right mt-3">
+                                                                                    <button class="btn btn-sm btn-primary">Enregistrer</button>
+                                                                                </div>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        {% endif %}
+                                                        {% if tdr.state < 10 %}
+                                                            <a href="{% url 'suivi:update-tdr-state' pk=tdr.id %}?state=10&next={{ request.path}}" class="btn btn-sm btn-success">
+                                                                <span class="fa fa-check"></span>
+                                                            </a>
+                                                        <a href="{% url 'suivi:delete_tdr' pk=tdr.id %}" class="btn btn-sm btn-outline btn-danger">
+                                                            <span class="fa fa-times"></span> 
+                                                        </a>
+                                                        {% elif tdr.state == 40 %}
+                                                        
+                                                            <a  href="{% url 'suivi:update-tdr-state' pk=tdr.id %}?state=10&next={{ request.path }}" class="btn btn-xs btn-info">
+                                                                <span class="fa fa-upload"></span>
+                                                                Tdr Fin D'activité
+                                                            </a>
+                                                        {% else %}
+                                                            <span >
+                                                                En attente de validation
+                                                            </span>
+                                                        {% endif %}
+    
+                                                    </div>
+                                                </td>
                                             </td>
                                         </tr>
                                     {% endfor %}

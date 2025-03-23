@@ -30,7 +30,7 @@
 
             </tr>
                 {% for sous_compo in composant.souscomposants.all %}
-                    <tr x-show="openComposants['{{ composant.pk }}']" style="background-color: #DDEBF7">
+                    <tr  style="background-color: #DDEBF7">
                         <td style="width: 25px"></td>
                         <td width="500px">
                             <button
@@ -50,7 +50,6 @@
                     {% for indicateur in sous_compo.indicateur_set.all %}
                     	<tr
                             style="background-color: #F8CBAD"
-                            x-show="openSousComposants['{{ sous_compo.pk }}'] && openComposants['{{ composant.pk }}']"
                         >
                             <td style="width: 25px"></td>
                             <td>
@@ -72,7 +71,7 @@
                         </tr>
                         {% for tache in indicateur.tache_set.all %}
                         	<tr
-                                x-show="openIndiacteurs['{{ indicateur.pk }}'] && openSousComposants['{{ sous_compo.pk }}'] && openComposants['{{ composant.pk }}']"
+                                
                             >
                                 {% include 'suivi/action_suivi_projet.html' with tache=tache %}
                                 <td>{{ tache.label }}</td>

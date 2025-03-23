@@ -53,20 +53,12 @@
                                                     <td class="text-white"
                                                     >{{ activite.description }}</td>
                                                     <td class="text-white"
-                                                    >{{ activite.responsable }}</td>
+                                                    >{{ activite.responsable|default_if_none:'' }}</td>
                                                     <td class="text-white"
-                                                    >{{ activite.localisation }}</td>
+                                                    >{{ activite.localisation|default_if_none:'' }}</td>
                                                     <td class="text-white">{{ activite.indicateur.label }}</td>
                                                 </tr>
-                                                {% for tache in activite.tacheprogram_set.all %}
-                                                	<tr>
-                                                        <td>{{ tache.label }}</td>
-                                                        <td>{{ tache.description }}</td>
-                                                        <td>{{ tache.responsable }}</td>
-                                                        <td>{{ tache.location }}</td>
-                                                        <td>{{ tache.indicateur.label }}</td>
-                                                    </tr>
-                                                {% endfor %}
+                                                
 
                                             {% endfor %}
 
