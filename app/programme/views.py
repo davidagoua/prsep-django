@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.views import generic
 
-from programme.models import ComposantesProgram, DomainResult, SousDomainResult, TacheProgram
+from programme.models import ComposantesProgram, DomainResult, SousDomainResult, Activite
 from suivi.models import TDRProgramme
 from test import ingest
 
@@ -29,7 +29,11 @@ class ListTache(generic.ListView):
     template_name = 'programme/liste_tache.html'
 
     def get_queryset(self):
-        return TacheProgram.objects.all()
+        if self.request.user.is_staff:
+            return Activite.objects.all()
+        return Activite.objects.filter(
+            Q(responsable=self.request.user.departement) | Q(responsable__isnull=True)
+        )
 
 
 
@@ -37,9 +41,15 @@ class TDRProgramLocalListView(LoginRequiredMixin, generic.ListView):
     template_name = "programme/local_list_activities.html"
 
     def get_queryset(self):
-        return TacheProgram.objects.filter(
-         Q(pk__in=[tdr.activity.pk for tdr in TDRProgramme.objects.filter(state=10)])
-    )
+        if self.request.user.is_staff:
+            return Activite.objects.filter(
+                Q(pk__in=[tdr.activity.pk for tdr in TDRProgramme.objects.filter(state=10)])
+            )
+        else:
+            return Activite.objects.filter(
+                Q(pk__in=[tdr.activity.pk for tdr in TDRProgramme.objects.filter(state=10)]),
+                responsable=self.request.user.departement
+            )
 
     def get_context_data(
         self,**kwargs
@@ -48,13 +58,22 @@ class TDRProgramLocalListView(LoginRequiredMixin, generic.ListView):
         state = 20
         return kwargs | locals()
 
+
 class TDRProgramTechniqueListView(LoginRequiredMixin, generic.ListView):
     template_name = "programme/local_list_activities.html"
 
     def get_queryset(self):
-        return TacheProgram.objects.filter(
-         Q(pk__in=[tdr.activity.pk for tdr in TDRProgramme.objects.filter(state=20)])
-    )
+
+        if self.request.user.is_staff:
+            return Activite.objects.filter(
+                Q(pk__in=[tdr.activity.pk for tdr in TDRProgramme.objects.filter(state=20)])
+            )
+        else:
+            return Activite.objects.filter(
+                Q(pk__in=[tdr.activity.pk for tdr in TDRProgramme.objects.filter(state=20)]),
+                responsable=self.request.user.departement
+            )
+            
 
     def get_context_data(
         self,**kwargs
@@ -68,7 +87,7 @@ class TDRProgramCoordListView(LoginRequiredMixin, generic.ListView):
     template_name = "programme/local_list_activities.html"
 
     def get_queryset(self):
-        return TacheProgram.objects.filter(
+        return Activite.objects.filter(
          Q(pk__in=[tdr.activity.pk for tdr in TDRProgramme.objects.filter(state__gte=20)])
     )
 
@@ -84,7 +103,7 @@ class PTPAProgrammeStatsView(views.View):
     def get(self, request, *args, **kwargs):
         stats = TDRProgramme.objects.values('state').annotate(count=Count('state'))
         result = {item['state']: item['count'] for item in stats}
-        result['pointFocal'] = TacheProgram.objects.filter(
+        result['pointFocal'] = Activite.objects.filter(
             Q(pk__in=[tdr.activity.pk for tdr in TDRProgramme.objects.filter(state=0)])
         ).count()
         return JsonResponse(result)

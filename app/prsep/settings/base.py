@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     "django.contrib.humanize",
     "core","planification","suivi","rapportage","django_extensions",
     "setting","programme",
-    "channels"
+    "channels","mathfilters"
 ]
 
 MIDDLEWARE = [

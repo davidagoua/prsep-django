@@ -6,7 +6,7 @@
     <div class="page-title">
       <div class="row">
         <div class="col-6">
-          <h4>Rapport Mensuel</h4>
+          <h4>{{ title }}</h4>
         </div>
 
       </div>
@@ -122,6 +122,7 @@
                                 <td>
 
                                     <a href="{% url 'rapport:download_file' pk=object.pk %}?next={{ request.path }}" class="btn  btn-outline-info"><span class="fa fa-file-download" title="Télécharger"></span></a>
+                                    
                                     <a  data-bs-toggle="modal" data-bs-target="#modal-join-rapport-{{ object.id }}" class="btn  btn-outline-info"><span class="fa fa-file-upload" title="Joindre"></span></a>
                                     <div class="modal" id="modal-join-rapport-{{ object.id }}">
                                         <div class="modal-dialog">
@@ -141,6 +142,21 @@
                                                             <button type="submit" class="btn btn-primary">Joindre</button>
                                                         </p>
                                                     </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <a  data-bs-toggle="modal" data-bs-target="#modal-editer-rapport-{{ object.id }}" class="btn  btn-outline-info"><span class="fa fa-pencil" title="Editer"></span></a>
+                                    <div class="modal modal-xl" id="modal-editer-rapport-{{ object.id }}" >
+                                        <div class="modal-dialog">
+                                            <div class="modal-content bg-white">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Editer le rapport</h4>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <iframe src="{{ object.generate_collabora_url }}" width="100%" height="400px"></iframe>
                                                 </div>
                                             </div>
                                         </div>

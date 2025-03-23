@@ -2,7 +2,7 @@ from django.urls import path
 
 from rapportage.views import (RapportMensuelProjetView, update_state,upload_file,
                               RapportAnnuelView, RapportSemestrielView, RapportTrimestrielProjetView, RapportTrimestrielProgrammeView, RapportMensuelProgrammeView,
-                              RapportCirconstancierView)
+                              RapportCirconstancierView, wopi_file_info, wopi_file_contents)
 from rapportage.views import update_file_and_label, download_file
 
 app_name = "analyse"
@@ -18,4 +18,6 @@ urlpatterns = [
     path('upload-file/<int:pk>', upload_file, name='upload_file'),
     path('update-file-and-label/<int:pk>', update_file_and_label, name='update_file_and_label'),
     path('download-file/<int:pk>', download_file, name='download_file'),
+    path('wopi/files/<str:file_id>', wopi_file_info, name='wopi_file_info'),
+    path('wopi/files/<str:file_id>/contents', wopi_file_contents, name='wopi_file_contents'),
 ]

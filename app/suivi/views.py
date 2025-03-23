@@ -9,7 +9,7 @@ from django.views.generic.detail import SingleObjectTemplateResponseMixin
 
 from planification.forms import UpdateTacheForm, DecaissementFormSet
 from planification.models import SousComposantProjet, ComposantProjet, Tache, Decaissement, Exercice
-from programme.models import TacheProgram
+from programme.models import Activite
 from .forms import CancelTDRForm
 from .models import TDR, TDRProgramme
 
@@ -123,8 +123,8 @@ class TDRLocalListView(LoginRequiredMixin, generic.ListView):
     template_name = "suivi/local_list_activities.html"
 
     def get_queryset(self):
-        return TacheProgram.objects.filter(
-         Q(tdrprogramme__state=10)
+        return Tache.objects.filter(
+         Q(tdr__state=10)
     )
 
 
@@ -172,6 +172,7 @@ class CreateTDRView(LoginRequiredMixin, generic.CreateView):
 class CreateTDRProgrammeView(LoginRequiredMixin, generic.CreateView):
     model = TDRProgramme
     fields = ['file','label']
+    required_fields = ['file']
 
     def get_success_url(self):
         return resolve_url('programme:liste-tache')
@@ -179,18 +180,36 @@ class CreateTDRProgrammeView(LoginRequiredMixin, generic.CreateView):
     def form_valid(self, form):
         tdr = form.save(commit=False)
         tdr.user = self.request.user
-        tdr.activity = TacheProgram.objects.get(pk=self.request.POST.get('activity_id'))
+        tdr.activity = Activite.objects.get(pk=self.request.POST.get('activity_id'))
         tdr.save()
         return super().form_valid(form)
 
 
 class UpdateTDRView(LoginRequiredMixin, generic.UpdateView):
     fields = [
-        'file','label'
+        'file'
     ]
+    model = TDR
 
     def get_success_url(self):
-        return resolve_url(self.kwargs['next'])
+        return resolve_url(self.request.GET['next'])
+
+    def form_valid(self, form):
+        tdr = form.save(commit=False)
+        tdr.user = self.request.user
+        tdr.state = self.request.POST.get('state')
+        tdr.save()
+        return super().form_valid(form)
+
+
+class UpdateTDRProgrammeView(LoginRequiredMixin, generic.UpdateView):
+    fields = [
+        'file','label'
+    ]
+    model = TDRProgramme
+
+    def get_success_url(self):
+        return resolve_url(self.request.GET['next'])
 
     def form_valid(self, form):
         tdr = form.save(commit=False)
@@ -217,6 +236,11 @@ def download_tdr(request, pk):
     return FileResponse(open(tdr.file.path, 'rb'), content_type='application/octet-stream')
 
 
+def download_tdr_programme(request, pk):
+    tdr = get_object_or_404(TDRProgramme, pk=pk)
+    return FileResponse(open(tdr.file.path, 'rb'), content_type='application/octet-stream')
+
+
 def get_tdr_stats(request):
     stats = TDR.objects.values('state').annotate(count=Count('state'))
     result = {item['state']: item['count'] for item in stats}
@@ -236,5 +260,26 @@ def cancel_tdr(request, pk):
         comment.tdr = tdr
         comment.save()
     return redirect(request.GET.get('next'))
+
+
+
+def cancel_tdr_programme(request, pk):
+    if request.method == 'POST':
+        tdr = TDRProgramme.objects.get(pk=pk)
+        tdr.state = request.GET.get('state')
+        tdr.save()
+        form = CancelTDRForm(request.POST)
+        comment = form.save(commit=False)
+        comment.user = request.user
+        comment.tdr = tdr
+        comment.save()
+    return redirect(request.GET.get('next'))
+
+
+def delete_tdr_programme(request, pk):
+    tdr = get_object_or_404(TDRProgramme, pk=pk)
+    tdr.delete()
+    messages.success(request, "TDR annulée")
+    return redirect('programme:liste-tache')
 
 

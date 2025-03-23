@@ -2,6 +2,9 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django_extensions.db.models import TimeStampedModel
 from core.models import Departement, Role
+import urllib.parse
+
+
 
 User = get_user_model()
 
@@ -35,6 +38,13 @@ class Rapport(TimeStampedModel, models.Model):
     departements = models.ManyToManyField(Departement)
     roles = models.ManyToManyField(Role)
     status = models.IntegerField(default=0)
+
+    @property
+    def generate_collabora_url(self):
+        base_url = "http://173.212.246.10:9980/lool/WOPISrc="  # Remplacez par l'URL de votre serveur Collabora Online
+        wopi_src = urllib.parse.quote_plus(f"http://173.212.246.10/rapportage/wopi/files/{self.id}?access_token={self.id}")  # Remplacez par l'URL de votre vue WOPI
+        url = f"{base_url}{wopi_src}"
+        return url
 
     def __str__(self):
         return f'{self.type} - {self.state}'

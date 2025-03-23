@@ -7,7 +7,7 @@
             <div class="page-title">
                 <div class="row">
                     <div class="col-6">
-                        <h4>Liste des taches</h4>
+                        <h4>Liste des activités</h4>
                     </div>
 
                 </div>
@@ -16,21 +16,24 @@
 
         <div class="container-fluid">
             <div class="row">
-                <div class="card">
+                <div class="card" x-data="{ search: '' }">
                     <div class="card-body">
+                        <div class="d-flex w-25 justify-content-between">
+                            <input type="text" class="form-control" placeholder="Rechercher..." x-model="search">
+                        </div>
                         <div class="table-responsive table">
                             <table class="table">
                                 <tr>
+                                    <th>Indicateur</th>
                                     <th>Activités</th>
-                                    <th>Tâches</th>
-                                    <th>Suivi UGP</th>
+                                    <th>Departement Responsable</th>
                                     <th></th>
                                 </tr>
                                 {% for object in object_list %}
-                                    <tr>
-                                        <td>{{ object.activite.description }}</td>
-                                        <td style="width: 500px">{{ object.description }}</td>
-                                        <td>{{ object.ugp }}</td>
+                                    <tr x-show="search.length === 0 || object.label.toLowerCase().includes(search.toLowerCase())">
+                                        <td>{{ object.indicateur.label }}</td>
+                                        <td>{{ object.description }}</td>
+                                        <td>{{ object.responsable }}</td>
                                         <td>
 
 
@@ -71,20 +74,60 @@
                                         </td>
                                     </tr>
                                     {% for tdr in object.tdrprogramme_set.all %}
-                                        <tr style="background-color: #cccccc">
+                                        <tr style="background-color:{% if  tdr.has_comments %} #fcc {%else%} #cccccc {% endif %}">
                                             <td  colspan="2">{{ tdr.label }}</td>
                                             <td></td>
                                             <td>
                                                 <div class="d-flex">
+                                                    {% if tdr.has_comments and tdr.state == 0 %}
+                                                        <a href="{% url 'suivi:tdr_programme_download' pk=tdr.id %}" class="btn btn-sm btn-primary" title="Télécharger">
+                                                            Télécharger
+                                                        </a>
+                                                        <button class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                                                                data-bs-target="#add-tdr-{{ tdr.pk }}"> Joindre
+                                                        </button>
+                                                        <div class="modal  fade" id="add-tdr-{{ tdr.pk }}">
+                                                            <div class="modal-dialog bg-white ">
+                                                                <div class=" bg-white modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title">Joindre un TDR à cette activité</h5>
+                                                                    </div>
+                                                                    <div class="modal-body text-black">
+                                                                        <form action="{% url 'suivi:update_tdrprogram' pk=tdr.pk %}?&next={{ request.path }}" method="post"
+                                                                              enctype="multipart/form-data">
+                                                                            {% csrf_token %}
+                                                                            <div class="mb-3">
+                                                                                <label for="">Fichier</label>
+                                                                                <input type="file" name="file" id="" class="form-control">
+                                                                            </div>
+                                                                            <input type="hidden" name="state" value="0">
+                                                                            
+                                                                            <div class="text-right mt-3">
+                                                                                <button class="btn btn-sm btn-primary">Enregistrer</button>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    {% endif %}
                                                     {% if tdr.state < 10 %}
-                                                    	<a href="{% url 'suivi:update-tdrprogram-state' pk=tdr.id %}?state=10&next={% url 'programme:liste-tache' %}" class="btn btn-xs btn-success">Soumettre</a>
-                                                    <a href="{% url 'suivi:delete_tdr' pk=tdr.id %}" class="btn btn-xs btn-outline btn-danger">Annuler</a>
-                                                    {% else %}
-                                                        <a href="{% url 'suivi:update-tdrprogram-state' pk=tdr.id %}?state=10&next={% url 'programme:liste-tache' %}" class="btn btn-xs btn-info">
+                                                    	<a href="{% url 'suivi:update-tdrprogram-state' pk=tdr.id %}?state=10&next={% url 'programme:liste-tache' %}" class="btn btn-sm btn-success">
+                                                            <span class="fa fa-check"></span>
+                                                        </a>
+                                                    <a href="{% url 'suivi:delete_tdrprogram' pk=tdr.id %}" class="btn btn-sm btn-outline btn-danger">
+                                                        <span class="fa fa-times"></span> 
+                                                    </a>
+                                                    {% elif tdr.state == 40 %}
+                                                    
+                                                        <a  href="{% url 'suivi:update-tdrprogram-state' pk=tdr.id %}?state=10&next={% url 'programme:liste-tache' %}" class="btn btn-xs btn-info">
                                                             <span class="fa fa-upload"></span>
                                                             Tdr Fin D'activité
                                                         </a>
-
+                                                    {% else %}
+                                                        <span >
+                                                            En attente de validation
+                                                        </span>
                                                     {% endif %}
 
                                                 </div>

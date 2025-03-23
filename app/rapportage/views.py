@@ -1,13 +1,14 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import FileResponse
+from django.http import FileResponse, JsonResponse
 from django.shortcuts import render, redirect, reverse, resolve_url, get_object_or_404
 from django.views import generic
 from django.views.generic import FormView, ListView
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.list import MultipleObjectTemplateResponseMixin
 from django.views.generic.edit import FormMixin, CreateView
-
+from django.http import HttpResponse, HttpResponseForbidden
+from django.views.decorators.csrf import csrf_exempt
 
 from rapportage.forms import RapportForm
 from rapportage.models import TypeRapport, Rapport
@@ -317,4 +318,54 @@ def update_state(request, pk):
     rapport.state = request.GET.get('status')
     rapport.save()
     return redirect(resolve_url(request.GET.get('next')))
+
+
+
+def wopi_file_info(request, file_id):
+    try:
+        document = Rapport.objects.get(id=file_id)  # Récupérer le document
+        # Vérifier les permissions d'accès
+        """
+        if not document.has_access(request.user):
+            return HttpResponseForbidden()"""
+
+        # Préparer les informations du fichier
+        file_info = {
+            'BaseFileName': document.label,
+            'Size': document.file.size,
+            'UserId': str(request.user.id),
+            'Version': str(document.created),
+            #'ReadOnly': not document.can_edit(request.user),
+        }
+        return JsonResponse(file_info)
+
+    except Rapport.DoesNotExist:
+        return JsonResponse({}, status=404)
+
+
+
+@csrf_exempt  # Désactiver la protection CSRF pour les requêtes WOPI
+def wopi_file_contents(request, file_id):
+    try:
+        document = Rapport.objects.get(id=file_id)
+        # Vérifier les permissions
+        """
+        if not document.has_access(request.user):
+            return HttpResponseForbidden()
+        """
+
+        if request.method == 'GET':
+            # Télécharger le contenu du fichier
+            with document.file.open('rb') as f:
+                return HttpResponse(f.read(), content_type='application/octet-stream')
+
+        elif request.method == 'POST':
+            # Enregistrer les modifications du fichier
+            document.file.save(document.filename, request.FILES['file'])
+            
+            document.save()
+            return HttpResponse(status=200)
+
+    except Document.DoesNotExist:
+        return HttpResponse(status=404)
 
