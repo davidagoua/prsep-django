@@ -136,6 +136,7 @@
                                     
                                     {% if request.user.is_staff %}
                                     <a href="{% url 'rapport:update_state' pk=object.pk %}?status=10&next={{ request.path }}" class="btn btn-sm btn-primary" title="Consolider"><span class="fa fa-check"></span></a>
+                                    <a href="{% url 'rapport:delete_rapport' pk=object.pk %}?next={{ request.path }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce rapport ?')" class="btn btn-sm btn-danger" title="Supprimer"><span class="fa fa-trash"></span></a>
                                     {% endif %}
                                 </td>
                             </tr>

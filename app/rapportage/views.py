@@ -397,3 +397,10 @@ def wopi_file_contents(request, file_id):
     except Rapport.DoesNotExist:
         return HttpResponse(status=404)
 
+
+
+def delete_rapport(request, pk):
+    rapport = get_object_or_404(Rapport, id=pk)
+    rapport.delete()
+    return redirect(resolve_url(request.GET.get('next')))
+

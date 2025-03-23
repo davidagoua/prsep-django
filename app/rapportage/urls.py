@@ -20,4 +20,5 @@ urlpatterns = [
     path('download-file/<int:pk>', download_file, name='download_file'),
     path('wopi/files/<str:file_id>', wopi_file_info, name='wopi_file_info'),
     path('wopi/files/<str:file_id>/contents', wopi_file_contents, name='wopi_file_contents'),
+    path('delete-rapport/<int:pk>', delete_rapport, name='delete_rapport'),
 ]
