@@ -381,8 +381,6 @@ def wopi_file_contents(request, file_id):
                     f.write(request.body)
             except Exception as e:
                 return HttpResponse(status=500)
-            rapport.file.save(rapport.label, request.FILES['file'])
-            
             rapport.save()
             return HttpResponse(status=200)
 
@@ -393,8 +391,6 @@ def wopi_file_contents(request, file_id):
                     f.write(request.body)
             except Exception as e:
                 return HttpResponse(status=500)
-            rapport.file.save(rapport.label, request.FILES['file'])
-            
             rapport.save()
             return HttpResponse(status=200)
 
