@@ -368,13 +368,8 @@ def wopi_file_contents(request, file_id):
         if request.method == 'GET':
             # Télécharger le contenu du fichier
             with rapport.file.open('rb') as f:
-                import hashlib
-                md5 = hashlib.md5()
-                with rapport.file.open('rb') as f:
-                    for chunk in iter(lambda: f.read(4096), b""):
-                        md5.update(chunk)
-                response = HttpResponse(md5.hexdigest(), content_type='application/octet-stream')
-                response['X-WOPI-ItemVersion'] = md5.hexdigest()
+                response = HttpResponse(f.read(), content_type='application/octet-stream')
+                response['X-WOPI-ItemVersion'] = str(rapport.created)
                 return response
 
         elif request.method == 'POST':
