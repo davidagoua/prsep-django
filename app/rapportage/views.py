@@ -379,7 +379,7 @@ def wopi_file_contents(request, file_id):
 
         elif request.method == 'POST':
             # Enregistrer les modifications du fichier
-            document.file.save(document.filename, request.FILES['file'])
+            document.file.save(document.label, request.FILES['file'])
             
             document.save()
             return HttpResponse(status=200)
