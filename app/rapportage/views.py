@@ -382,6 +382,9 @@ def wopi_file_contents(request, file_id):
             return HttpResponse(status=200)
 
         elif request.method == 'PUT':
+            print(request.PUT)
+            print(request.POST)
+            print(request.headers)
             # Enregistrer les modifications du fichier
             rapport.file.save(rapport.label, request.FILES['file'])
             

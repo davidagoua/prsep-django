@@ -119,9 +119,9 @@
                                     {% endfor %}
                                 </td>
                                 
-                                <td>
+                                <td class="d-flex">
 
-                                    <a href="{% url 'rapport:download_file' pk=object.pk %}?next={{ request.path }}" class="btn  btn-outline-info"><span class="fa fa-file-download" title="Télécharger"></span></a>
+                                    <a href="{% url 'rapport:download_file' pk=object.pk %}?next={{ request.path }}" class="btn btn-sm btn-outline-info"><span class="fa fa-file-download" title="Télécharger"></span></a>
                                     
                                     
 
@@ -129,13 +129,13 @@
 
                                         <input name="access_token" value="{{ access_token }}" type="hidden"/>
                                 
-                                        <button type="submit" class="btn  btn-outline-info"><span class="fa fa-pencil" title="Editer"></span></button>
+                                        <button type="submit" class="btn btn-sm btn-outline-info"><span class="fa fa-pencil" title="Editer"></span></button>
                                 
                                     </form>
 
                                     
                                     {% if request.user.is_staff %}
-                                    <a href="{% url 'rapport:update_state' pk=object.pk %}?status=10&next={{ request.path }}" class="btn  btn-primary" title="Consolider"><span class="fa fa-check"></span></a>
+                                    <a href="{% url 'rapport:update_state' pk=object.pk %}?status=10&next={{ request.path }}" class="btn btn-sm btn-primary" title="Consolider"><span class="fa fa-check"></span></a>
                                     {% endif %}
                                 </td>
                             </tr>
