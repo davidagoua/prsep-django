@@ -123,35 +123,13 @@
 
                                     <a href="{% url 'rapport:download_file' pk=object.pk %}?next={{ request.path }}" class="btn  btn-outline-info"><span class="fa fa-file-download" title="Télécharger"></span></a>
                                     
-                                    <a  data-bs-toggle="modal" data-bs-target="#modal-join-rapport-{{ object.id }}" class="btn  btn-outline-info"><span class="fa fa-file-upload" title="Joindre"></span></a>
-                                    <div class="modal" id="modal-join-rapport-{{ object.id }}">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content bg-white">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title">Joindre un fichier</h4>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form action="{% url 'rapport:download_file' pk=object.pk %}" method="post" enctype="multipart/form-data">
-                                                        {% csrf_token %}
-                                                        <div class="form-group">
-                                                            <label for="fichier" class="form-label">Fichier</label>
-                                                            <input type="file" name="fichier" id="fichier" class="form-control">
-                                                        </div>
-                                                        <p class="text-right mt-3">
-                                                            <button type="submit" class="btn btn-primary">Joindre</button>
-                                                        </p>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
 
                                     <form action="{{ object.generate_collabora_url }}" enctype="multipart/form-data" method="post">
 
                                         <input name="access_token" value="{{ access_token }}" type="hidden"/>
                                 
-                                        <button type="submit" class="btn  btn-outline-info"><span class="fa fa-file-download" title="Télécharger"></span></button>
+                                        <button type="submit" class="btn  btn-outline-info"><span class="fa fa-pencil" title="Télécharger"></span></button>
                                 
                                     </form>
 
