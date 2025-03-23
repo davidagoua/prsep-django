@@ -41,7 +41,7 @@ class Rapport(TimeStampedModel, models.Model):
 
     @property
     def generate_collabora_url(self):
-        base_url = "https://collabora.smartshopper.uno/cool/?WOPISrc="  # Remplacez par l'URL de votre serveur Collabora Online
+        base_url = "https://collabora.smartshopper.uno/browser/ded56d8ff7/cool.html?WOPISrc="  # Remplacez par l'URL de votre serveur Collabora Online
         wopi_src = urllib.parse.quote_plus(f"https://smartshopper.uno/rapportage/wopi/files/{self.id}")  # Remplacez par l'URL de votre vue WOPI
         url = f"{base_url}{wopi_src}"
         return url
