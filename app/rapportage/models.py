@@ -42,7 +42,7 @@ class Rapport(TimeStampedModel, models.Model):
     @property
     def generate_collabora_url(self):
         base_url = "http://173.212.246.10:9980/lool/WOPISrc="  # Remplacez par l'URL de votre serveur Collabora Online
-        wopi_src = urllib.parse.quote_plus(f"http://173.212.246.10/rapportage/wopi/files/{self.id}?access_token={self.id}")  # Remplacez par l'URL de votre vue WOPI
+        wopi_src = urllib.parse.quote_plus(f"http://173.212.246.10/rapportage/wopi/files/{self.id}")  # Remplacez par l'URL de votre vue WOPI
         url = f"{base_url}{wopi_src}"
         return url
 

@@ -9,10 +9,21 @@ from django.views.generic.list import MultipleObjectTemplateResponseMixin
 from django.views.generic.edit import FormMixin, CreateView
 from django.http import HttpResponse, HttpResponseForbidden
 from django.views.decorators.csrf import csrf_exempt
-
+import jwt, datetime
+from django.conf import settings
 from rapportage.forms import RapportForm
 from rapportage.models import TypeRapport, Rapport
 
+
+
+
+def generate_access_token(user):
+    payload = {
+        'user_id': user.id,
+        'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=1),  # Expiration du jeton
+    }
+    token = jwt.encode(payload, settings.SECRET_KEY, algorithm='HS256')
+    return token
 
 
 class RapportMensuelProjetView(LoginRequiredMixin, FormView):
@@ -38,7 +49,7 @@ class RapportMensuelProjetView(LoginRequiredMixin, FormView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        
+        context['access_token'] = generate_access_token(self.request.user)
         if self.request.user.is_staff:
             context['rapport_consolides'] = Rapport.objects.filter(type=self.type_rapport, state=10)
             context['object_list'] = Rapport.objects.filter(type=self.type_rapport, state=0)
@@ -73,7 +84,7 @@ class RapportMensuelProgrammeView(LoginRequiredMixin, FormView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        
+        context['access_token'] = generate_access_token(self.request.user)
         if self.request.user.is_staff:
             context['rapport_consolides'] = Rapport.objects.filter(type=self.type_rapport, state=10)
             context['object_list'] = Rapport.objects.filter(type=self.type_rapport, state=0)
@@ -108,7 +119,7 @@ class RapportTrimestrielProjetView(LoginRequiredMixin, FormView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        
+        context['access_token'] = generate_access_token(self.request.user)
         if self.request.user.is_staff:
             context['rapport_consolides'] = Rapport.objects.filter(type=self.type_rapport, state=10)
             context['object_list'] = Rapport.objects.filter(type=self.type_rapport, state=0)
@@ -143,7 +154,7 @@ class RapportTrimestrielProgrammeView(LoginRequiredMixin, FormView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        
+        context['access_token'] = generate_access_token(self.request.user)
         if self.request.user.is_staff:
             context['rapport_consolides'] = Rapport.objects.filter(type=self.type_rapport, state=10)
             context['object_list'] = Rapport.objects.filter(type=self.type_rapport, state=0)
@@ -178,7 +189,7 @@ class RapportSemestrielView(LoginRequiredMixin, FormView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        
+        context['access_token'] = generate_access_token(self.request.user)
         if self.request.user.is_staff:
             context['rapport_consolides'] = Rapport.objects.filter(type=self.type_rapport, state=10)
             context['object_list'] = Rapport.objects.filter(type=self.type_rapport, state=0)
@@ -214,7 +225,7 @@ class RapportAnnuelView(LoginRequiredMixin, FormView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        
+        context['access_token'] = generate_access_token(self.request.user)
         if self.request.user.is_staff:
             context['rapport_consolides'] = Rapport.objects.filter(type=self.type_rapport, state=10)
             context['object_list'] = Rapport.objects.filter(type=self.type_rapport, state=0)
@@ -251,7 +262,7 @@ class RapportCirconstancierView(LoginRequiredMixin, FormView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        
+        context['access_token'] = generate_access_token(self.request.user)
         if self.request.user.is_staff:
             context['rapport_consolides'] = Rapport.objects.filter(type=self.type_rapport, state=10)
             context['object_list'] = Rapport.objects.filter(type=self.type_rapport, state=0)
@@ -357,7 +368,14 @@ def wopi_file_contents(request, file_id):
         if request.method == 'GET':
             # Télécharger le contenu du fichier
             with document.file.open('rb') as f:
-                return HttpResponse(f.read(), content_type='application/octet-stream')
+                import hashlib
+                md5 = hashlib.md5()
+                with document.file.open('rb') as f:
+                    for chunk in iter(lambda: f.read(4096), b""):
+                        md5.update(chunk)
+                response = HttpResponse(md5.hexdigest(), content_type='application/octet-stream')
+                response['X-WOPI-ItemVersion'] = md5.hexdigest()
+                return response
 
         elif request.method == 'POST':
             # Enregistrer les modifications du fichier
