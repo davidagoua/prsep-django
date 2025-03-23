@@ -147,28 +147,15 @@
                                         </div>
                                     </div>
 
-                                    <a  data-bs-toggle="modal" data-bs-target="#modal-editer-rapport-{{ object.id }}" class="btn  btn-outline-info"><span class="fa fa-pencil" title="Editer"></span></a>
-                                    <div class="modal modal-xl" id="modal-editer-rapport-{{ object.id }}" >
-                                        <div class="modal-dialog">
-                                            <div class="modal-content bg-white">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title">Editer le rapport</h4>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <iframe src="{{ object.generate_collabora_url }}?access_token={{ access_token }}" width="100%" height="400px"></iframe>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <form action="{{ object.generate_collabora_url }}" enctype="multipart/form-data" method="post">
 
                                         <input name="access_token" value="{{ access_token }}" type="hidden"/>
                                 
                                         <button type="submit" class="btn  btn-outline-info"><span class="fa fa-file-download" title="Télécharger"></span></button>
                                 
-                                        </form>
+                                    </form>
 
+                                    
                                     {% if request.user.is_staff %}
                                     <a href="{% url 'rapport:update_state' pk=object.pk %}?status=10&next={{ request.path }}" class="btn  btn-primary" title="Consolider"><span class="fa fa-check"></span></a>
                                     {% endif %}
