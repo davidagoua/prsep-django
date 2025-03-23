@@ -3,7 +3,7 @@ from django.urls import path
 from rapportage.views import (RapportMensuelProjetView, update_state,upload_file,
                               RapportAnnuelView, RapportSemestrielView, RapportTrimestrielProjetView, RapportTrimestrielProgrammeView, RapportMensuelProgrammeView,
                               RapportCirconstancierView, wopi_file_info, wopi_file_contents)
-from rapportage.views import update_file_and_label, download_file
+from rapportage.views import update_file_and_label, download_file, delete_rapport
 
 app_name = "analyse"
 urlpatterns = [
