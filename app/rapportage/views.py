@@ -384,6 +384,6 @@ def wopi_file_contents(request, file_id):
             document.save()
             return HttpResponse(status=200)
 
-    except Document.DoesNotExist:
+    except Rapport.DoesNotExist:
         return HttpResponse(status=404)
 
