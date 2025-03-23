@@ -346,7 +346,9 @@ def wopi_file_info(request, file_id):
             'Size': rapport.file.size,
             'UserId': str(request.user.id),
             'Version': str(rapport.created),
-            #'ReadOnly': not rapport.can_edit(request.user),
+            'ReadOnly': False,
+            "UserCanWrite": True,
+            "EnableOwnerTermination": True
         }
         return JsonResponse(file_info)
 
