@@ -1,16 +1,19 @@
 from django.urls import path
 
-from rapportage.views import (RapportMensuelView, update_state,upload_file,
-                              RapportAnnuelView, RapportSemestreView, RapportConsolideView, RapportTrimestreView)
+from rapportage.views import (RapportMensuelProjetView, update_state,upload_file,
+                              RapportAnnuelView, RapportSemestrielView, RapportTrimestrielProjetView, RapportTrimestrielProgrammeView, RapportMensuelProgrammeView,
+                              RapportCirconstancierView)
 from rapportage.views import update_file_and_label, download_file
 
 app_name = "analyse"
 urlpatterns = [
-    path('rapport-mensuel/', RapportMensuelView.as_view(), name='rapport-mensuel'),
-    path('rapport-trimestriel/', RapportTrimestreView.as_view(), name='rapport-trimestriel'),
-    path('rapport-semestriel/', RapportSemestreView.as_view(), name='rapport-semestriel'),
+    path('rapport-mensuel-projet/', RapportMensuelProjetView.as_view(), name='rapport-mensuel-projet'),
+    path('rapport-trimestriel-projet/', RapportTrimestrielProjetView.as_view(), name='rapport-trimestriel-projet'),
+    path('rapport-semestriel/', RapportSemestrielView.as_view(), name='rapport-semestriel'),
     path('rapport-annuel/', RapportAnnuelView.as_view(), name='rapport-annuel'),
-    path('rapport-consolide/', RapportConsolideView.as_view(), name='rapport-consolide'),
+    path('rapport-mensuel-programme/', RapportMensuelProgrammeView.as_view(), name='rapport-mensuel-programme'),
+    path('rapport-trimestriel-programme/', RapportTrimestrielProgrammeView.as_view(), name='rapport-trimestriel-programme'),
+    path('rapport-circonstancier/', RapportCirconstancierView.as_view(), name='rapport-circonstancier'),
     path('update-state/<int:pk>', update_state, name='update_state'),
     path('upload-file/<int:pk>', upload_file, name='upload_file'),
     path('update-file-and-label/<int:pk>', update_file_and_label, name='update_file_and_label'),

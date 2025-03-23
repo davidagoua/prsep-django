@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django_extensions.db.models import TimeStampedModel
+from core.models import Departement, Role
 
 User = get_user_model()
 
@@ -15,15 +16,27 @@ class TypeRapport(models.Model):
 
 class Rapport(TimeStampedModel, models.Model):
 
-    type_choices = models.TextChoices('type', ['Mensuel','Trimestriel','Semestriel','Annuel','Spécifique','Autres'])
+    type_choices = models.TextChoices('type', names=[
+        'Mensuel-Projet',
+        'Trimestriel-Projet',
+        'Mensuel-Programme',
+        'Trimestriel-Programme',
+        'Semestriel',
+        'Annuel',
+        'Circonstancier',
+      
+    ])
 
     file = models.FileField(verbose_name='Fichier', upload_to='rapports')
-    label = models.CharField(max_length=100, null=True, blank=True)
+    label = models.CharField(max_length=100, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     state = models.IntegerField(default=0)
     type = models.CharField(max_length=100, null=True, blank=True, choices=type_choices)
+    departements = models.ManyToManyField(Departement)
+    roles = models.ManyToManyField(Role)
+    status = models.IntegerField(default=0)
 
     def __str__(self):
-        return f'{self.user.username} - {self.state}'
+        return f'{self.type} - {self.state}'
 
 

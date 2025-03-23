@@ -1,7 +1,7 @@
 from django.db import models
 from django_extensions.db.models import TimeStampedModel
 from django.contrib.auth import get_user_model
-
+from django.dispatch import receiver
 from planification.models import Tache
 from programme.models import TacheProgram
 
@@ -35,3 +35,21 @@ class TDRProgramme(TimeStampedModel,models.Model):
 
     def __str__(self):
         return f'{self.label} - {self.state}'
+
+
+@receiver(models.signals.post_save, sender=TDR)
+def tdr_post_save(sender, instance, created, **kwargs):
+    if not created:
+        channel_layer = get_channel_layer()
+        channel_name = f'tdr_{instance.id}'
+        async_to_sync(channel_layer.group_send)(
+            channel_name,
+            {
+                'type': 'tdr_update',
+                'data': {
+                    'id': instance.id,
+                    'state': instance.state
+                }
+            }
+        )
+        

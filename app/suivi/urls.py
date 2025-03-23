@@ -5,6 +5,8 @@ from suivi.views import SuiviPTBAProjetView, UpdateTacheView, ajouter_decaisseme
     TDRLocalListView, TDRTechniqueListView, download_tdr, TDRCoordinationListView, get_tdr_stats, cancel_tdr, \
     CreateTDRProgrammeView, update_tdrprogram_state
 
+from suivi.comsumer import TDRConsumer
+
 app_name = 'suivi'
 
 urlpatterns = [
@@ -25,4 +27,5 @@ urlpatterns = [
     path('tdr-download/<int:pk>', download_tdr, name='tdr_download'),
     path('tdr-get-stats', get_tdr_stats, name='get_tdr_stats'),
     path('tdr-cancel/<int:pk>', cancel_tdr, name='cancel_tdr'),
+    path('ws/tdr/', TDRConsumer.as_asgi(), name='tdr_consumer'),
 ]

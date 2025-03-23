@@ -14,18 +14,16 @@ from rapportage.models import TypeRapport, Rapport
 
 
 
-class RapportMensuelView(LoginRequiredMixin, FormView, ListView):
+class RapportMensuelProjetView(LoginRequiredMixin, FormView):
     template_name = 'rapportage/mensuel.html'
     form_class = RapportForm
-    object_list = Rapport.objects.filter(type='Mensuel')
+    type_rapport = 'Mensuel-Projet'
 
-    def get_queryset(self):
-        return Rapport.objects.filter(type='Mensuel')
 
     def form_valid(self, form):
         rapport = form.save(commit=False)
         rapport.user = self.request.user
-        rapport.type = 'Mensuel'
+        rapport.type = self.type_rapport
         rapport.save()
         messages.success(self.request, "Rapport enregistré")
         return super().form_valid(form)
@@ -35,21 +33,32 @@ class RapportMensuelView(LoginRequiredMixin, FormView, ListView):
         return self.render_to_response(self.get_context_data(form=form))
 
     def get_success_url(self):
-        return resolve_url('rapport:rapport-mensuel')
+        return resolve_url(self.request.POST.get('next'))
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        if self.request.user.is_staff:
+            context['rapport_consolides'] = Rapport.objects.filter(type=self.type_rapport, state=10)
+            context['object_list'] = Rapport.objects.filter(type=self.type_rapport, state=0)
+        else:
+            context['rapport_consolides'] = self.request.user.departement.rapport_set.filter(type=self.type_rapport, state=10)
+            context['object_list'] = self.request.user.departement.rapport_set.filter(
+                type=self.type_rapport, state=0
+            )
+        return context
 
 
-class RapportTrimestreView(LoginRequiredMixin, FormView, ListView):
-    template_name = 'rapportage/trimestre.html'
+class RapportMensuelProgrammeView(LoginRequiredMixin, FormView):
+    template_name = 'rapportage/mensuel.html'
     form_class = RapportForm
-    object_list = Rapport.objects.filter(type='Trimestriel')
+    type_rapport = 'Mensuel-Programme'
 
-    def get_queryset(self):
-        return Rapport.objects.filter(type='Trimestriel')
 
     def form_valid(self, form):
         rapport = form.save(commit=False)
         rapport.user = self.request.user
-        rapport.type = 'Trimestriel'
+        rapport.type = self.type_rapport
         rapport.save()
         messages.success(self.request, "Rapport enregistré")
         return super().form_valid(form)
@@ -59,21 +68,32 @@ class RapportTrimestreView(LoginRequiredMixin, FormView, ListView):
         return self.render_to_response(self.get_context_data(form=form))
 
     def get_success_url(self):
-        return resolve_url('rapport:rapport-trimestriel')
+        return resolve_url(self.request.POST.get('next'))
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        if self.request.user.is_staff:
+            context['rapport_consolides'] = Rapport.objects.filter(type=self.type_rapport, state=10)
+            context['object_list'] = Rapport.objects.filter(type=self.type_rapport, state=0)
+        else:
+            context['rapport_consolides'] = self.request.user.departement.rapport_set.filter(type=self.type_rapport, state=10)
+            context['object_list'] = self.request.user.departement.rapport_set.filter(
+                type=self.type_rapport, state=0
+            )
+        return context
 
 
-class RapportSemestreView(LoginRequiredMixin, FormView, ListView):
-    template_name = 'rapportage/semestre.html'
+class RapportTrimestrielProjetView(LoginRequiredMixin, FormView):
+    template_name = 'rapportage/mensuel.html'
     form_class = RapportForm
-    object_list = Rapport.objects.filter(type='Semestriel')
+    type_rapport = 'Trimestriel-Projet'
 
-    def get_queryset(self):
-        return Rapport.objects.filter(type='Semestriel')
 
     def form_valid(self, form):
         rapport = form.save(commit=False)
         rapport.user = self.request.user
-        rapport.type = 'Semestriel'
+        rapport.type = self.type_rapport
         rapport.save()
         messages.success(self.request, "Rapport enregistré")
         return super().form_valid(form)
@@ -83,21 +103,32 @@ class RapportSemestreView(LoginRequiredMixin, FormView, ListView):
         return self.render_to_response(self.get_context_data(form=form))
 
     def get_success_url(self):
-        return resolve_url('rapport:rapport-semestriel')
+        return resolve_url(self.request.POST.get('next'))
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        if self.request.user.is_staff:
+            context['rapport_consolides'] = Rapport.objects.filter(type=self.type_rapport, state=10)
+            context['object_list'] = Rapport.objects.filter(type=self.type_rapport, state=0)
+        else:
+            context['rapport_consolides'] = self.request.user.departement.rapport_set.filter(type=self.type_rapport, state=10)
+            context['object_list'] = self.request.user.departement.rapport_set.filter(
+                type=self.type_rapport, state=0
+            )
+        return context
 
 
-class RapportAnnuelView(LoginRequiredMixin, FormView, ListView):
-    template_name = 'rapportage/annuel.html'
+class RapportTrimestrielProgrammeView(LoginRequiredMixin, FormView):
+    template_name = 'rapportage/mensuel.html'
     form_class = RapportForm
-    object_list = Rapport.objects.filter(type='Annuel')
+    type_rapport = 'Trimestriel-Programme'
 
-    def get_queryset(self):
-        return Rapport.objects.filter(type='Annuel')
 
     def form_valid(self, form):
         rapport = form.save(commit=False)
         rapport.user = self.request.user
-        rapport.type = 'Annuel'
+        rapport.type = self.type_rapport
         rapport.save()
         messages.success(self.request, "Rapport enregistré")
         return super().form_valid(form)
@@ -107,13 +138,133 @@ class RapportAnnuelView(LoginRequiredMixin, FormView, ListView):
         return self.render_to_response(self.get_context_data(form=form))
 
     def get_success_url(self):
-        return resolve_url('rapport:rapport-annuel')
+        return resolve_url(self.request.POST.get('next'))
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        if self.request.user.is_staff:
+            context['rapport_consolides'] = Rapport.objects.filter(type=self.type_rapport, state=10)
+            context['object_list'] = Rapport.objects.filter(type=self.type_rapport, state=0)
+        else:
+            context['rapport_consolides'] = self.request.user.departement.rapport_set.filter(type=self.type_rapport, state=10)
+            context['object_list'] = self.request.user.departement.rapport_set.filter(
+                type=self.type_rapport, state=0
+            )
+        return context
 
 
-class RapportConsolideView(LoginRequiredMixin, FormView, ListView):
-    template_name = 'rapportage/consolide.html'
+class RapportSemestrielView(LoginRequiredMixin, FormView):
+    template_name = 'rapportage/mensuel.html'
     form_class = RapportForm
-    object_list = Rapport.objects.filter(type='Consolide')
+    type_rapport = 'Semestriel'
+
+
+    def form_valid(self, form):
+        rapport = form.save(commit=False)
+        rapport.user = self.request.user
+        rapport.type = self.type_rapport
+        rapport.save()
+        messages.success(self.request, "Rapport enregistré")
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, "Le formulaire est invalide.")
+        return self.render_to_response(self.get_context_data(form=form))
+
+    def get_success_url(self):
+        return resolve_url(self.request.POST.get('next'))
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        if self.request.user.is_staff:
+            context['rapport_consolides'] = Rapport.objects.filter(type=self.type_rapport, state=10)
+            context['object_list'] = Rapport.objects.filter(type=self.type_rapport, state=0)
+        else:
+            context['rapport_consolides'] = self.request.user.departement.rapport_set.filter(type=self.type_rapport, state=10)
+            context['object_list'] = self.request.user.departement.rapport_set.filter(
+                type=self.type_rapport, state=0
+            )
+        return context
+
+
+
+class RapportAnnuelView(LoginRequiredMixin, FormView):
+    template_name = 'rapportage/mensuel.html'
+    form_class = RapportForm
+    type_rapport = 'Annuel'
+
+
+    def form_valid(self, form):
+        rapport = form.save(commit=False)
+        rapport.user = self.request.user
+        rapport.type = self.type_rapport
+        rapport.save()
+        messages.success(self.request, "Rapport enregistré")
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, "Le formulaire est invalide.")
+        return self.render_to_response(self.get_context_data(form=form))
+
+    def get_success_url(self):
+        return resolve_url(self.request.POST.get('next'))
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        if self.request.user.is_staff:
+            context['rapport_consolides'] = Rapport.objects.filter(type=self.type_rapport, state=10)
+            context['object_list'] = Rapport.objects.filter(type=self.type_rapport, state=0)
+        else:
+            context['rapport_consolides'] = self.request.user.departement.rapport_set.filter(type=self.type_rapport, state=10)
+            context['object_list'] = self.request.user.departement.rapport_set.filter(
+                type=self.type_rapport, state=0
+            )
+        return context
+
+
+class RapportCirconstancierView(LoginRequiredMixin, FormView):
+    template_name = 'rapportage/mensuel.html'
+    form_class = RapportForm
+    type_rapport = 'Circonstancier'
+
+
+    def form_valid(self, form):
+        rapport = form.save(commit=False)
+        rapport.user = self.request.user
+        rapport.type = self.type_rapport
+        rapport.save()
+        # attacher les roles et departements
+        
+        messages.success(self.request, "Rapport enregistré")
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, "Le formulaire est invalide.")
+        return self.render_to_response(self.get_context_data(form=form))
+
+    def get_success_url(self):
+        return resolve_url(self.request.POST.get('next'))
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        if self.request.user.is_staff:
+            context['rapport_consolides'] = Rapport.objects.filter(type=self.type_rapport, state=10)
+            context['object_list'] = Rapport.objects.filter(type=self.type_rapport, state=0)
+        else:
+            context['rapport_consolides'] = self.request.user.departement.rapport_set.filter(type=self.type_rapport, state=10)
+            context['object_list'] = self.request.user.departement.rapport_set.filter(
+                type=self.type_rapport, state=0
+            )
+        return context
+
+class RapportMensuelProgrammeView(LoginRequiredMixin, FormView):
+    template_name = 'rapportage/mensuel.html'
+    form_class = RapportForm
+    object_list = Rapport.objects.filter(type='Mensuel-Programme')
 
     def get_queryset(self):
         return Rapport.objects.filter(type='Consolide')
@@ -144,7 +295,7 @@ def upload_file(request, pk):
         rapport = get_object_or_404(Rapport, id=pk)
         rapport.file = request.FILES['fichier']
         messages.success(request, "Fichier enregistré")
-    return redirect(resolve_url('rapport:rapport-mensuel'))
+    return redirect(resolve_url(request.GET.get('next')))
 
 
 def update_file_and_label(request, rapport_id):
@@ -165,5 +316,5 @@ def update_state(request, pk):
         pk=pk)
     rapport.state = request.GET.get('status')
     rapport.save()
-    return redirect(f'rapport:rapport-{ str(rapport.type).lower()}')
+    return redirect(resolve_url(request.GET.get('next')))
 

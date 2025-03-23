@@ -15,218 +15,140 @@
   <!-- Container-fluid starts-->
   <div class="container-fluid">
     <div class="row">
-        <div class="card">
+        <div class="card" x-data={search: ''}>
+            <div class="card-header">
+                <h4>Rapports Consolidés</h4>
+            </div>
             <div class="card-body">
                 <div class="">
                     <div class="list-product-header">
                       <div>
-                        <div class="light-box"><a data-bs-toggle="collapse" href="#collapseProduct" role="button" aria-expanded="false" aria-controls="collapseProduct"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-filter filter-icon show"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg><i class="icon-close filter-close hide"></i></a></div><a class="btn btn-primary" href="#" data-bs-toggle="modal" data-bs-target="#add-rapport-modal"><i class="fa fa-plus"></i>Joindre</a>
-                          <div class="modal" id="add-rapport-modal">
-                              <div class="modal-dialog">
-                                  <div class="modal-content">
-                                      <div class="modal-body">
-                                          <form enctype="multipart/form-data" action="" method="post">
-                                              {% csrf_token %}
-                                              {{ form.as_p }}
-                                              <button class="btn btn-primary">Enregistrer</button>
-                                          </form>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="collapse" id="collapseProduct">
-                        <div class="card card-body list-product-body">
-                          <div class="row row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-2 g-3">
-                            <div class="col">
-                              <select class="form-select" aria-label="Default select example">
-                                <option selected="">Choose Product</option>
-                                <option value="1">Apple iphone 13 Pro</option>
-                                <option value="2">Wood Chair</option>
-                                <option value="3">M185 Compact Wireless Mouse</option>
-                              </select>
-                            </div>
-                            <div class="col">
-                              <select class="form-select" aria-label="Default select example">
-                                <option selected="">Choose Category</option>
-                                <option value="1">Furniture</option>
-                                <option value="2">Smart Gadgets</option>
-                                <option value="3">Electrics</option>
-                              </select>
-                            </div>
-                            <div class="col">
-                              <select class="form-select" aria-label="Default select example">
-                                <option selected="">Choose Sub Category</option>
-                                <option value="1">Smart Phones</option>
-                                <option value="2">Smart Watches</option>
-                                <option value="3">Wireless headphone</option>
-                              </select>
-                            </div>
-                            <div class="col">
-                              <select class="form-select" aria-label="Default select example">
-                                <option selected="">Status</option>
-                                <option value="1">Sold Out </option>
-                                <option value="2">In Stock</option>
-                                <option value="3">Pre Order</option>
-                                <option value="4">Limited Stock </option>
-                              </select>
-                            </div>
-                            <div class="col">
-                              <select class="form-select" aria-label="Default select example">
-                                <option selected="">Price</option>
-                                <option value="1">56000.00</option>
-                                <option value="2">19000.00</option>
-                                <option value="3">10000.00</option>
-                                <option value="3">15000.00</option>
-                                <option value="3">99000.00</option>
-                              </select>
-                            </div>
-                          </div>
+                        <div>
+                            <input type="text" class="form-control" x-model="search" placeholder="Rechercher un rapport">
                         </div>
-                      </div>
+
+                        
+                      
                     </div>
                     <table class="table table-responsive">
                         <tr>
                             <th>Intitulé</th>
-                            <th>Periode</th>
-                            <th>Departement</th>
-                            <th>Status</th>
+                            <th>Roles</th>
+                            <th>Departements</th>
+                            <th></th>
+                        </tr>
+                        {% for object in rapport_consolides %}
+                        	<tr>
+                                <td> <b>{{ object.label }}</b></td>
+                                <td>
+                                    {%for role in object.roles.all %}
+                                        <span class="badge bg-info">{{ role.name }}</span>
+                                    {% endfor %}
+                                </td>
+                                <td>
+                                    {%for departement in object.departements.all %}
+                                        <span class="badge bg-info">{{ departement.name }}</span>
+                                    {% endfor %}
+                                </td>
+                                <td>
+
+                                    <a href="{% url 'rapport:download_file' pk=object.pk %}?next={{ request.path }}" class="btn  btn-outline-primary" title="Télécharger"><span class="fa fa-file-download"></span> </a>
+
+
+
+                                </td>
+                            </tr>
+                        {% endfor %}
+
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <div class="row">
+        <div class="card" x-data={search: ''}>
+            <div class="card-header">
+                <h4>Rapports en cours</h4>
+            </div>
+            <div class="card-body">
+                <div class="">
+                    <div class="list-product-header">
+                      <div>
+                        <div>
+                            <input type="text" class="form-control" x-model="search" placeholder="Rechercher un rapport">
+                        </div>
+                        {% if user.is_staff %}
+                        <a class="btn btn-primary" href="#" data-bs-toggle="modal" data-bs-target="#add-rapport-modal"><i class="fa fa-plus"></i>Ajouter</a>
+                        <div class="modal" id="add-rapport-modal">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <form enctype="multipart/form-data" action="" method="post">
+                                            {% csrf_token %}
+                                            {{ form.as_p }}
+                                            <input type="hidden" name="next" value="{{ request.path }}">
+                                            <button class="btn btn-primary">Enregistrer</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        {% endif %}
+                      
+                    </div>
+                    <table class="table table-responsive">
+                        <tr>
+                            <th>Intitulé</th>
+                            <th>Roles</th>
+                            <th>Departements</th>
                             <th></th>
                         </tr>
                         {% for object in object_list %}
                         	<tr>
-                                <td>{{ object.label }}</td>
-                                <td>{{ object.date_debut }} - {{ object.date_fin }}</td>
-                                <td>{{ object.user.departement.label }}</td>
+                                <td> <b>{{ object.label }}</b></td>
                                 <td>
-                                    {% if object.state == 0 %}
-                                    <span class="badge bg-gray">En attente</span>
-                                    {% elif object.state >= 10 and object.state <= 30 %}
-                                    <span class="badge bg-info">En validation</span>
-                                    {% else %}
-                                    <span class="badge bg-success">Validé</span>
-                                    {% endif %}
-                                  </td>
+                                    {%for role in object.roles.all %}
+                                        <span class="badge bg-info">{{ role.name }}</span>
+                                    {% endfor %}
+                                </td>
+                                <td>
+                                    {%for departement in object.departements.all %}
+                                        <span class="badge bg-info">{{ departement.name }}</span>
+                                    {% endfor %}
+                                </td>
+                                
                                 <td>
 
-                                    <a href="{% url 'rapport:download_file' pk=object.pk %}" class="btn btn-xs btn-outline-primary"><span class="fa fa-file-download"></span> Télécharger</a>
-
-
-                                    {% if object.state == 0 and request.user.role.name == 'PointFocal' or request.user.is_staff %}
-                                        <button data-bs-toggle="modal" data-bs-target="#modal-update-rapport-{{ object.id }}" class="btn btn-xs btn-outline-primary"><span class="fa fa-file-upload"></span> Joindre</button>
-                                        <div class="modal" id="modal-update-rapport-{{ object.id }}">
+                                    <a href="{% url 'rapport:download_file' pk=object.pk %}?next={{ request.path }}" class="btn  btn-outline-info"><span class="fa fa-file-download" title="Télécharger"></span></a>
+                                    <a  data-bs-toggle="modal" data-bs-target="#modal-join-rapport-{{ object.id }}" class="btn  btn-outline-info"><span class="fa fa-file-upload" title="Joindre"></span></a>
+                                    <div class="modal" id="modal-join-rapport-{{ object.id }}">
                                         <div class="modal-dialog">
                                             <div class="modal-content bg-white">
-                                                <div class="modal-header text-black bold"><b>Modifier le rapport</b></div>
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Joindre un fichier</h4>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                </div>
                                                 <div class="modal-body">
-                                                    <form action="{% url 'rapport:upload_file' pk=object.pk %}" enctype="multipart/form-data" method="post">
+                                                    <form action="{% url 'rapport:download_file' pk=object.pk %}" method="post" enctype="multipart/form-data">
                                                         {% csrf_token %}
-                                                        <div class="form-group mb-3">
-                                                            <label for="" class="text-black">Fichier</label>
-                                                            <input type="file" value="{{ object.fichier }}" name="fichier" class="form-control">
+                                                        <div class="form-group">
+                                                            <label for="fichier" class="form-label">Fichier</label>
+                                                            <input type="file" name="fichier" id="fichier" class="form-control">
                                                         </div>
-                                                        {% if false %}
-                                                        <div class="form-group mb-3">
-                                                            <label for="" class="text-black">Titre</label>
-                                                            <input type="text" class="form-control" name="label" value="{{ object.label }}">
-                                                        </div>
-                                                        {% endif %}
-                                                        <p class="text-right">
-                                                            <button type="submit" class="btn btn-primary">Enrégistrer</button>
+                                                        <p class="text-right mt-3">
+                                                            <button type="submit" class="btn btn-primary">Joindre</button>
                                                         </p>
                                                     </form>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                        <a href="{% url 'rapport:update_state' pk=object.pk %}?status=10" class="btn btn-xs btn-primary"><span class="fa fa-check"></span> Soumettre</a>
-                                    {% elif object.state == 10 and request.user.role.name == 'DirecteurLocal' or request.user.is_staff %}
-                                        <button data-bs-toggle="modal" data-bs-target="#modal-update-rapport-{{ object.id }}" class="btn btn-xs btn-outline-primary"><span class="fa fa-file-upload"></span> Joindre</button>
-                                        <div class="modal" id="modal-update-rapport-{{ object.id }}">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content bg-white">
-                                                    <div class="modal-header text-black bold"><b>Modifier le rapport</b></div>
-                                                    <div class="modal-body">
-                                                        <form action="" enctype="multipart/form-data" method="post">
-                                                            {% csrf_token %}
-                                                            <div class="form-group mb-3">
-                                                                <label for="" class="text-black">Fichier</label>
-                                                                <input type="file" value="{{ object.fichier }}" name="fichier" class="form-control">
-                                                            </div>
-                                                            {% if false %}
-                                                            <div class="form-group mb-3">
-                                                                <label for="" class="text-black">Titre</label>
-                                                                <input type="text" class="form-control" name="label" value="{{ object.label }}">
-                                                            </div>
-                                                            {% endif %}
-                                                            <p class="text-right">
-                                                                <button type="submit" class="btn btn-primary">Enrégistrer</button>
-                                                            </p>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <a href="{% url 'rapport:update_state' pk=object.pk %}?status=20" class="btn btn-xs btn-primary"><span class="fa fa-check"></span> Soumettre</a>
-                                    {% elif object.state == 20 and request.user.role.name == 'Directeur' or request.user.is_staff %}
-                                        <button data-bs-toggle="modal" data-bs-target="#modal-update-rapport-{{ object.id }}" class="btn btn-xs btn-outline-primary"><span class="fa fa-file-upload"></span> Joindre</button>
-                                        <div class="modal" id="modal-update-rapport-{{ object.id }}">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content bg-white">
-                                                    <div class="modal-header text-black bold"><b>Modifier le rapport</b></div>
-                                                    <div class="modal-body">
-                                                        <form action="" enctype="multipart/form-data" method="post">
-                                                            {% csrf_token %}
-                                                            <div class="form-group mb-3">
-                                                                <label for="" class="text-black">Fichier</label>
-                                                                <input type="file" value="{{ object.fichier }}" name="fichier" class="form-control">
-                                                            </div>
-                                                            {% if false %}
-                                                            <div class="form-group mb-3">
-                                                                <label for="" class="text-black">Titre</label>
-                                                                <input type="text" class="form-control" name="label" value="{{ object.label }}">
-                                                            </div>
-                                                            {% endif %}
-                                                            <p class="text-right">
-                                                                <button type="submit" class="btn btn-primary">Enrégistrer</button>
-                                                            </p>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <a href="{% url 'rapport:update_state' pk=object.pk %}?status=30" class="btn btn-xs btn-primary"><span class="fa fa-check"></span> Soumettre</a>
-                                    {% elif object.state == 30 and request.user.role.name == 'Coordination' or request.user.is_staff %}
-                                        <button data-bs-toggle="modal" data-bs-target="#modal-update-rapport-{{ object.id }}" class="btn btn-xs btn-outline-primary"><span class="fa fa-file-upload"></span> Joindre</button>
-                                        <div class="modal" id="modal-update-rapport-{{ object.id }}">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content bg-white">
-                                                    <div class="modal-header text-black bold"><b>Modifier le rapport</b></div>
-                                                    <div class="modal-body">
-                                                        <form action="" enctype="multipart/form-data" method="post">
-                                                            {% csrf_token %}
-                                                            <div class="form-group mb-3">
-                                                                <label for="" class="text-black">Fichier</label>
-                                                                <input type="file" value="{{ object.fichier }}" name="fichier" class="form-control">
-                                                            </div>
-                                                            {% if false %}
-                                                            <div class="form-group mb-3">
-                                                                <label for="" class="text-black">Titre</label>
-                                                                <input type="text" class="form-control" name="label" value="{{ object.label }}">
-                                                            </div>
-                                                            {% endif %}
-                                                            <p class="text-right">
-                                                                <button type="submit" class="btn btn-primary">Enrégistrer</button>
-                                                            </p>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <a href="{% url 'rapport:update_state' pk=object.pk %}?status=50" class="btn btn-xs btn-primary"><span class="fa fa-check"></span> Soumettre</a>
+
+                                    {% if request.user.is_staff %}
+                                    <a href="{% url 'rapport:update_state' pk=object.pk %}?status=10&next={{ request.path }}" class="btn  btn-primary" title="Consolider"><span class="fa fa-check"></span></a>
                                     {% endif %}
-
-
                                 </td>
                             </tr>
                         {% endfor %}

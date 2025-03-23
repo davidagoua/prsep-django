@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.humanize",
     "core","planification","suivi","rapportage","django_extensions",
-    "setting","programme"
+    "setting","programme",
+    "channels"
 ]
 
 MIDDLEWARE = [
@@ -73,6 +74,21 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "prsep.wsgi.application"
+ASGI_APPLICATION = "prsep.asgi.application"
+
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": ["redis://127.0.0.1:6379"],
+        },
+    },
+}
+
+SOKETI_TOKENS_SIGNING_KEY = 'your-secret-key'
+SOKETI_APP_KEY = 'your-app-key'
+SOKETI_APP_ID = 'your-app-id'
 
 
 # Database

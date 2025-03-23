@@ -1,5 +1,6 @@
+from django import views
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.views import generic
@@ -77,3 +78,13 @@ class TDRProgramCoordListView(LoginRequiredMixin, generic.ListView):
         state = 40
         object_list = self.get_queryset()
         return kwargs | locals()
+
+
+class PTPAProgrammeStatsView(views.View):
+    def get(self, request, *args, **kwargs):
+        stats = TDRProgramme.objects.values('state').annotate(count=Count('state'))
+        result = {item['state']: item['count'] for item in stats}
+        result['pointFocal'] = TacheProgram.objects.filter(
+            Q(pk__in=[tdr.activity.pk for tdr in TDRProgramme.objects.filter(state=0)])
+        ).count()
+        return JsonResponse(result)

@@ -16,7 +16,7 @@
               <ul x-data="{
                 tdr_stats: [],
                 tdr_stats_programme: [],
-              }" x-init="tdr_stats = await (await fetch('{%  url 'suivi:get_tdr_stats' %}')).json(); " class="sidebar-links" id="simple-bar">
+              }" x-init="tdr_stats = await (await fetch('{%  url 'suivi:get_tdr_stats' %}')).json(); tdr_stats_programme = await (await fetch('{%  url 'programme:stats-programme' %}')).json();" class="sidebar-links" id="simple-bar">
                 <li class="back-btn"><a href="index.html"><img class="img-fluid" height="auto" width="70" src="{% static '/assets/images/logo/logo.png' %}" alt=""></a>
                   <div class="mobile-back text-end"> <span>Back </span><i class="fa fa-angle-right ps-2" aria-hidden="true"></i></div>
                 </li>
@@ -84,57 +84,44 @@
 
                 <li class="sidebar-main-title">
                   <div>
-                    <h6 class="">Suivi Execution Projet</h6>
+                    <h6 class="">Suivi Execution</h6>
                   </div>
                 </li>
-                <li class="sidebar-list"><a class="sidebar-link d-flex justify-content-between sidebar-title link-nav" href="{% url 'suivi:list_activities' %}">
-                    <span class="fa text-white fa-binoculars ml-2"></span>
-                    <span class="flex-grow-1">Point Focal</span>
-                    <span x-text="tdr_stats['pointFocal'] ?? 0" class="bg-danger p-1 rounded-pill"></span>
-                </a>
-                </li>
-                <li class="sidebar-list"><a class="sidebar-link d-flex w-100 justify-content-between sidebar-title link-nav" href="{% url 'suivi:tdr_local' %}">
-                    <span class="fa text-white fa-binoculars ml-2"></span>
-                    <span class="flex-grow-1">Direction Centrale </span>
-                        <span x-text="tdr_stats[10] ?? 0" class="bg-warning p-1 rounded-pill"></span>
-                </a>
-                </li>
-                <li class="sidebar-list"><a class="sidebar-link sidebar-title d-flex justify-content-between link-nav" href="{% url 'suivi:tdr_technique' %}">
-                    <span class="fa text-white fa-binoculars ml-2"></span>
-                    <span class="flex-grow-1">Coordination</span>
-                    <span class="bg-light-info p-1 rounded-pill" x-text="tdr_stats[20] ?? 0"></span>
-                    </a>
-                </li>
-                <li class="sidebar-main-title">
-                  <div>
-                    <h6 class="">Suivi Execution Programme</h6>
-                  </div>
-                </li>
-                <li class="sidebar-list"><a class="sidebar-link d-flex justify-content-between sidebar-title link-nav" href="{% url 'programme:liste-tache' %}">
-                    <span class="fa text-white fa-binoculars ml-2"></span>
-                    <span class="flex-grow-1">Point Focal</span>
-                    <span x-text="tdr_stats_programme['pointFocal'] ?? 0" class="bg-danger p-1 rounded-pill"></span>
-                </a>
-                </li>
-                <li class="sidebar-list"><a class="sidebar-link d-flex w-100 justify-content-between sidebar-title link-nav" href="{% url 'programme:liste-tache-local' %}">
-                    <span class="fa text-white fa-binoculars ml-2"></span>
-                    <span class="flex-grow-1">Direction Centrale</span>
-                        <span x-text="tdr_stats_programme[10] ?? 0" class="bg-warning p-1 rounded-pill"></span>
-                </a>
-                </li>
-                <li class="sidebar-list"><a class="sidebar-link sidebar-title d-flex justify-content-between link-nav" href="{% url 'programme:tdr_technique' %}">
-                    <span class="fa text-white fa-binoculars ml-2"></span>
-                    <span class="flex-grow-1">Comité Technique</span>
-                    <span class="bg-light-info p-1 rounded-pill" x-text="tdr_stats_programme[20] ?? 0"></span>
-                    </a>
-                </li>
+                
 
-                  <li class="sidebar-list"><a class="sidebar-link d-flex d-block justify-content-between sidebar-title link-nav" href="{% url 'programme:tdr_coord' %}">
-                    <span class="fa text-white fa-binoculars ml-2"></span>
-                    <span class="flex-grow-1">Direction Executive</span>
-                      <span class="bg-success p-1 rounded-pill" x-text="tdr_stats_programme[30] ?? 0"></span>
-                  </a>
-                </li>
+
+                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title active" href="#">
+                  <svg class="stroke-icon">
+                    <use href="../assets/svg/icon-sprite.svg#stroke-ecommerce"></use>
+                  </svg>
+                  <svg class="fill-icon">
+                    <use href="../assets/svg/icon-sprite.svg#fill-ecommerce"></use>
+                  </svg><span>PTBA Projet</span><div class="according-menu"><i class="fa fa-angle-down"></i></div></a>
+                <ul class="sidebar-submenu" style="">
+                  <li> <a href="{% url 'suivi:list_activities' %}">Point Focal <span x-text="tdr_stats['pointFocal'] ?? 0" class="bg-danger p-1 rounded-pill"></span></a></li>
+                
+                  <li> <a href="{% url 'suivi:tdr_local' %}">Direction Centrale <span x-text="tdr_stats[10] ?? 0" class="bg-warning p-1 rounded-pill"></span></a></li>
+                  <li> <a href="{% url 'suivi:tdr_technique' %}">Coordination <span x-text="tdr_stats[20] ?? 0" class="bg-light-info p-1 rounded-pill"></span></a></li>
+                </ul>
+              </li>
+              <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title active" href="#">
+                  <svg class="stroke-icon">
+                    <use href="../assets/svg/icon-sprite.svg#stroke-ecommerce"></use>
+                  </svg>
+                  <svg class="fill-icon">
+                    <use href="../assets/svg/icon-sprite.svg#fill-ecommerce"></use>
+                  </svg><span>PTBA Programme</span><div class="according-menu"><i class="fa fa-angle-down"></i></div></a>
+                <ul class="sidebar-submenu" style="">
+                  <li> <a href="{% url 'programme:liste-tache' %}">Point Focal <span x-text="tdr_stats_programme['pointFocal'] ?? 0" class="bg-danger p-1 rounded-pill"></span></a></li>
+                
+                  <li> <a href="{% url 'programme:liste-tache-local' %}">Direction Centrale <span x-text="tdr_stats_programme[10] ?? 0" class="bg-warning p-1 rounded-pill"></span></a></li>
+                  <li> <a href="{% url 'programme:tdr_technique' %}">Comité Technique <span x-text="tdr_stats_programme[20] ?? 0" class="bg-light-info p-1 rounded-pill"></span></a></li>
+                  <li> <a href="{% url 'programme:tdr_coord' %}">Directeur Exécutif <span x-text="tdr_stats_programme[20] ?? 0" class="bg-light-info p-1 rounded-pill"></span></a></li>
+                </ul>
+              </li>
+
+
+
 
                 <li class="sidebar-main-title">
                   <div>
@@ -143,12 +130,12 @@
                 </li>
 
                 <li class="sidebar-list">
-                    <a class="sidebar-link sidebar-title link-nav" href="{% url 'rapport:rapport-mensuel' %}">
+                    <a class="sidebar-link sidebar-title link-nav" href="{% url 'rapport:rapport-mensuel-projet' %}">
                         <span class="fa text-white fa-file-pen ml-2"></span>
                         <span>Fiche Mensuelle</span>
                     </a>
                 </li>
-                  <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{%  url 'rapport:rapport-trimestriel' %}">
+                  <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{%  url 'rapport:rapport-trimestriel-projet' %}">
                         <span class="fa text-white fa-file-pen ml-2"></span>
                       <span>Rapport Trimestriel</span></a>
                 </li>
@@ -161,12 +148,12 @@
                 </li>
 
                 <li class="sidebar-list">
-                    <a class="sidebar-link sidebar-title link-nav" href="{% url 'rapport:rapport-mensuel' %}">
+                    <a class="sidebar-link sidebar-title link-nav" href="{% url 'rapport:rapport-mensuel-programme' %}">
                         <span class="fa text-white fa-file-pen ml-2"></span>
                         <span>Fiche Mensuelle</span>
                     </a>
                 </li>
-                  <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{%  url 'rapport:rapport-trimestriel' %}">
+                  <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{%  url 'rapport:rapport-trimestriel-programme' %}">
                         <span class="fa text-white fa-file-pen ml-2"></span>
                       <span>Rapport Trimestriel</span></a>
                 </li>
@@ -179,7 +166,7 @@
                 </li>
 
 
-                  <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{%  url 'rapport:rapport-trimestriel' %}">
+                  <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{%  url 'rapport:rapport-semestriel' %}">
                         <span class="fa text-white fa-file-pen ml-2"></span>
                       <span>Rapport Semestriel</span></a>
                 </li>
@@ -187,7 +174,7 @@
                     <span class="fa text-white fa-file-pen ml-2"></span>
                       <span>Rapport Annuel</span></a>
                 </li>
-                  <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{%  url 'rapport:rapport-annuel' %}">
+                  <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{%  url 'rapport:rapport-circonstancier' %}">
                     <span class="fa text-white fa-file-pen ml-2"></span>
                       <span>Rapport Circonstancier</span></a>
                 </li>

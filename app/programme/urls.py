@@ -1,7 +1,7 @@
 from django.urls import path
 
 from programme.views import ingest_data, SuiviTemplateView, ListTache, TDRProgramLocalListView, \
-    TDRProgramTechniqueListView, TDRProgramCoordListView
+    TDRProgramTechniqueListView, TDRProgramCoordListView, PTPAProgrammeStatsView
 
 app_name = 'programme'
 urlpatterns = [
@@ -11,4 +11,5 @@ urlpatterns = [
     path('liste-programme-direction-local/', TDRProgramLocalListView.as_view(), name='liste-tache-local'),
     path('liste-programme-direction-technique/', TDRProgramTechniqueListView.as_view(), name='tdr_technique'),
     path('liste-programme-direction-coord/', TDRProgramCoordListView.as_view(), name='tdr_coord'),
+    path('stats-programme/', PTPAProgrammeStatsView.as_view(), name='stats-programme'),
 ]
