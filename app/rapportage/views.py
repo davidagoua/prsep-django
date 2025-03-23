@@ -384,6 +384,13 @@ def wopi_file_contents(request, file_id):
             rapport.save()
             return HttpResponse(status=200)
 
+        elif request.method == 'PUT':
+            # Enregistrer les modifications du fichier
+            rapport.file.save(rapport.label, request.FILES['file'])
+            
+            rapport.save()
+            return HttpResponse(status=200)
+
     except Rapport.DoesNotExist:
         return HttpResponse(status=404)
 
