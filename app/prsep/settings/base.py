@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-a%!!z9$&zosed-v4nt(_u^*rl6ups&nqw9j4pl*1u(7056vz&p
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.201.28','localhost']
+ALLOWED_HOSTS = ['192.168.201.28','localhost','smartshopper.uno']
 
 
 # Application definition
