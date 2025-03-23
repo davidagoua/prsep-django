@@ -334,19 +334,19 @@ def update_state(request, pk):
 
 def wopi_file_info(request, file_id):
     try:
-        document = Rapport.objects.get(id=file_id)  # Récupérer le document
+        rapport = Rapport.objects.get(id=file_id)  # Récupérer le rapport
         # Vérifier les permissions d'accès
         """
-        if not document.has_access(request.user):
+        if not rapport.has_access(request.user):
             return HttpResponseForbidden()"""
 
         # Préparer les informations du fichier
         file_info = {
-            'BaseFileName': document.label,
-            'Size': document.file.size,
+            'BaseFileName': rapport.label,
+            'Size': rapport.file.size,
             'UserId': str(request.user.id),
-            'Version': str(document.created),
-            #'ReadOnly': not document.can_edit(request.user),
+            'Version': str(rapport.created),
+            #'ReadOnly': not rapport.can_edit(request.user),
         }
         return JsonResponse(file_info)
 
@@ -358,19 +358,19 @@ def wopi_file_info(request, file_id):
 @csrf_exempt  # Désactiver la protection CSRF pour les requêtes WOPI
 def wopi_file_contents(request, file_id):
     try:
-        document = Rapport.objects.get(id=file_id)
+        rapport = Rapport.objects.get(id=file_id)
         # Vérifier les permissions
         """
-        if not document.has_access(request.user):
+        if not rapport.has_access(request.user):
             return HttpResponseForbidden()
         """
 
         if request.method == 'GET':
             # Télécharger le contenu du fichier
-            with document.file.open('rb') as f:
+            with rapport.file.open('rb') as f:
                 import hashlib
                 md5 = hashlib.md5()
-                with document.file.open('rb') as f:
+                with rapport.file.open('rb') as f:
                     for chunk in iter(lambda: f.read(4096), b""):
                         md5.update(chunk)
                 response = HttpResponse(md5.hexdigest(), content_type='application/octet-stream')
@@ -379,9 +379,9 @@ def wopi_file_contents(request, file_id):
 
         elif request.method == 'POST':
             # Enregistrer les modifications du fichier
-            document.file.save(document.label, request.FILES['file'])
+            rapport.file.save(rapport.label, request.FILES['file'])
             
-            document.save()
+            rapport.save()
             return HttpResponse(status=200)
 
     except Rapport.DoesNotExist:
