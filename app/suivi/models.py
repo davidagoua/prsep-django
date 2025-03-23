@@ -28,6 +28,9 @@ class TDR(TimeStampedModel,models.Model):
     activity = models.ForeignKey(Tache, null=True, blank=True, on_delete=models.SET_NULL, verbose_name="Activité")
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     comments = GenericRelation(CommentaireTDR)
+    lessons = models.TextField(null=True, blank=True)
+    risks = models.TextField(null=True, blank=True)
+    recommendations = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return f'{self.label} - {self.state}'
@@ -46,6 +49,9 @@ class TDRProgramme(TimeStampedModel,models.Model):
     activity = models.ForeignKey(Activite, null=True, blank=True, on_delete=models.SET_NULL, verbose_name="Activité")
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     comments = GenericRelation(CommentaireTDR)
+    lessons = models.TextField(null=True, blank=True)
+    risks = models.TextField(null=True, blank=True)
+    recommendations = models.TextField(null=True, blank=True)
 
     @property
     def has_comments(self):

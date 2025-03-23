@@ -376,16 +376,23 @@ def wopi_file_contents(request, file_id):
 
         elif request.method == 'POST':
             # Enregistrer les modifications du fichier
+            try:
+                with open(rapport.file.path, 'wb') as f:
+                    f.write(request.body)
+            except Exception as e:
+                return HttpResponse(status=500)
             rapport.file.save(rapport.label, request.FILES['file'])
             
             rapport.save()
             return HttpResponse(status=200)
 
         elif request.method == 'PUT':
-            print(request.PUT)
-            print(request.POST)
-            print(request.headers)
-            # Enregistrer les modifications du fichier
+            # sauvegarder le contenu du body de la requete dans le fichier
+            try:
+                with open(rapport.file.path, 'wb') as f:
+                    f.write(request.body)
+            except Exception as e:
+                return HttpResponse(status=500)
             rapport.file.save(rapport.label, request.FILES['file'])
             
             rapport.save()

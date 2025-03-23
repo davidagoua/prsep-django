@@ -1,8 +1,9 @@
+from typing import override
 from django import views
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q, Count
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect, resolve_url
 from django.views import generic
 
 from programme.models import ComposantesProgram, DomainResult, SousDomainResult, Activite
@@ -107,3 +108,29 @@ class PTPAProgrammeStatsView(views.View):
             Q(pk__in=[tdr.activity.pk for tdr in TDRProgramme.objects.filter(state=0)])
         ).count()
         return JsonResponse(result)
+
+
+
+class FinalizeTDRProgramView(LoginRequiredMixin, generic.UpdateView):
+    model = TDRProgramme
+    template_name = 'programme/finalize_tdrprogram.html'
+    fields = [
+        'file_final',
+        'lessons',
+        'recommendations',
+        'risks'
+    ]
+
+    @override
+    def get_success_url(self):
+        return redirect(self.request.GET.get('next', '/'))
+
+    def form_valid(self, form):
+        tdr = TDRProgramme.objects.get(pk=self.kwargs['pk'])
+        tdr.file_final = form.cleaned_data['file_final']
+        tdr.lessons = form.cleaned_data['lessons']
+        tdr.recommendations = form.cleaned_data['recommendations']
+        tdr.risks = form.cleaned_data['risks']
+        tdr.state = 100
+        tdr.save()
+        return super().form_valid(form)
