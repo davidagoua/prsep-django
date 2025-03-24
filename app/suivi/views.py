@@ -164,11 +164,11 @@ class TDRTechniqueListView(LoginRequiredMixin, generic.ListView):
         
         if self.request.user.is_staff:
             context['object_list'] = Tache.objects.filter(
-                Q(pk__in=[tdr.activity.pk for tdr in TDR.objects.filter(state=self.state)])
+                Q(pk__in=[tdr.activity.pk for tdr in TDR.objects.filter(state__gt=0)])
             )
         else:
             context['object_list'] = Tache.objects.filter(responsable=self.request.user.departement.name).filter(
-                Q(pk__in=[tdr.activity.pk for tdr in TDR.objects.filter(state=self.state)])
+                Q(pk__in=[tdr.activity.pk for tdr in TDR.objects.filter(state__gt=0)])
             )
 
         return context | {
@@ -255,6 +255,21 @@ class UpdateTDRView(LoginRequiredMixin, generic.UpdateView):
         return super().form_valid(form)
 
 
+class UpdateTDRCoordinationView(LoginRequiredMixin, generic.UpdateView):
+    fields = [
+        'accorder','injonction'
+    ]
+    model = TDR
+
+    def get_success_url(self):
+        return resolve_url(self.request.GET['next'])
+
+    def form_valid(self, form):
+        tdr = form.save(commit=False)
+        tdr.save()
+        return super().form_valid(form)
+
+
 class UpdateTDRProgrammeView(LoginRequiredMixin, generic.UpdateView):
     fields = [
         'file','label'
@@ -267,6 +282,21 @@ class UpdateTDRProgrammeView(LoginRequiredMixin, generic.UpdateView):
     def form_valid(self, form):
         tdr = form.save(commit=False)
         tdr.user = self.request.user
+        tdr.save()
+        return super().form_valid(form)
+
+
+class UpdateTDRProgrammeCoordinationView(LoginRequiredMixin, generic.UpdateView):
+    fields = [
+        'accorder','injonction'
+    ]
+    model = TDRProgramme
+
+    def get_success_url(self):
+        return resolve_url(self.request.GET['next'])
+
+    def form_valid(self, form):
+        tdr = form.save(commit=False)
         tdr.save()
         return super().form_valid(form)
 
@@ -298,7 +328,7 @@ def download_tdr_programme(request, pk):
 def get_tdr_stats(request):
     stats = TDR.objects.values('state').annotate(count=Count('state'))
     result = {item['state']: item['count'] for item in stats}
-    result['pointFocal'] = TDR.objects.filter(responsable=request.user.departement.name).filter(
+    result['pointFocal'] = TDR.objects.filter(activity__responsable=request.user.departement.name).filter(
         Q(state=0)
     ).count()
     return JsonResponse(result)
@@ -336,4 +366,26 @@ def delete_tdr_programme(request, pk):
     messages.success(request, "TDR annulée")
     return redirect('programme:liste-tache')
 
+
+class FinalizeTDRView(LoginRequiredMixin, generic.UpdateView):
+    model = TDR
+    fields = [
+        'file_final',
+        'lessons',
+        'recommendations',
+        'risks'
+    ]
+
+    def get_success_url(self):
+        return resolve_url(self.request.GET.get('next', '/'))
+
+    def form_valid(self, form):
+        tdr = TDR.objects.get(pk=self.kwargs['pk'])
+        tdr.file_final = form.cleaned_data['file_final']
+        tdr.lessons = form.cleaned_data['lessons']
+        tdr.recommendations = form.cleaned_data['recommendations']
+        tdr.risks = form.cleaned_data['risks']
+        tdr.state = 100
+        tdr.save()
+        return super().form_valid(form)
 

@@ -31,6 +31,8 @@ class TDR(TimeStampedModel,models.Model):
     lessons = models.TextField(null=True, blank=True)
     risks = models.TextField(null=True, blank=True)
     recommendations = models.TextField(null=True, blank=True)
+    injonction = models.BooleanField(default=False)
+    accorder = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{self.label} - {self.state}'
@@ -52,6 +54,8 @@ class TDRProgramme(TimeStampedModel,models.Model):
     lessons = models.TextField(null=True, blank=True)
     risks = models.TextField(null=True, blank=True)
     recommendations = models.TextField(null=True, blank=True)
+    injonction = models.BooleanField(default=False)
+    accorder = models.BooleanField(default=False)
 
     @property
     def has_comments(self):

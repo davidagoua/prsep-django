@@ -3,7 +3,8 @@ from django.urls import path
 from suivi.views import SuiviPTBAProjetView, UpdateTacheView, ajouter_decaissements, AddDecaissementView, \
     delete_decaissement, update_state, ActivitiesListView, CreateTDRView, update_tdr_state, delete_tdr, \
     TDRLocalListView, TDRTechniqueListView, download_tdr, TDRCoordinationListView, get_tdr_stats, cancel_tdr, \
-    CreateTDRProgrammeView, update_tdrprogram_state, download_tdr_programme, cancel_tdr_programme, delete_tdr_programme, UpdateTDRProgrammeView, UpdateTDRView
+    CreateTDRProgrammeView, update_tdrprogram_state, download_tdr_programme, cancel_tdr_programme, delete_tdr_programme, UpdateTDRProgrammeView, UpdateTDRView, \
+    UpdateTDRCoordinationView, UpdateTDRProgrammeCoordinationView, FinalizeTDRView
 
 from suivi.comsumer import TDRConsumer
 
@@ -33,4 +34,7 @@ urlpatterns = [
     path('tdr-programme/<int:pk>/delete', delete_tdr_programme, name='delete_tdrprogram'),
     path('tdr-programme/<int:pk>/update', UpdateTDRProgrammeView.as_view(), name='update_tdrprogram'),
     path('tdr/<int:pk>/update', UpdateTDRView.as_view(), name='update_tdr'),
+    path('tdr-programme-coordination/<int:pk>/update', UpdateTDRProgrammeCoordinationView.as_view(), name='update_tdrprogram_coordination'),
+    path('tdr-coordination/<int:pk>/update', UpdateTDRCoordinationView.as_view(), name='update_tdr_coordination'),
+    path('tdr-finalize/<int:pk>/update', FinalizeTDRView.as_view(), name='finalize_tdr'),
 ]

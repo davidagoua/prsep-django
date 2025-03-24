@@ -43,7 +43,37 @@
 
                                                 <div class="d-flex">
                                                     {% if tdr.state <= state|sub:10 %}
-                                                    <a href="{% url 'suivi:update-tdrprogram-state' pk=tdr.id %}?state={{ state }}&next={{ request.path }}" class="btn btn-xs btn-success"><span class="fa fa-check"></span>Soumettre</a>
+                                                        {% if not request.user.is_staff%}
+                                                        <a href="{% url 'suivi:update-tdr-state' pk=tdr.id %}?state={{ tdr.state|add:10 }}&next={{ request.path}}" class="btn btn-xs btn-success"><span class="fa fa-check"></span>Soumettre</a>
+                                                        {%else%}
+                                                        <button data-bs-target="#soumission-modal-{{ tdr.pk }}" data-bs-toggle="modal" class="btn btn-xs btn-success"><span class="fa fa-check"></span>Soumettre</button>
+                                                        <div class="modal" id="soumission-modal-{{ tdr.pk }}">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content bg-white text-black">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title">Soumettre le TDR</h5>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <form action="{% url 'suivi:update_tdrprogram_coordination' pk=tdr.id %}?state=30&next={{ request.path}}" method="post">
+                                                                            {% csrf_token %}
+
+                                                                            <div class="mb-3">
+                                                                                <label>Avis d'injonction envoyé</label></br>
+                                                                                <input type="checkbox" name="injonction" value="{{ tdr.injonction}}" >
+                                                                            </div>
+                                                                            <div class="mb-3">
+                                                                                <label>Avis d'injonction accordé</label></br>
+                                                                                <input type="checkbox" name="accorder" value="{{ tdr.accorder}}" >
+                                                                            </div>
+                                                                            <input type="hidden" name="state" value="30">
+                                                                            <button type="submit" class="btn btn-primary">Soumettre</button>
+                                                                        </form>
+                                                                    </div>
+                                                                    
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        {%endif%}
                                                     <button data-bs-target="#cancel-tdr-{{ tdr.pk }}" data-bs-toggle="modal" class="btn btn-xs btn-outline btn-danger"> <span class="fa fa-times"></span>Annuler</button>
                                                     <button class="btn btn-xs btn-primary" data-bs-toggle="modal"
                                                             data-bs-target="#add-tdr-{{ tdr.pk }}"> <span class="fa fa-file-upload"></span> joindre

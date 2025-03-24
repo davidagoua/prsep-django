@@ -80,7 +80,7 @@
     <script src="{% static '/assets/js/script.js' %}"></script>
     <script src="{% static '/assets/js/theme-customizer/customizer.js' %}"></script>
     <script>
-        $('input, select, textarea').addClass('form-control')
+        $('input:not([type="checkbox"]), select, textarea ').addClass('form-control')
         $('.c-pills-tab').style.display = 'none'
     </script>
   {% block scripts %}
