@@ -1,7 +1,7 @@
 <?php
    require_once("../connection.php");
    
-   error_reporting(E);
+   error_reporting(0);
    
      $titre0 = "Toute la Côte d'Ivoire";
      $titre = "Toutes les composantes";
