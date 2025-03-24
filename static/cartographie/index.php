@@ -520,11 +520,11 @@
                         <span class="fa text-white fa-home ml-2"></span>
                         <span>Tableau de bord</span></a>
                     </li>
-                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="/static/cartographie/">
+                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="/cartographie/">
                         <span class="fa text-white fa-map ml-2"></span>
                         <span>Cartographie</span></a>
                     </li>
-					  <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="/static/maj_cartographie/">
+					  <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="/maj_cartographie/">
                         <span class="fa text-white fa-map ml-2"></span>
                         <span>MAJ Cartographie</span></a>
                     </li>
@@ -825,12 +825,7 @@ background-color: rgba(139, 0, 0, 0.12) !important;"><?php echo $titre0.' : '.$n
     <script  src="/static/assets/js/leaflet-icon-pulse-master/src/L.Icon.Pulse.js"></script> 
 	<script  src="/static/assets/js/Leaflet.EasyButton-master/src/easy-button.js"></script> 
 
-    <script>
 
-      var blanc = ''  ;
-	  alert("test 1");
-	  var param = '<?php echo $param; ?>'  ;
-</script>
 
     <script src="/static/assets/js/Leaflet.label-master/src/Label.js"></script>
 	<script src="/static/assets/js/Leaflet.label-master/src/BaseMarkerMethods.js"></script>
@@ -840,23 +835,13 @@ background-color: rgba(139, 0, 0, 0.12) !important;"><?php echo $titre0.' : '.$n
 	<script src="/static/assets/js/Leaflet.label-master/src/Map.Label.js"></script> 
 	<script src="/static/assets/js/Leaflet.label-master/src/FeatureGroup.Label.js"></script> 
  
-	<script>
 
-      var blanc = ''  ;
-	  alert("test 2");
-	  var param = '<?php echo $param; ?>'  ;
-</script>
  <script src='/static/assets/js/Leaflet.fullscreen-gh-pages/dist/Leaflet.fullscreen.min.js'></script>  		
  <script src="/static/assets/js/Leaflet.ExtraMarkers-master/dist/js/leaflet.extra-markers.min.js"></script>
 	
  <script>
- alert("test 3");
-var blanc = ''  ;
-
-var param = '<?php echo $param; ?>'  ;
 
       var blanc = ''  ;
-	  alert("test 4");
 	  var param = '<?php echo $param; ?>'  ;
        var drena = '<?php echo $drena; ?>'  ;
 	    var localite = '<?php echo $localite; ?>'  ;
