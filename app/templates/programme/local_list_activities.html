@@ -136,17 +136,11 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    {% elif tdr.state == 30 %}
-
-                                                    <div class="ml-3">En attente de validation</div>
-                                                    {% elif tdr.state == 100 %}
-                                                    <div class="ml-3 text-success">Finalisé</div>
-                                                    {% endif %}
+                                                   
                                                     <a href="{% url 'suivi:tdr_download' pk=tdr.id %}" class="btn btn-xs btn-outline btn-primary"> <span class="fa fa-file-download"></span>Télécharger</a>&nbsp;
                                                 </div>
                                             </td>
                                         </tr>
-                                        <div class="modal" id="finalize-tdr-{{ tdr.pk }}">
                                                             <div class="modal-dialog">
                                                                 <div class="modal-content bg-white text-black">
                                                                     <div class="modal-header">
