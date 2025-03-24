@@ -344,7 +344,7 @@ def wopi_file_info(request, file_id):
         file_info = {
             'BaseFileName': rapport.label,
             'Size': rapport.file.size,
-            'UserId': str(request.user.id),
+            'UserId': str(request.user.username),
             'Version': str(rapport.created),
             'ReadOnly': False,
             "UserCanWrite": True,
