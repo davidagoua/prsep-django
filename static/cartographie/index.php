@@ -842,6 +842,7 @@ background-color: rgba(139, 0, 0, 0.12) !important;"><?php echo $titre0.' : '.$n
 <script>
 
       var blanc = ''  ;
+	  alert("test");
 	  var param = '<?php echo $param; ?>'  ;
        var drena = '<?php echo $drena; ?>'  ;
 	    // var dpt = '<?php echo $dpt; ?>'  ;
