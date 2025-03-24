@@ -241,9 +241,7 @@
 						
 		}
 		
-		  $monfichier = fopen('test.txt', 'r+');
-					ftruncate($monfichier,0);
-					fputs($monfichier,'rrr'.$sql_limite);
+		  
 			   
 		
 			$rs_limite = $conn->query($sql_limite);
@@ -302,9 +300,7 @@
 								GROUP BY localites.gid,  localites.nomloc,  localites.code_sp,  localites.nom_sp,  localites.code_dept, 
 		                         localites.code_dren,  localites.code_dist,  localites.district,  localites.nom_dren,  localites.departemen, 
 								 localites.geom;";
-				 // $monfichier = fopen('test.txt', 'r+');
-					// ftruncate($monfichier,0);
-					// fputs($monfichier,'rrr'.$sql_zone_indust);			   
+				 		   
 	
 					 $rs_localite = $conn->query($sql_localite);
 					 $nbre_localite = $rs_localite->rowCount();	
