@@ -1,7 +1,8 @@
-/prsep/settings/dev.py
-/db.sqlite3
-/medias/
+/app/prsep/settings/dev.py
+/app/db.sqlite3
+/app/medias
+/postgis
 /.env
 /staticfiles/
 /data/
-/treatexcel.ipynb
+/app/treatexcel.ipynb
