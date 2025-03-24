@@ -266,7 +266,7 @@ class UpdateTDRCoordinationView(LoginRequiredMixin, generic.TemplateView):
     def get_success_url(self):
         return resolve_url(self.request.GET['next'])
 
-    def post(self, pk):
+    def post(self, request, pk):
         tdr = get_object_or_404(TDR, pk=pk)
         tdr.injonction = self.request.POST.get('injonction', True)
         tdr.accorder = self.request.POST.get('accorder', True)
