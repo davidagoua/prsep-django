@@ -158,7 +158,7 @@
                                                     {% elif tdr.state == 100 %}
                                                     <div class="ml-3 text-success">Finalisé</div>
                                                     {% endif %}
-                                                    <a href="{% url 'suivi:tdr_download' pk=tdr.id %}" class="btn btn-xs btn-outline btn-primary"> <span class="fa fa-file-download"></span>Télécharger</a>&nbsp;
+                                                    <a href="{% url 'suivi:tdr_programme_download' pk=tdr.id %}" class="btn btn-xs btn-outline btn-primary"> <span class="fa fa-file-download"></span>Télécharger</a>&nbsp;
                                                 </div>
                                             </td>
                                         </tr>
