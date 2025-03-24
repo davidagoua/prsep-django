@@ -128,10 +128,10 @@ class TDRLocalListView(LoginRequiredMixin, generic.ListView):
     def get_queryset(self):
         if self.request.user.is_staff:
             return Tache.objects.filter(
-                Q(pk__in=[tdr.activity.pk for tdr in TDR.objects.filter(state=self.state)])
+                Q(pk__in=[tdr.activity.pk for tdr in TDR.objects.filter(state=20)])
             )
         return Tache.objects.filter(responsable=self.request.user.departement.name).filter(
-            Q(pk__in=[tdr.activity.pk for tdr in TDR.objects.filter(state=self.state)])
+            Q(pk__in=[tdr.activity.pk for tdr in TDR.objects.filter(state=20)])
         )
 
     def get_context_data(self, **kwargs):
