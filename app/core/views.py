@@ -11,7 +11,7 @@ from core.models import User
 from core.services import upload_ptba
 from planification.models import Tache, PTBAProjet
 
-from app.core.models import Departement, Role
+from .models import Departement, Role
 
 
 class HomePageView(LoginRequiredMixin, generic.TemplateView):
