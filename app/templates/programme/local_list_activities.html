@@ -141,38 +141,7 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                                            <div class="modal-dialog">
-                                                                <div class="modal-content bg-white text-black">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title">Finaliser le TDR</h5>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        <form action="{% url 'programme:finalize-tdrprogram' pk=tdr.id %}?next={{ request.path }}" method="post">
-                                                                            {% csrf_token %}
-                                                                            <div class="mb-3">
-                                                                                <label for="">TDR Final</label>
-                                                                                <input type="file" name="file_final" id="" class="form-control">
-                                                                            </div>
-                                                                            <div class="mb-3">
-                                                                                <label for="">Leçons apprises</label>
-                                                                                <textarea name="lessons" id="" rows="3" class="form-control"></textarea>
-                                                                            </div>
-                                                                            <div class="mb-3">
-                                                                                <label for="">Risques</label>
-                                                                                <textarea name="risks" id="" rows="3" class="form-control"></textarea>
-                                                                            </div>
-                                                                            <div class="mb-3">
-                                                                                <label for="">Recommandations</label>
-                                                                                <textarea name="recommandations" id="" rows="3" class="form-control"></textarea>
-                                                                            </div>
-                                                                            <div class="text-right mt-3">
-                                                                                <button class="btn btn-sm btn-primary">Finaliser</button>
-                                                                            </div>
-                                                                        </form>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                            
                                         </tr>
                                     {% endfor %}
                                 {% endfor %}
