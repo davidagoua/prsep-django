@@ -1,0 +1,7 @@
+<?php
+
+  // $conn = new PDO('pgsql:host=206.189.235.253;dbname=mabwebgi_culte','mabwebgi_user','Bnetd@2022');
+  // $conn = new PDO('pgsql:host=173.212.246.10;dbname=mydb','prsepdbuser','Haz1l_#cre05');
+  	$conn = new PDO('pgsql:host=localhost;dbname=bd_papse','postgres','postgres');
+// $conn = new PDO('pgsql:host=cpanel.sigadem.gis-cdn.net;dbname=sigademg_dem','sigademg','485gmYnB1v');
+?>

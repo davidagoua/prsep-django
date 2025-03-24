@@ -1,0 +1,15 @@
+rrrSELECT regions.code_reg as code, regions.nom_reg as nom,public.ST_AsGeoJSON(regions.geom,6) as geojson,
+									count(distinct t.id) as nbre_activite, 
+									count(distinct t.gid_localite) as nbre_localite
+									
+			               FROM public.regions
+				           LEFT JOIN public.localites ON regions.code_reg = localites.code_reg
+				           LEFT JOIN (SELECT gid_localite, vue_activite.id, indicateur_id, sous_composant_id, composant_id, id_activite
+						              FROM public.t_activite_localite, public.vue_activite
+                                      WHERE public.t_activite_localite.id_activite = public.vue_activite.id	) as t ON localites.gid = t.gid_localite  
+						   
+						       
+				    
+						   
+				           GROUP BY regions.code_reg, regions.nom_reg, regions.geom
+				           ORDER BY regions.nom_reg;

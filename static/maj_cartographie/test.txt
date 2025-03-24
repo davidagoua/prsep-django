@@ -1,0 +1,9 @@
+SELECT vue_activite.id, vue_activite.label,label_indicateur,
+		                     count(distinct t_activite_localite.gid_localite) as nbre_localite,
+							  string_agg(distinct t_activite_localite.gid_localite::text, ',') as localites
+	                   FROM public.vue_activite
+					   LEFT JOIN public.t_activite_localite ON public.t_activite_localite.id_activite = public.vue_activite.id
+					  
+					   WHERE 
+					    vue_activite.id = 781
+					   GROUP BY vue_activite.id, vue_activite.label,label_indicateur;

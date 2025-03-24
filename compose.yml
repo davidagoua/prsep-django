@@ -56,6 +56,21 @@ services:
       - ./socketi/config.json:/socketi/config.json
 
 
+  cartographie:
+    build:
+      context: ./static
+    volumes:
+      - ./static:/app
+    ports:
+      - "9000:9000"
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - DEBUG=True
+      - SECRET_KEY=${SECRET_KEY}
+      - ALLOWED_HOSTS="*"
+    depends_on:
+      - db
+      - postgis
 
   postgis:
     image: postgis/postgis:latest
