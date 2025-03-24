@@ -257,13 +257,20 @@ class UpdateTDRView(LoginRequiredMixin, generic.UpdateView):
         return super().form_valid(form)
 
 
-class UpdateTDRCoordinationView(LoginRequiredMixin, generic.UpdateView):
+class UpdateTDRCoordinationView(LoginRequiredMixin, generic.TemplateView):
     fields = [
         'accorder','injonction'
     ]
     model = TDR
 
     def get_success_url(self):
+        return resolve_url(self.request.GET['next'])
+
+    def post(self):
+        tdr = get_object_or_404(TDR, pk=self.kwargs.get('pk'))
+        tdr.injonction = self.request.POST.get('injonction', True)
+        tdr.accorder = self.request.POST.get('accorder', True)
+        tdr.save()
         return resolve_url(self.request.GET['next'])
 
     def form_valid(self, form):
