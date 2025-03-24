@@ -119,7 +119,7 @@
                   {% if request.user.is_staff or request.user.role.name == 'DirecteurExe' %}
                   <li class="sidebar-list"> <a class="sidebar-link d-flex sidebar-title link-nav" href="{% url 'programme:tdr_coord' %}">
                     <span class="fa text-white fa-binoculars ml-2"></span>
-                    <span class="grow-1">Directeur Exécutif <span x-text="tdr_stats_programme[20] ?? 0" class="bg-light-info p-1 rounded-pill"></span></span></a></li>
+                    <span class="grow-1">Direction Exécutif <span x-text="tdr_stats_programme[20] ?? 0" class="bg-light-info p-1 rounded-pill"></span></span></a></li>
                   {% endif%}
                   {% if request.user.is_staff  %}
                   <li class="sidebar-list"> <a class="sidebar-link d-flex sidebar-title link-nav" href="{% url 'programme:tdr_coord' %}">
