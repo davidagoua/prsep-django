@@ -27,9 +27,7 @@ require_once("../connection.php");
 					   GROUP BY vue_activite.id, vue_activite.label,label_indicateur;";
 
 									
-								$monfichier = fopen('test.txt', 'r+');
-								ftruncate($monfichier,0);
-								fputs($monfichier,$sql);
+
 										  
 								   $rs = $conn->query($sql);
 							
