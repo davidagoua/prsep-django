@@ -56,9 +56,9 @@
                                 <button
                                     class="btn btn-link text-left"
                                     style="text-align: left; color: black"
-                                    @click="openIndiacteurs['{{ indicateur.pk }}'] = !openIndiacteurs['{{ indicateur.pk }}']"
+
                                 >
-                                    <b>{{ indicateur.type }}{{ indicateur.pk }}</b>: {{ indicateur.label }}
+                                    <b>{{ indicateur.type }}{{ forloop.counter }}</b>: {{ indicateur.label }}
                                 </button>
                             </td>
                             <td></td>

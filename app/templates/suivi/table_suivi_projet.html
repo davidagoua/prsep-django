@@ -54,9 +54,8 @@
                                 <button
                                     class="btn btn-link text-left"
                                     style="text-align: left; color: black !important;"
-                                    @click="openIndiacteurs['{{ indicateur.pk }}'] = !openIndiacteurs['{{ indicateur.pk }}']"
                                 >
-                                    <b>{% if indicateur.type == 'ILD' %} {{ indicateur.type }} {{ indicateur.status }}: {% endif %}</b> {{ indicateur.label }}
+                                    <b>{% if indicateur.type == 'ILD' %} {{ forloop.counter }} {{ indicateur.status }}: {% endif %}</b> {{ indicateur.label }}
                                 </button>
                             </td>
                             <td></td>
