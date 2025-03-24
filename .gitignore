@@ -6,3 +6,5 @@
 /staticfiles/
 /data/
 /app/treatexcel.ipynb
+*.pyc
+__pycache__/
