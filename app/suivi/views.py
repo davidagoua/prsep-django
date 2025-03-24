@@ -264,6 +264,7 @@ class UpdateTDRCoordinationView(LoginRequiredMixin, generic.TemplateView):
     model = TDR
 
     def get_success_url(self):
+        messages.success(self.request, "TDR modifiée")
         return resolve_url(self.request.GET['next'])
 
 
@@ -320,6 +321,7 @@ def update_tdr_state(request, pk):
     tdr = get_object_or_404(TDR, pk=pk)
     tdr.state = request.GET.get('state')
     tdr.save()
+    messages.success(request, "TDR modifiée")
     return redirect(request.GET.get('next'))
 
 def update_tdrprogram_state(request, pk):
@@ -328,6 +330,7 @@ def update_tdrprogram_state(request, pk):
     if(tdr.state== 10):
         tdr.comments_set.delete()
     tdr.save()
+    messages.success(request, "TDR modifiée")
     return redirect(request.GET.get('next'))
 
 def download_tdr(request, pk):
