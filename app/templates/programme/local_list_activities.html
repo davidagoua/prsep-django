@@ -167,7 +167,7 @@
                                                                         <h5 class="modal-title">Finaliser le TDR</h5>
                                                                     </div>
                                                                     <div class="modal-body">
-                                                                        <form action="{% url 'programme:finalize_tdrprogramme' pk=tdr.id %}?next={{ request.path }}" method="post">
+                                                                        <form action="{% url 'programme:finalize-tdrprogram' pk=tdr.id %}?next={{ request.path }}" method="post">
                                                                             {% csrf_token %}
                                                                             <div class="mb-3">
                                                                                 <label for="">TDR Final</label>
