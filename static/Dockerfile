@@ -1,16 +1,10 @@
-FROM bitnami/php-fpm:8.2
+FROM php:8.1-apache
 
 RUN apt-get update && apt-get install -y \
-    git \
-    curl \
+    libpq-dev \
+    && docker-php-ext-install pdo pdo_pgsql
 
-RUN docker-php-ext-install pdo pdo_pgsql 
+COPY . /var/www/html
 
+EXPOSE 80
 
-
-WORKDIR /app
-COPY . .
-
-EXPOSE 9000
-
-CMD ["php-fpm"]
