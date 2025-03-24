@@ -38,19 +38,7 @@
                                             <td colspan="3">{{ tdr.label }}</td>
                                             
                                             <td>
-                                                {% if tdr.state >= 20 %}
-                                                <div>
-                                                    <div>
-                                                        <label for="">Avis de non-objection envoyé</label>
-                                                        <input type="checkbox" name="" id="">
-                                                    </div>
-                                                    <div>
-                                                        <label for="">Avis de non-objection accordé</label>
-                                                        <input type="checkbox" name="" id="">
-                                                    </div>
-                                                </div>
-                                                <a data-bs-target="#finalize-tdr-{{ tdr.pk }}" data-bs-toggle="modal" class="btn btn-xs mr-2 btn-success"><span class="fa fa-check"></span>Clôturer</a>&nbsp;
-                                                {% endif %}
+                                               
                                                 <div class="d-flex">
                                                     {% if tdr.state <= state %}
                                                         {% if tdr.state > 20 %}
