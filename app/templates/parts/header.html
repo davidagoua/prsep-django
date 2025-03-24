@@ -78,7 +78,7 @@
               <li class="profile-nav onhover-dropdown">
                 <div class="media profile-media"><img class="b-r-10" src="../assets/images/dashboard/profile.png" alt="">
                   <div class="media-body d-xxl-block d-none box-col-none">
-                    <div class="d-flex align-items-center gap-2"> <span>{{ request.user.get_fullname }} </span><i class="middle fa fa-angle-down"> </i></div>
+                    <div class="d-flex align-items-center gap-2"> <span>{{ request.user.username }} </span><i class="middle fa fa-angle-down"> </i></div>
                     <p class="mb-0 font-roboto">{{  request.user.groups.name }}</p>
                   </div>
                 </div>
@@ -87,10 +87,10 @@
                   <li><a data-bs-target="#change-password-modal" data-bs-toggle="modal"><i data-feather="lock"></i><span>Mot de passe</span></a></li>
                   <li><a class="btn btn-pill btn-outline-primary btn-sm" href="/deconnexion">Déconnexion</a></li>
                 </ul>
-                  <div class="modal">
+                  <div class="modal"  id="change-password-modal">
                       <div class="modal-dialog">
                           <div class="modal-content text-black bg-white">
-                              <div class="moda-body" id="change-password-modal">
+                              <div class="moda-body">
                                   <form action="">
                                       <div class="mb-3">
                                           <label for="">Mot de passe actuel</label>
