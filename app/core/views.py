@@ -11,6 +11,8 @@ from core.models import User
 from core.services import upload_ptba
 from planification.models import Tache, PTBAProjet
 
+from app.core.models import Departement, Role
+
 
 class HomePageView(LoginRequiredMixin, generic.TemplateView):
     template_name = "home.html"
@@ -72,3 +74,28 @@ def delete_user_view(request, pk):
 def test_import(request):
     return JsonResponse(upload_ptba(), safe=False)
 
+
+def seed_compte(request):
+    depts = Departement.objects.all()
+
+    for dept in depts:
+        u =User(
+            username='pf_'+ str(dept.name).lower(),
+            email='pf_'+ str(dept.name).lower()+'@sigpro-mena.com'
+        )
+        u.role = Role.objects.get(name='PointFocal')
+        u.departement = dept
+        u.set_password('12345')
+        u.save()
+
+    for dept in depts:
+        u =User(
+            username='dir_'+ str(dept.name).lower(),
+            email='dir_'+ str(dept.name).lower()+'@sigpro-mena.com'
+        )
+        u.role = Role.objects.get(name='DirecteurLocal')
+        u.departement = dept
+        u.set_password('12345')
+        u.save()
+
+    return JsonResponse(data={'response': 'ok'})

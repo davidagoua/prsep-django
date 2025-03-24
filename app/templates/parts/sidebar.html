@@ -111,7 +111,7 @@
                     <span class="fa text-white fa-binoculars ml-2"></span>
                     <span>Direction Centrale <span x-text="tdr_stats_programme[10] ?? 0" class="bg-warning p-1 rounded-pill"></span></span></a></li>
                   {% endif%}
-                  {% if request.user.is_staff or request.user.role.name == 'ComiteTechnique' %}
+                  {% if request.user.is_staff or request.user.role.name == 'Directeur' %}
                   <li class="sidebar-list"> <a class="sidebar-link sidebar-title link-nav" href="{% url 'programme:tdr_technique' %}">
                     <span class="fa text-white fa-binoculars ml-2"></span>
                     <span>Comité Technique <span x-text="tdr_stats_programme[20] ?? 0" class="bg-light-info p-1 rounded-pill"></span></span></a></li>
@@ -119,12 +119,12 @@
                   {% if request.user.is_staff or request.user.role.name == 'DirecteurExe' %}
                   <li class="sidebar-list"> <a class="sidebar-link d-flex sidebar-title link-nav" href="{% url 'programme:tdr_coord' %}">
                     <span class="fa text-white fa-binoculars ml-2"></span>
-                    <span class="grow-1">Direction Exécutif <span x-text="tdr_stats_programme[20] ?? 0" class="bg-light-info p-1 rounded-pill"></span></span></a></li>
+                    <span class="grow-1">Direction Exécutif <span x-text="tdr_stats_programme[30] ?? 0" class="bg-light-info p-1 rounded-pill"></span></span></a></li>
                   {% endif%}
                   {% if request.user.is_staff  %}
                   <li class="sidebar-list"> <a class="sidebar-link d-flex sidebar-title link-nav" href="{% url 'programme:tdr_coord' %}">
                     <span class="fa text-white fa-binoculars ml-2"></span>
-                    <span class="grow-1">Coordination <span x-text="tdr_stats_programme[30] ?? 0" class="bg-light-info p-1 rounded-pill"></span></span></a></li>
+                    <span class="grow-1">Coordination <span x-text="tdr_stats_programme[40] ?? 0" class="bg-light-info p-1 rounded-pill"></span></span></a></li>
                   {% endif%}
                 
 
