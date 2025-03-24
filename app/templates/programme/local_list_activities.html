@@ -44,7 +44,7 @@
                                                 <div class="d-flex">
                                                     {% if tdr.state <= state|sub:10 %}
                                                         {% if not request.user.is_staff%}
-                                                        <a href="{% url 'suivi:update-tdr-state' pk=tdr.id %}?state={{ tdr.state|add:10 }}&next={{ request.path}}" class="btn btn-xs btn-success"><span class="fa fa-check"></span>Soumettre</a>
+                                                        <a href="{% url 'suivi:update-tdrprogram-state' pk=tdr.id %}?state={{ tdr.state|add:10 }}&next={{ request.path}}" class="btn btn-xs btn-success"><span class="fa fa-check"></span>Soumettre</a>
                                                         {%else%}
                                                         <button data-bs-target="#soumission-modal-{{ tdr.pk }}" data-bs-toggle="modal" class="btn btn-xs btn-success"><span class="fa fa-check"></span>Soumettre</button>
                                                         <div class="modal" id="soumission-modal-{{ tdr.pk }}">
@@ -74,11 +74,11 @@
                                                             </div>
                                                         </div>
                                                         {%endif%}
-                                                    <button data-bs-target="#cancel-tdr-{{ tdr.pk }}" data-bs-toggle="modal" class="btn btn-xs btn-outline btn-danger"> <span class="fa fa-times"></span>Annuler</button>
+                                                    <button data-bs-target="#cancel-tdrprogram-{{ tdr.pk }}" data-bs-toggle="modal" class="btn btn-xs btn-outline btn-danger"> <span class="fa fa-times"></span>Annuler</button>
                                                     <button class="btn btn-xs btn-primary" data-bs-toggle="modal"
-                                                            data-bs-target="#add-tdr-{{ tdr.pk }}"> <span class="fa fa-file-upload"></span> joindre
+                                                            data-bs-target="#add-tdrprogram-{{ tdr.pk }}"> <span class="fa fa-file-upload"></span> joindre
                                                     </button>
-                                                    <div class="modal  fade" id="add-tdr-{{ tdr.pk }}">
+                                                    <div class="modal  fade" id="add-tdrprogram-{{ tdr.pk }}">
                                                         <div class="modal-dialog bg-white ">
                                                             <div class=" bg-white modal-content">
                                                                 <div class="modal-header">
@@ -104,7 +104,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="modal  fade" id="cancel-tdr-{{ tdr.pk }}">
+                                                    <div class="modal  fade" id="cancel-tdrprogram-{{ tdr.pk }}">
                                                         <div class="modal-dialog bg-white ">
                                                             <div class=" bg-white modal-content">
                                                                 <div class="modal-header">
