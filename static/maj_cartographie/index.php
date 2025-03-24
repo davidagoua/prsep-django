@@ -208,26 +208,26 @@
     <meta name="description" content="Riho admin is super flexible, powerful, clean &amp; modern responsive bootstrap 5 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, Riho admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="pixelstrap">
-    <link rel="icon" href="../assets/images/favicon.png" type="image/x-icon">
-    <link rel="shortcut icon" href="../assets/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="/static/assets/images/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/static/assets/images/favicon.png" type="image/x-icon">
     <title>PRSEP - Digitalisation</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/vendors/icofont.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/vendors/themify.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/vendors/flag-icon.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/vendors/feather-icon.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/vendors/slick.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/vendors/slick-theme.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/vendors/scrollbar.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/vendors/animate.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/vendors/select2.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/vendors/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
-    <link id="color" rel="stylesheet" href="../assets/css/color-1.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="../assets/css/responsive.css">
+    <link rel="stylesheet" type="text/css" href="/static/assets/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="/static/assets/css/vendors/icofont.css">
+    <link rel="stylesheet" type="text/css" href="/static/assets/css/vendors/themify.css">
+    <link rel="stylesheet" type="text/css" href="/static/assets/css/vendors/flag-icon.css">
+    <link rel="stylesheet" type="text/css" href="/static/assets/css/vendors/feather-icon.css">
+    <link rel="stylesheet" type="text/css" href="/static/assets/css/vendors/slick.css">
+    <link rel="stylesheet" type="text/css" href="/static/assets/css/vendors/slick-theme.css">
+    <link rel="stylesheet" type="text/css" href="/static/assets/css/vendors/scrollbar.css">
+    <link rel="stylesheet" type="text/css" href="/static/assets/css/vendors/animate.css">
+    <link rel="stylesheet" type="text/css" href="/static/assets/css/vendors/select2.css">
+    <link rel="stylesheet" type="text/css" href="/static/assets/css/vendors/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/static/assets/css/style.css">
+    <link id="color" rel="stylesheet" href="/static/assets/css/color-1.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="/static/assets/css/responsive.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/js/all.min.js" integrity="sha512-b+nQTCdtTBIRIbraqNEwsjB6UvL3UEMkXnhzd8awtCYh0Kcsjl9uEgwVFVbhoj3uu1DO1ZMacNvLoyJJiNfcvg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="//unpkg.com/alpinejs" defer></script>
@@ -236,14 +236,14 @@
           integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
           crossorigin=""/>
 		  
-    <link rel="stylesheet" href="../assets/js/Leaflet.iconlabel-master/src/Icon.Label.css" />
-    <link rel="stylesheet" href="../assets/js/leaflet-groupedlayercontrol/leaflet.groupedlayercontrol.css">
-	<link rel="stylesheet" href="../assets/js/Leaflet.label-master/dist/leaflet.label.css" />
+    <link rel="stylesheet" href="/static/assets/js/Leaflet.iconlabel-master/src/Icon.Label.css" />
+    <link rel="stylesheet" href="/static/assets/js/leaflet-groupedlayercontrol/leaflet.groupedlayercontrol.css">
+	<link rel="stylesheet" href="/static/assets/js/Leaflet.label-master/dist/leaflet.label.css" />
   
 		  
-	<link href="../assets/js/Leaflet.fullscreen-gh-pages/dist/leaflet.fullscreen.css" rel="stylesheet" />	  
-    <link rel="stylesheet" href="../assets/js/Leaflet.ExtraMarkers-master/dist/css/leaflet.extra-markers.min.css">
-	<link rel="stylesheet" href="../assets/js/DataTables-master/media/css/jquery.dataTables.css"> 
+	<link href="/static/assets/js/Leaflet.fullscreen-gh-pages/dist/leaflet.fullscreen.css" rel="stylesheet" />	  
+    <link rel="stylesheet" href="/static/assets/js/Leaflet.ExtraMarkers-master/dist/css/leaflet.extra-markers.min.css">
+	<link rel="stylesheet" href="/static/assets/js/DataTables-master/media/css/jquery.dataTables.css"> 
 
 </head>
 <body>
@@ -275,13 +275,13 @@
                 </div>
             </form>
             <div class="header-logo-wrapper col-auto p-0">
-                <div class="logo-wrapper"> <a href="index.html"><img class="img-fluid for-light" src="../assets/images/logo/logo_dark.png" alt="logo-light"><img class="img-fluid for-dark" src="../assets/images/logo/logo.png" alt="logo-dark"></a></div>
+                <div class="logo-wrapper"> <a href="index.html"><img class="img-fluid for-light" src="/static/assets/images/logo/logo_dark.png" alt="logo-light"><img class="img-fluid for-dark" src="/static/assets/images/logo/logo.png" alt="logo-dark"></a></div>
                 <div class="toggle-sidebar"> <i class="status_toggle middle sidebar-toggle" data-feather="align-center"></i></div>
             </div>
             <div class="left-header col-xxl-5 col-xl-6 col-lg-5 col-md-4 col-sm-3 p-0">
                 <div> <a class="toggle-sidebar" href="#"> <i class="iconly-Category icli"> </i></a>
                     <div class="d-flex align-items-center gap-2 ">
-                        <h4 class="f-w-600">Bienvenue, admin</h4><img class="mt-0" src="../assets/images/hand.gif" alt="hand-gif">
+                        <h4 class="f-w-600">Bienvenue, admin</h4><img class="mt-0" src="/static/assets/images/hand.gif" alt="hand-gif">
                     </div>
                 </div>
             </div>
@@ -321,7 +321,7 @@
                                             <ul>
                                                 <li class="notification d-flex w-100 justify-content-between align-items-center">
                                                     <div class="d-flex w-100 notification-data justify-content-center align-items-center gap-2">
-                                                        <div class="user-alerts flex-shrink-0"><img class="rounded-circle img-fluid img-40" src="../assets/images/dashboard/user/3.jpg" alt="user"/></div>
+                                                        <div class="user-alerts flex-shrink-0"><img class="rounded-circle img-fluid img-40" src="/static/assets/images/dashboard/user/3.jpg" alt="user"/></div>
                                                         <div class="flex-grow-1">
                                                             <div class="common-space user-id w-100">
                                                                 <div class="common-space w-100"> <a class="f-w-500 f-12" href="template/private-chat.html">Robert D. Hambly</a></div>
@@ -338,7 +338,7 @@
                         </div>
                     </li>
                     <li class="profile-nav onhover-dropdown">
-                        <div class="media profile-media"><img class="b-r-10" src="../assets/images/dashboard/profile.png" alt="">
+                        <div class="media profile-media"><img class="b-r-10" src="/static/assets/images/dashboard/profile.png" alt="">
                             <div class="media-body d-xxl-block d-none box-col-none">
                                 <div class="d-flex align-items-center gap-2"> <span> </span><i class="middle fa fa-angle-down"> </i></div>
                                 <p class="mb-0 font-roboto">None</p>
@@ -361,18 +361,18 @@
     <!-- Page Sidebar Start-->
 
     <div class="sidebar-wrapper" data-layout="stroke-svg">
-        <div class="logo-wrapper"><a href="index.html"><img class="img-fluid" height="auto" width="70" src="../assets/images/logo/logo.png" alt=""></a>
+        <div class="logo-wrapper"><a href="index.html"><img class="img-fluid" height="auto" width="70" src="/static/assets/images/logo/logo.png" alt=""></a>
             <div class="back-btn"><i class="fa fa-angle-left"> </i></div>
             <div class="toggle-sidebar"><i class="status_toggle middle sidebar-toggle" data-feather="grid"> </i></div>
         </div>
-        <div class="logo-icon-wrapper"><a href="index.html"><img class="img-fluid" height="auto" width="70" src="../assets/images/logo/logo.png" alt=""></a></div>
+        <div class="logo-icon-wrapper"><a href="index.html"><img class="img-fluid" height="auto" width="70" src="/static/assets/images/logo/logo.png" alt=""></a></div>
         <nav class="sidebar-main">
             <div class="left-arrow" id="left-arrow"><i data-feather="arrow-left"></i></div>
             <div id="sidebar-menu">
                 <ul x-data="{
                 tdr_stats: []
               }" x-init="tdr_stats = await (await fetch('/suivi/tdr-get-stats')).json()" class="sidebar-links" id="simple-bar">
-                    <li class="back-btn"><a href="index.html"><img class="img-fluid" height="auto" width="70" src="../assets/images/logo/logo.png" alt=""></a>
+                    <li class="back-btn"><a href="index.html"><img class="img-fluid" height="auto" width="70" src="/static/assets/images/logo/logo.png" alt=""></a>
                         <div class="mobile-back text-end"> <span>Back </span><i class="fa fa-angle-right ps-2" aria-hidden="true"></i></div>
                     </li>
                     <li class="pin-title sidebar-main-title">
@@ -728,22 +728,22 @@ background-color: rgba(139, 0, 0, 0.12) !important;">
                                    
 </div>
 <!-- latest jquery-->
-<script src="../assets/js/jquery.min.js"></script>
-<script src="../assets/js/bootstrap/bootstrap.bundle.min.js"></script>
-<script src="../assets/js/icons/feather-icon/feather.min.js"></script>
-<script src="../assets/js/icons/feather-icon/feather-icon.js"></script>
-<script src="../assets/js/scrollbar/simplebar.js"></script>
-<script src="../assets/js/scrollbar/custom.js"></script>
-<script src="../assets/js/config.js"></script>
-<script src="../assets/js/sidebar-menu.js"></script>
-<script src="../assets/js/sidebar-pin.js"></script>
-<script src="../assets/js/slick/slick.min.js"></script>
-<script src="../assets/js/slick/slick.js"></script>
-<script src="../assets/js/header-slick.js"></script>
-<script src="../assets/js/select2/select2.full.min.js"></script>
-<script src="../assets/js/select2/select2-custom.js"></script>
-<script src="../assets/js/form-validation-custom.js"></script>
-<script src="../assets/js/script.js"></script>
+<script src="/static/assets/js/jquery.min.js"></script>
+<script src="/static/assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="/static/assets/js/icons/feather-icon/feather.min.js"></script>
+<script src="/static/assets/js/icons/feather-icon/feather-icon.js"></script>
+<script src="/static/assets/js/scrollbar/simplebar.js"></script>
+<script src="/static/assets/js/scrollbar/custom.js"></script>
+<script src="/static/assets/js/config.js"></script>
+<script src="/static/assets/js/sidebar-menu.js"></script>
+<script src="/static/assets/js/sidebar-pin.js"></script>
+<script src="/static/assets/js/slick/slick.min.js"></script>
+<script src="/static/assets/js/slick/slick.js"></script>
+<script src="/static/assets/js/header-slick.js"></script>
+<script src="/static/assets/js/select2/select2.full.min.js"></script>
+<script src="/static/assets/js/select2/select2-custom.js"></script>
+<script src="/static/assets/js/form-validation-custom.js"></script>
+<script src="/static/assets/js/script.js"></script>
 <script>
     $('input, select, textarea').addClass('form-control')
     $('.c-pills-tab').style.display = 'none'
@@ -754,32 +754,32 @@ background-color: rgba(139, 0, 0, 0.12) !important;">
         crossorigin=""></script>
 		
  
-    <script  src="../assets/js/leaflet-groupedlayercontrol/leaflet.groupedlayercontrol.js"></script>  
-    <script  src="../assets/js/Leaflet.iconlabel-master/src/Icon.Label.js"></script>	
-    <script  src="../assets/js/leaflet-icon-pulse-master/src/L.Icon.Pulse.js" /> 
-	<script  src="../assets/js/Leaflet.EasyButton-master/src/easy-button.js"></script> 
+    <script  src="/static/assets/js/leaflet-groupedlayercontrol/leaflet.groupedlayercontrol.js"></script>  
+    <script  src="/static/assets/js/Leaflet.iconlabel-master/src/Icon.Label.js"></script>	
+    <script  src="/static/assets/js/leaflet-icon-pulse-master/src/L.Icon.Pulse.js" /> 
+	<script  src="/static/assets/js/Leaflet.EasyButton-master/src/easy-button.js"></script> 
 
     
-    <script src="../assets/js/Leaflet.label-master/src/Label.js"></script>
-	<script src="../assets/js/Leaflet.label-master/src/BaseMarkerMethods.js"></script>
-	<script src="../assets/js/Leaflet.label-master/src/Marker.Label.js"></script>
-	<script src="../assets/js/Leaflet.label-master/src/CircleMarker.Label.js"></script>
-	<script src="../assets/js/Leaflet.label-master/src/Path.Label.js"></script>
-	<script src="../assets/js/Leaflet.label-master/src/Map.Label.js"></script> 
-	<script src="../assets/js/Leaflet.label-master/src/FeatureGroup.Label.js"></script> 
+    <script src="/static/assets/js/Leaflet.label-master/src/Label.js"></script>
+	<script src="/static/assets/js/Leaflet.label-master/src/BaseMarkerMethods.js"></script>
+	<script src="/static/assets/js/Leaflet.label-master/src/Marker.Label.js"></script>
+	<script src="/static/assets/js/Leaflet.label-master/src/CircleMarker.Label.js"></script>
+	<script src="/static/assets/js/Leaflet.label-master/src/Path.Label.js"></script>
+	<script src="/static/assets/js/Leaflet.label-master/src/Map.Label.js"></script> 
+	<script src="/static/assets/js/Leaflet.label-master/src/FeatureGroup.Label.js"></script> 
  
  
 
- <script src="../assets/js/Leaflet.ExtraMarkers-master/dist/js/leaflet.extra-markers.min.js"></script>
+ <script src="/static/assets/js/Leaflet.ExtraMarkers-master/dist/js/leaflet.extra-markers.min.js"></script>
  
- <script type="text/javascript" language="javascript" src="../assets/js/DataTables-master/media/js/jquery.dataTables.js"></script>
-	<script type="text/javascript" language="javascript" src="../assets/js/DataTables-master/examples/resources/syntax/shCore.js"></script>
-	<script type="text/javascript" language="javascript" src="../assets/js/DataTables-master/examples/resources/demo.js"></script>
+ <script type="text/javascript" language="javascript" src="/static/assets/js/DataTables-master/media/js/jquery.dataTables.js"></script>
+	<script type="text/javascript" language="javascript" src="/static/assets/js/DataTables-master/examples/resources/syntax/shCore.js"></script>
+	<script type="text/javascript" language="javascript" src="/static/assets/js/DataTables-master/examples/resources/demo.js"></script>
 </script>             
-<script src="../assets/js/DataTables-master/media/js/jquery.dataTables.js"></script>
+<script src="/static/assets/js/DataTables-master/media/js/jquery.dataTables.js"></script>
 
-<script type="text/javascript" language="javascript" src="../assets/js/DataTables-master/examples/resources/syntax/shCore.js"></script>
-	<script type="text/javascript" language="javascript" src="../assets/js/DataTables-master/examples/resources/demo.js"></script>
+<script type="text/javascript" language="javascript" src="/static/assets/js/DataTables-master/examples/resources/syntax/shCore.js"></script>
+	<script type="text/javascript" language="javascript" src="/static/assets/js/DataTables-master/examples/resources/demo.js"></script>
 	
 
 
