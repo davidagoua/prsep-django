@@ -268,6 +268,8 @@ class UpdateTDRCoordinationView(LoginRequiredMixin, generic.UpdateView):
 
     def form_valid(self, form):
         tdr = form.save(commit=False)
+        tdr.injonction = self.request.POST.get('injonction')
+        tdr.accorder = self.request.POST.get('accorder')
         tdr.save()
         return super().form_valid(form)
 
