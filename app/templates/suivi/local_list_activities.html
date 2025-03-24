@@ -42,9 +42,9 @@
                                                     {% if tdr.state <= state %}
                                                         <a href="{% url 'suivi:update-tdr-state' pk=tdr.id %}?state={{ tdr.state|add:10 }}&next={{ request.path}}" class="btn btn-xs btn-success"><span class="fa fa-check"></span>Soumettre</a>
                                                         {% if not request.user.is_staff%}
-                                                            {%  if tdr.state == 20 %}
+
                                                         <a href="{% url 'suivi:update-tdr-state' pk=tdr.id %}?state={{ tdr.state|add:10 }}&next={{ request.path}}" class="btn btn-xs btn-warning"><span class="fa fa-check"></span>Non Objection</a>
-                                                            {%  endif %}
+
                                                         <button data-bs-target="#soumission-modal-{{ tdr.pk }}" data-bs-toggle="modal" class="btn btn-xs btn-success"><span class="fa fa-check"></span>Soumettre</button>
                                                         <div class="modal" id="soumission-modal-{{ tdr.pk }}">
                                                             <div class="modal-dialog">
