@@ -44,33 +44,8 @@
                                                 <div class="d-flex">
 
                                                        
-                                                        <a data-bs-target="#soumission-modal-{{ tdr.pk }}" data-bs-toggle="modal" class="btn btn-xs mr-2 btn-success"><span class="fa fa-check"></span>Soumettre</a>&nbsp;
-                                                        <div class="modal" id="soumission-modal-{{ tdr.pk }}">
-                                                            <div class="modal-dialog">
-                                                                <div class="modal-content bg-white text-black">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title">Soumettre le TDR</h5>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        <form action="{% url 'suivi:update_tdrprogram_coordination' pk=tdr.id %}?state=30&next={{ request.path}}" method="post">
-                                                                            {% csrf_token %}
-
-                                                                            <div class="mb-3">
-                                                                                <label>Avis de non-objection envoyé</label></br>
-                                                                                <input type="checkbox" name="injonction" value="{{ tdr.injonction}}" >
-                                                                            </div>
-                                                                            <div class="mb-3">
-                                                                                <label>Avis de non-objection accordé</label></br>
-                                                                                <input type="checkbox" name="accorder" value="{{ tdr.accorder}}" >
-                                                                            </div>
-                                                                            <input type="hidden" name="state" value="30">
-                                                                            <button type="submit" class="btn btn-primary">Soumettre</button>
-                                                                        </form>
-                                                                    </div>
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                        <a href="{% url 'suivi:update-tdrprogram-state' pk=tdr.id %}?state=20&next={{ request.path }}" class="btn btn-xs mr-2 btn-success"><span class="fa fa-check"></span>Soumettre</a>&nbsp;
+                                                        
 
                                                     <button data-bs-target="#cancel-tdrprogram-{{ tdr.pk }}" data-bs-toggle="modal" class="btn  ml-2 btn-xs btn-outline btn-danger"> <span class="fa fa-times"></span>Annuler</button>&nbsp;
                                                     <button class="btn btn-xs btn-primary  ml-2" data-bs-toggle="modal"
