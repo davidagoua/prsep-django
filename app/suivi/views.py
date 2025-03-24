@@ -266,12 +266,7 @@ class UpdateTDRCoordinationView(LoginRequiredMixin, generic.TemplateView):
     def get_success_url(self):
         return resolve_url(self.request.GET['next'])
 
-    def post(self, request, pk):
-        tdr = get_object_or_404(TDR, pk=pk)
-        tdr.injonction = self.request.POST.get('injonction', True)
-        tdr.accorder = self.request.POST.get('accorder', True)
-        tdr.save()
-        return super().post(request, pk)
+
 
     def form_valid(self, form):
         tdr = form.save(commit=False)
@@ -279,6 +274,15 @@ class UpdateTDRCoordinationView(LoginRequiredMixin, generic.TemplateView):
         tdr.accorder = self.request.POST.get('accorder',True)
         tdr.save()
         return super().form_valid(form)
+
+
+def updateTDRCoordinationView(request, pk):
+    tdr = get_object_or_404(TDR, pk=pk)
+    tdr.injonction = request.POST.get('injonction', True)
+    tdr.accorder = request.POST.get('accorder', True)
+    tdr.save()
+    return redirect(resolve_url(request.GET['next']))
+
 
 
 class UpdateTDRProgrammeView(LoginRequiredMixin, generic.UpdateView):
