@@ -83,7 +83,7 @@
                     <span class="fa text-white fa-binoculars ml-2"></span>
                     <span>Point Focal <span x-text="tdr_stats['pointFocal'] ?? 0" class="bg-danger p-1 rounded-pill"></span></span></a></li>
                   {% endif%}
-                  {% if request.user.is_staff or request.user.role.name == 'DirectionLocal' %}
+                  {% if request.user.is_staff or request.user.role.name == 'DirecteurLocal' %}
                   <li class="sidebar-list"> <a class="sidebar-link sidebar-title link-nav" href="{% url 'suivi:tdr_local' %}">
                     <span class="fa text-white fa-binoculars ml-2"></span>
                     <span>Direction Centrale <span x-text="tdr_stats[10] ?? 0" class="bg-warning p-1 rounded-pill"></span></span></a></li>
