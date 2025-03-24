@@ -10,7 +10,7 @@ class TDRAdmin(admin.ModelAdmin):
 
 @admin.register(CommentaireTDR)
 class CommentaireTDRAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'created', 'content', 'injonction', 'accorder')
+    list_display = ('id', 'user', 'created', 'content')
 
 
 @admin.register(TDRProgramme)

@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, resolve_url
 from django.views import generic
 from django.contrib.auth import logout
 
@@ -82,3 +82,21 @@ def seed_compte(request):
     admin.save()
 
     return JsonResponse(data={'response': 'ok'})
+
+
+def change_password(request):
+    if request.method == 'POST':
+        current_password = request.POST.get('password')
+        new_password = request.POST.get('new_password')
+
+        if request.user.check_password(current_password):
+            request.user.set_password(new_password)
+            request.user.save()
+            messages.success(request, 'Mot de passe modifié avec succès.')
+            return redirect(resolve_url(request.GET.get('next')))
+            messages.success(request, 'Mot de passe modifié avec succès.')
+        else:
+            messages.error(request, 'Mot de passe actuel incorrect.')
+            return redirect(resolve_url(request.GET.get('next')))
+   
+    return render(request, 'change_password.html')

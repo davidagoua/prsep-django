@@ -17,7 +17,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import urls as auth_urls
-
 import core.views
 
 urlpatterns = [
@@ -36,4 +35,5 @@ urlpatterns = [
     path('parametres/', include('setting.urls', namespace='setting')),
     path('test/', core.views.test_import, name='test'),
     path('programme/', include('programme.urls', namespace='programme')),
+    path('change-password/', core.views.change_password, name='change_password'),
 ]

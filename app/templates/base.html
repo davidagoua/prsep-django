@@ -119,7 +119,31 @@
         {% endif %}
     </script>
     <script src="https://js.pusher.com/8.0.1/pusher.min.js"></script>
-
+    {% if request.user.is_authenticated %}
+    <div class="modal"  id="change-password-modal">
+      <div class="modal-dialog">
+          <div class="modal-content text-black bg-white">
+              <div class="modal-header">Modifier mon mot de passe</div>
+              <div class="modal-body">
+                  <form action="{% url 'change_password' %}?next={{ request.path }}" method="post">
+                      {% csrf_token %}
+                      <div class="mb-3">
+                          <label for="">Mot de passe actuel</label>
+                          <input type="password" name="password" class="form-control">
+                      </div>
+                      <div class="mb-3">
+                          <label for="">Nouveau Mot de passe</label>
+                          <input type="password"  name="new_password" class="form-control">
+                      </div>
+                      <p>
+                          <button type="submit" class="btn btn-primary">Enregistrer</button>
+                      </p>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+    {% endif %}
     <script>
       Pusher.logToConsole = true;
 
