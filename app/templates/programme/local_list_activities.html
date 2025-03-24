@@ -56,10 +56,10 @@
                                                 {% endif %}
                                                 <div class="d-flex">
                                                     {% if tdr.state <= state %}
-                                                       
-                                                        {% if  request.user.is_staff%}
+                                                       {% if  request.user.is_staff%}
 
                                                         {% if tdr.state >= 20 %}
+                                                        <a data-bs-target="#soumission-modal-{{ tdr.pk }}" data-bs-toggle="modal" class="btn btn-xs mr-2 btn-success"><span class="fa fa-check"></span>Soumettre</a>&nbsp;
                                                         <div class="modal" id="soumission-modal-{{ tdr.pk }}">
                                                             <div class="modal-dialog">
                                                                 <div class="modal-content bg-white text-black">
