@@ -61,6 +61,7 @@ services:
       context: ./static
     volumes:
       - ./static:/app
+      - static_volume:/app/static/assets
     ports:
       - "9000:9000"
     environment:
