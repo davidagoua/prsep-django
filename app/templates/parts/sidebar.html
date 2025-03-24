@@ -87,14 +87,20 @@
                     <h6 class="">Suivi Execution Projet</h6>
                   </div>
                 </li>
-                {% if request.user.is_staff or request.user.role == 'PointFocal' %}
-                  <li> <a href="{% url 'suivi:list_activities' %}">Point Focal <span x-text="tdr_stats['pointFocal'] ?? 0" class="bg-danger p-1 rounded-pill"></span></a></li>
+                {% if request.user.is.staff or request.user.role == 'PointFocal' %}
+                  <li class="sidebar-list"> <a class="sidebar-link sidebar-title link-nav" href="{% url 'suivi:list_activities' %}">
+                    <span class="fa text-white fa-binoculars ml-2"></span>
+                    <span>Point Focal <span x-text="tdr_stats['pointFocal'] ?? 0" class="bg-danger p-1 rounded-pill"></span></span></a></li>
                   {% endif%}
-                  {% if request.user.is_staff or request.user.role == 'DirectionCentrale' %}
-                  <li> <a href="{% url 'suivi:tdr_local' %}">Direction Centrale <span x-text="tdr_stats[10] ?? 0" class="bg-warning p-1 rounded-pill"></span></a></li>
+                  {% if request.user.is.staff or request.user.role == 'DirectionCentrale' %}
+                  <li class="sidebar-list"> <a class="sidebar-link sidebar-title link-nav" href="{% url 'suivi:tdr_local' %}">
+                    <span class="fa text-white fa-binoculars ml-2"></span>
+                    <span>Direction Centrale <span x-text="tdr_stats[10] ?? 0" class="bg-warning p-1 rounded-pill"></span></span></a></li>
                   {% endif%}
-                  {% if request.user.is_staff  %}
-                  <li> <a href="{% url 'suivi:tdr_technique' %}">Coordination <span x-text="tdr_stats[20] ?? 0" class="bg-light-info p-1 rounded-pill"></span></a></li>
+                  {% if request.user.is.staff  %}
+                  <li class="sidebar-list"> <a class="sidebar-link sidebar-title link-nav" href="{% url 'suivi:tdr_technique' %}">
+                    <span class="fa text-white fa-binoculars ml-2"></span>
+                    <span>Coordination <span x-text="tdr_stats[20] ?? 0" class="bg-light-info p-1 rounded-pill"></span></span></a></li>
                   {% endif%}
                 
 
@@ -104,39 +110,29 @@
                   </div>
                 </li>
                 {% if request.user.is_staff or request.user.role == 'PointFocal' %}
-                  <li> <a href="{% url 'suivi:list_activities' %}">Point Focal <span x-text="tdr_stats['pointFocal'] ?? 0" class="bg-danger p-1 rounded-pill"></span></a></li>
+                  <li class="sidebar-list"> <a class="sidebar-link sidebar-title link-nav" href="{% url 'programme:liste-tache' %}"> 
+                    <span class="fa text-white fa-binoculars ml-2"></span>
+                    <span>Point Focal <span x-text="tdr_stats_programme['pointFocal'] ?? 0" class="bg-danger p-1 rounded-pill"></span></span></a></li>
                   {% endif%}
-                  {% if request.user.is_staff or request.user.role == 'DirectionCentrale' %}
-                  <li> <a href="{% url 'suivi:tdr_local' %}">Direction Centrale <span x-text="tdr_stats[10] ?? 0" class="bg-warning p-1 rounded-pill"></span></a></li>
+                  {% if request.user.is.staff or request.user.role == 'DirectionCentrale' %}
+                  <li class="sidebar-list"> <a class="sidebar-link sidebar-title link-nav" href="{% url 'programme:liste-tache-local' %}"> 
+                    <span class="fa text-white fa-binoculars ml-2"></span>
+                    <span>Direction Centrale <span x-text="tdr_stats_programme[10] ?? 0" class="bg-warning p-1 rounded-pill"></span></span></a></li>
                   {% endif%}
-                  {% if request.user.is_staff  %}
-                  <li> <a href="{% url 'suivi:tdr_technique' %}">Coordination <span x-text="tdr_stats[20] ?? 0" class="bg-light-info p-1 rounded-pill"></span></a></li>
+                  {% if request.user.is.staff or request.user.role == 'ComiteTechnique' %}
+                  <li class="sidebar-list"> <a class="sidebar-link sidebar-title link-nav" href="{% url 'programme:tdr_technique' %}">
+                    <span class="fa text-white fa-binoculars ml-2"></span>
+                    <span>Comité Technique <span x-text="tdr_stats_programme[20] ?? 0" class="bg-light-info p-1 rounded-pill"></span></span></a></li>
+                  {% endif%}
+                  {% if request.user.is.staff or request.user.role == 'DirecteurExe' %}
+                  <li class="sidebar-list"> <a class="sidebar-link sidebar-title link-nav" href="{% url 'programme:tdr_coord' %}">
+                    <span class="fa text-white fa-binoculars ml-2"></span>
+                    <span>Directeur Exécutif <span x-text="tdr_stats_programme[20] ?? 0" class="bg-light-info p-1 rounded-pill"></span></span></a></li>
                   {% endif%}
                 
 
 
-                <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title active" href="#">
-                  <svg class="stroke-icon">
-                    <use href="../assets/svg/icon-sprite.svg#stroke-ecommerce"></use>
-                  </svg>
-                  <svg class="fill-icon">   
-                    <use href="../assets/svg/icon-sprite.svg#fill-ecommerce"></use>
-                  </svg><span>PTBA Programme</span><div class="according-menu"><i class="fa fa-angle-down"></i></div></a>
-                <ul class="sidebar-submenu" style="">
-                  {% if request.user.is_staff or request.user.role == 'PointFocal' %}
-                  <li> <a href="{% url 'programme:liste-tache' %}">Point Focal <span x-text="tdr_stats_programme['pointFocal'] ?? 0" class="bg-danger p-1 rounded-pill"></span></a></li>
-                  {% endif%}
-                  {% if request.user.is_staff or request.user.role == 'DirectionCentrale' %}
-                  <li> <a href="{% url 'programme:liste-tache-local' %}">Direction Centrale <span x-text="tdr_stats_programme[10] ?? 0" class="bg-warning p-1 rounded-pill"></span></a></li>
-                  {% endif%}
-                  {% if request.user.is_staff or request.user.role == 'ComiteTechnique' %}
-                  <li> <a href="{% url 'programme:tdr_technique' %}">Comité Technique <span x-text="tdr_stats_programme[20] ?? 0" class="bg-light-info p-1 rounded-pill"></span></a></li>
-                  {% endif%}
-                  {% if request.user.is_staff or request.user.role == 'DirecteurExe' %}
-                  <li> <a href="{% url 'programme:tdr_coord' %}">Directeur Exécutif <span x-text="tdr_stats_programme[20] ?? 0" class="bg-light-info p-1 rounded-pill"></span></a></li>
-                  {% endif%}
-                </ul>
-              </li>
+                
 
 
 
