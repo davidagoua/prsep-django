@@ -85,7 +85,7 @@ class TDRProgramTechniqueListView(LoginRequiredMixin, generic.ListView):
 
 
 class TDRProgramCoordListView(LoginRequiredMixin, generic.ListView):
-    template_name = "programme/local_list_activities.html"
+    template_name = "programme/executif_tache.html"
 
     def get_queryset(self):
         return Activite.objects.filter(
