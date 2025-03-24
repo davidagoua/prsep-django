@@ -26,18 +26,13 @@
                                 <tr>
                                     <th>Indicateur</th>
                                     <th>Activités</th>
-                                    <th>Departement Responsable</th>
                                     <th></th>
                                 </tr>
                                 {% for object in object_list %}
                                     <tr x-show="search.length === 0 || object.label.toLowerCase().includes(search.toLowerCase())">
                                         <td>{{ object.indicateur.label }}</td>
                                         <td>{{ object.description }}</td>
-                                        <td>{{ object.responsable }}</td>
                                         <td>
-
-
-
                                                 <button class="btn btn-sm btn-primary" data-bs-toggle="modal"
                                                         data-bs-target="#add-tdr-{{ object.pk }}">+ TDR
                                                 </button>
