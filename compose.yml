@@ -21,6 +21,7 @@ services:
       - "8000"
     depends_on:
       - db
+      - postgis
     environment:
       DATABASE_URL: ${DATABASE_URL}
       DEBUG: "True" # Change to "False" in production
@@ -55,21 +56,6 @@ services:
       - ./socketi/config.json:/socketi/config.json
 
 
-  colabora:
-    image: collabora/code:24.04.13.2.1
-    ports:
-      - "173.212.246.10:9980:9980"
-    environment:
-      - domain=${COLABORA_DOMAIN}
-      - server_name=${COLABORA_DOMAIN}
-      - username=${COLABORA_USERNAME}
-      - password=${COLABORA_PASSWORD}
-    restart: always
-    dns: 192.168.1.1
-    cap_add:
-      - MKNOD
-#    volumes:
-#      - ./coolwsd.xml:/etc/coolwsd/coolwsd.xml
 
   postgis:
     image: postgis/postgis:15-3.3
