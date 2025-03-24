@@ -51,13 +51,12 @@
                                                         <label for="">Avis de non-objection accordé</label>
                                                         <input type="checkbox" name="" id="">
                                                     </div>
-                                                    <a href="{% url 'suivi:update-tdrprogram-state' pk=tdr.id %}?state={{ tdr.state|add:10 }}&next={{ request.path}}" class="btn btn-xs mr-2 btn-success"><span class="fa fa-check"></span>Clôturer</a>&nbsp;
+                                                    <a data-bs-target="#finalize-tdr-{{ tdr.pk }}" data-bs-toggle="modal" class="btn btn-xs mr-2 btn-success"><span class="fa fa-check"></span>Clôturer</a>&nbsp;
                                                 </div>
                                                 {% endif %}
                                                 <div class="d-flex">
                                                     {% if tdr.state <= state %}
-
-                                                        <a data-bs-target="#finalize-tdr-{{ tdr.pk }}" data-bs-toggle="modal" class="btn btn-xs mr-2 btn-success"><span class="fa fa-check"></span>Clôturer</a>&nbsp;
+                                                       
                                                         {% if  request.user.is_staff%}
 
                                                         {% if tdr.state >= 20 %}

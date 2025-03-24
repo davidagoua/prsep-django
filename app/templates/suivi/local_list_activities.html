@@ -53,8 +53,9 @@
                                                 {% endif %}
                                                 <div class="d-flex">
                                                     {% if tdr.state <= state %}
-
+                                                        {% if tdr.state > 20 %}
                                                         <a href="{% url 'suivi:update-tdr-state' pk=tdr.id %}?state={{ tdr.state|add:10 }}&next={{ request.path}}" class="btn btn-xs mr-2 btn-success"><span class="fa fa-check"></span>Soumettre</a>&nbsp;
+                                                        {% endif %}
                                                         {% if  request.user.is_staff%}
 
                                                         {% if tdr.state >= 20 %}
