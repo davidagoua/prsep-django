@@ -58,7 +58,7 @@ services:
 
 
   postgis:
-    image: postgis/postgis:15-3.3
+    image: postgis/postgis:latest
     ports:
       - "5433:5432"
     environment:
