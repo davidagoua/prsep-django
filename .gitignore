@@ -8,3 +8,4 @@
 /app/treatexcel.ipynb
 *.pyc
 __pycache__/
+static\connection.php
