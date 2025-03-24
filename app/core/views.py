@@ -76,26 +76,9 @@ def test_import(request):
 
 
 def seed_compte(request):
-    depts = Departement.objects.all()
+    admin = User.objects.get(username='admin')
 
-    for dept in depts:
-        u =User(
-            username='pf_'+ str(dept.name).lower(),
-            email='pf_'+ str(dept.name).lower()+'@sigpro-mena.com'
-        )
-        u.role = Role.objects.get(name='PointFocal')
-        u.departement = dept
-        u.set_password('12345')
-        u.save()
-
-    for dept in depts:
-        u =User(
-            username='dir_'+ str(dept.name).lower(),
-            email='dir_'+ str(dept.name).lower()+'@sigpro-mena.com'
-        )
-        u.role = Role.objects.get(name='DirecteurLocal')
-        u.departement = dept
-        u.set_password('12345')
-        u.save()
+    admin.departement = Departement.objects.first()
+    admin.save()
 
     return JsonResponse(data={'response': 'ok'})
