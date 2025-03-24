@@ -40,6 +40,7 @@ class ListTache(generic.ListView):
 
 class TDRProgramLocalListView(LoginRequiredMixin, generic.ListView):
     template_name = "programme/local_list_activities.html"
+    state = 10
 
     def get_queryset(self):
         if self.request.user.is_staff:

@@ -44,7 +44,7 @@
                                                 <div class="d-flex">
 
                                                        
-                                                        <a href="{% url 'suivi:update-tdrprogram-state' pk=tdr.id %}?state={{ state|add:10 }}&next={{ request.path }}" class="btn btn-xs mr-2 btn-success"><span class="fa fa-check"></span>Soumettre</a>&nbsp;
+                                                        <a href="{% url 'suivi:update-tdrprogram-state' pk=tdr.id %}?state={{ tdr.state|add:10 }}&next={{ request.path }}" class="btn btn-xs mr-2 btn-success"><span class="fa fa-check"></span>Soumettre</a>&nbsp;
                                                         
 
                                                     <button data-bs-target="#cancel-tdrprogram-{{ tdr.pk }}" data-bs-toggle="modal" class="btn  ml-2 btn-xs btn-outline btn-danger"> <span class="fa fa-times"></span>Annuler</button>&nbsp;
