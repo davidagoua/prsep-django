@@ -850,9 +850,9 @@ background-color: rgba(139, 0, 0, 0.12) !important;"><?php echo $titre0.' : '.$n
  <script src="/static/assets/js/Leaflet.ExtraMarkers-master/dist/js/leaflet.extra-markers.min.js"></script>
 	
  <script>
-
+ alert("test 3");
 var blanc = ''  ;
-alert("test 3");
+
 var param = '<?php echo $param; ?>'  ;
 </script>
 
