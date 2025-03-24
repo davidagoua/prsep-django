@@ -271,7 +271,7 @@ class UpdateTDRCoordinationView(LoginRequiredMixin, generic.TemplateView):
         tdr.injonction = self.request.POST.get('injonction', True)
         tdr.accorder = self.request.POST.get('accorder', True)
         tdr.save()
-        return resolve_url(self.request.GET['next'])
+        return super().post(request, pk)
 
     def form_valid(self, form):
         tdr = form.save(commit=False)
