@@ -1,7 +1,7 @@
 <?php
    require_once("../connection.php");
    
-   error_reporting();
+   error_reporting(E);
    
      $titre0 = "Toute la Côte d'Ivoire";
      $titre = "Toutes les composantes";
@@ -391,11 +391,11 @@
                         <span class="fa text-white fa-home ml-2"></span>
                         <span>Tableau de bord</span></a>
                     </li>
-                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="/static/cartographie/">
+                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="/cartographie/">
                         <span class="fa text-white fa-map ml-2"></span>
                         <span>Cartographie</span></a>
                     </li>
-					  <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="/static/maj_cartographie/">
+					  <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="/maj_cartographie/">
                         <span class="fa text-white fa-map ml-2"></span>
                         <span>MAJ Cartographie</span></a>
                     </li>
