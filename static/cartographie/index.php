@@ -791,12 +791,7 @@ background-color: rgba(139, 0, 0, 0.12) !important;"><?php echo $titre0.' : '.$n
     </div>
 
 </div>
-<script>
 
-      var blanc = ''  ;
-	  alert("test");
-	  var param = '<?php echo $param; ?>'  ;
-</script>
 <!-- latest jquery-->
 <script src="/static/assets/js/jquery.min.js"></script>
 <script src="/static/assets/js/bootstrap/bootstrap.bundle.min.js"></script>
@@ -814,7 +809,12 @@ background-color: rgba(139, 0, 0, 0.12) !important;"><?php echo $titre0.' : '.$n
 <script src="/static/assets/js/select2/select2-custom.js"></script>
 <script src="/static/assets/js/form-validation-custom.js"></script>
 <script src="/static/assets/js/script.js"></script>
+<script>
 
+      var blanc = ''  ;
+	  alert("test");
+	  var param = '<?php echo $param; ?>'  ;
+</script>
 <script>
     $('input, select, textarea').addClass('form-control')
     $('.c-pills-tab').style.display = 'none'
