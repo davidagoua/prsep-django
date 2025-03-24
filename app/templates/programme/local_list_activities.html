@@ -22,16 +22,15 @@
                         <div class="table-responsive table">
                             <table class="table">
                                 <tr>
+                                    <th>Indicateur</th>
                                     <th>Activités</th>
-                                    <th>Tâches</th>
-                                    <th>Suivi UGP</th>
                                     <th></th>
                                 </tr>
                                 {% for object in object_list %}
                                     <tr>
-                                       <td>{{ object.activite.description }}</td>
+                                       <td>{{ object.indicateur.label }}</td>
                                         <td style="width: 500px">{{ object.description }}</td>
-                                        <td>{{ object.ugp }}</td>
+                                       
 
                                     </tr>
                                     {% for tdr in object.tdrprogramme_set.all %}
