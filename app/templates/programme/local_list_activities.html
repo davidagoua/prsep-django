@@ -41,7 +41,7 @@
                                             <td colspan="3">{{ tdr.label }}</td>
 
                                             <td>
-                                                
+                                                {% if tdr.state >= 30 %}
                                                 <div>
                                                     <div>
                                                         <label for="">Avis de non-objection envoyé</label>
@@ -51,7 +51,9 @@
                                                         <label for="">Avis de non-objection accordé</label>
                                                         <input type="checkbox" name="" id="">
                                                     </div>
+                                                    <a href="{% url 'suivi:update-tdrprogram-state' pk=tdr.id %}?state={{ tdr.state|add:10 }}&next={{ request.path}}" class="btn btn-xs mr-2 btn-success"><span class="fa fa-check"></span>Clôturer</a>&nbsp;
                                                 </div>
+                                                {% endif %}
                                                 <div class="d-flex">
                                                     {% if tdr.state <= state %}
 
