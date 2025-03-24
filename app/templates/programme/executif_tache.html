@@ -52,7 +52,6 @@
                                                     <a data-bs-target="#finalize-tdr-{{ tdr.pk }}" data-bs-toggle="modal" class="btn btn-xs mr-2 btn-success"><span class="fa fa-check"></span>Clôturer</a>&nbsp;
                                                 </div>
                                                 <div class="d-flex">
-                                                    {% if tdr.state <= state %}
                                                        {% if  request.user.is_staff%}
 
                                              
@@ -163,7 +162,7 @@
                                                             </div>
                                                         </div>
                                         </tr>
-                                    
+                                    {% endfor %}
                                 {% endfor %}
 
                             </table>
