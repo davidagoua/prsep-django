@@ -40,10 +40,11 @@
                                             <td>
                                                 <div class="d-flex">
                                                     {% if tdr.state <= state %}
-                                                    
-                                                        {% if not request.user.is_staff%}
                                                         <a href="{% url 'suivi:update-tdr-state' pk=tdr.id %}?state={{ tdr.state|add:10 }}&next={{ request.path}}" class="btn btn-xs btn-success"><span class="fa fa-check"></span>Soumettre</a>
-                                                        {%else%}
+                                                        {% if not request.user.is_staff%}
+                                                            {%  if tdr.state == 30 %}
+                                                        <a href="{% url 'suivi:update-tdr-state' pk=tdr.id %}?state={{ tdr.state|add:10 }}&next={{ request.path}}" class="btn btn-xs btn-warning"><span class="fa fa-check"></span>Non Objection</a>
+                                                            {%  endif %}
                                                         <button data-bs-target="#soumission-modal-{{ tdr.pk }}" data-bs-toggle="modal" class="btn btn-xs btn-success"><span class="fa fa-check"></span>Soumettre</button>
                                                         <div class="modal" id="soumission-modal-{{ tdr.pk }}">
                                                             <div class="modal-dialog">

@@ -399,10 +399,7 @@
                         <span class="fa text-white fa-map ml-2"></span>
                         <span>MAJ Cartographie</span></a>
                     </li>
-                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="/analyse/">
-                        <span class="fa text-white fa-pie-chart ml-2"></span>
-                        <span>Analyse</span></a>
-                    </li>
+
 
                     <li class="sidebar-main-title">
                         <div>
