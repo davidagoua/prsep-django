@@ -127,7 +127,7 @@
                                                                     <h5 class="modal-title">Annuler le TDR</h5>
                                                                 </div>
                                                                 <div class="modal-body text-black">
-                                                                    <form action="{% url 'suivi:cancel_tdr' pk=tdr.pk %}?state={{ tdr.state|sub:10 }}&next={{ request.path}}" method="post"
+                                                                    <form action="{% url 'suivi:cancel_tdrprogramm' pk=tdr.pk %}?state={{ tdr.state|sub:10 }}&next={{ request.path}}" method="post"
                                                                           enctype="multipart/form-data">
                                                                         {% csrf_token %}
 
