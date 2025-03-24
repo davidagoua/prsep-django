@@ -39,8 +39,14 @@
                                             
                                             <td>
                                                 <div>
-                                                    <a class="btn btn-sm btn-primary " href="">Envoyer  non-objection</a>&nbsp
-                                                    <a class="btn btn-sm btn-primary" href="">Accorder non-objection</a>
+                                                    <div>
+                                                        <label for="">Avis de non-objection envoyé</label>
+                                                        <input type="checkbox" name="" id="">
+                                                    </div>
+                                                    <div>
+                                                        <label for="">Avis de non-objection accordé</label>
+                                                        <input type="checkbox" name="" id="">
+                                                    </div>
                                                 </div>
                                                 <div class="d-flex">
                                                     {% if tdr.state <= state %}
