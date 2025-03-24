@@ -116,6 +116,8 @@ class ActivitiesListView(LoginRequiredMixin, generic.ListView):
     template_name = 'suivi/list_activities.html'
 
     def get_queryset(self):
+        if self.request.user.is_staff:
+            return Tache.objects.all()
         return Tache.objects.filter(responsable=self.request.user.departement.name)
 
 
