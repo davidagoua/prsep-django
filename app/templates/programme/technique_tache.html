@@ -41,10 +41,24 @@
                                             <td colspan="3">{{ tdr.label }}</td>
 
                                             <td>
-                                                
+                                                {% if tdr.state >= 30 %}
+                                                <div>
+                                                    <div>
+                                                        <label for="">Avis de non-objection envoyé</label>
+                                                        <input type="checkbox" name="" id="">
+                                                    </div>
+                                                    <div>
+                                                        <label for="">Avis de non-objection accordé</label>
+                                                        <input type="checkbox" name="" id="">
+                                                    </div>
+                                                    <a data-bs-target="#finalize-tdr-{{ tdr.pk }}" data-bs-toggle="modal" class="btn btn-xs mr-2 btn-success"><span class="fa fa-check"></span>Clôturer</a>&nbsp;
+                                                </div>
+                                                {% endif %}
                                                 <div class="d-flex">
+                                                    {% if tdr.state <= state %}
+                                                       {% if  request.user.is_staff%}
 
-                                                       
+                                                        {% if tdr.state >= 20 %}
                                                         <a data-bs-target="#soumission-modal-{{ tdr.pk }}" data-bs-toggle="modal" class="btn btn-xs mr-2 btn-success"><span class="fa fa-check"></span>Soumettre</a>&nbsp;
                                                         <div class="modal" id="soumission-modal-{{ tdr.pk }}">
                                                             <div class="modal-dialog">
@@ -72,6 +86,8 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                            {% endif %}
+                                                        {%endif%}
 
                                                     <button data-bs-target="#cancel-tdrprogram-{{ tdr.pk }}" data-bs-toggle="modal" class="btn  ml-2 btn-xs btn-outline btn-danger"> <span class="fa fa-times"></span>Annuler</button>&nbsp;
                                                     <button class="btn btn-xs btn-primary  ml-2" data-bs-toggle="modal"
