@@ -153,7 +153,7 @@ class TDRLocalListView(LoginRequiredMixin, generic.ListView):
 
 
 class TDRTechniqueListView(LoginRequiredMixin, generic.ListView):
-    template_name = "suivi/local_list_activities.html"
+    template_name = "suivi/techinique_list_activities.html"
     state = 20
 
     def get_queryset(self):
