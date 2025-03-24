@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load mathfilters%}
 
 {% block content %}
     <div class="page-body">
@@ -31,81 +31,88 @@
                                         <td>{{ object.indicateur.label }}</td>
                                         <td style="width: 500px">{{ object.label }}</td>
                                         <td>{{ object.ugp }}</td>
-                                        <td>
-
-
-                                                <div class="d-flex">
-                                                    <a href="{% url 'suivi:update-tdr-state' pk=object.tdr.id %}?state=20&next={% url 'suivi:tdr_local' %}" class="btn btn-xs btn-success"><span class="fa fa-check"></span>Soumettre</a>
-                                                    <button data-bs-target="#cancel-tdr-{{ object.pk }}" data-bs-toggle="modal" class="btn btn-xs btn-outline btn-danger"> <span class="fa fa-times"></span>Annuler</button>
-                                                    <button class="btn btn-xs btn-primary" data-bs-toggle="modal"
-                                                            data-bs-target="#add-tdr-{{ object.pk }}"> <span class="fa fa-file-upload"></span> joindre
-                                                    </button>
-                                                    <div class="modal  fade" id="add-tdr-{{ object.pk }}">
-                                                        <div class="modal-dialog bg-white ">
-                                                            <div class=" bg-white modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title">Ajouter un TDR à cette activité</h5>
-                                                                </div>
-                                                                <div class="modal-body text-black">
-                                                                    <form action="{% url 'suivi:cancel_tdr' pk=object.tdr.pk %}?state=0&next={% url 'suivi:tdr_local' %}" method="post"
-                                                                          enctype="multipart/form-data">
-                                                                        {% csrf_token %}
-                                                                        <div class="mb-3">
-                                                                            <label>Motif de rejet</label>
-                                                                            <textarea name="comment" class="form-control" id="" cols="30"
-                                                                                      rows="10"></textarea>
-                                                                        </div>
-                                                                        <div>
-                                                                            <label for="">Fichier</label>
-                                                                            <input type="file" name="file" id=""
-                                                                                   class="form-control">
-                                                                        </div>
-                                                                        <div class="text-right mt-3">
-                                                                            <button class="btn btn-sm btn-primary">Enregistrer
-                                                                            </button>
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal  fade" id="cancel-tdr-{{ object.pk }}">
-                                                        <div class="modal-dialog bg-white ">
-                                                            <div class=" bg-white modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title">Ajouter un TDR à cette activité</h5>
-                                                                </div>
-                                                                <div class="modal-body text-black">
-                                                                    <form action="{% url 'suivi:cancel_tdr' pk=object.tdr.pk %}?state=0&next={% url 'suivi:tdr_local' %}" method="post"
-                                                                          enctype="multipart/form-data">
-                                                                        {% csrf_token %}
-                                                                        <div class="mb-3">
-                                                                            <label>Motif de rejet</label>
-                                                                            <textarea name="comment" class="form-control" id="" cols="30"
-                                                                                      rows="10"></textarea>
-                                                                        </div>
-                                                                        <div>
-                                                                            <label for="">Fichier</label>
-                                                                            <input type="file" name="file" id=""
-                                                                                   class="form-control">
-                                                                        </div>
-                                                                        <div class="text-right mt-3">
-                                                                            <button class="btn btn-sm btn-primary">Enregistrer
-                                                                            </button>
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <a href="{% url 'suivi:tdr_download' pk=object.tdr.id %}" class="btn btn-xs btn-outline btn-primary"> <span class="fa fa-file-download"></span>Télécharger</a>
-                                                </div>
-
-
-
-
-                                        </td>
+                                        
                                     </tr>
+                                    {% for tdr in object.tdr_set.all %}
+                                        <tr>
+                                            <td colspan="3">{{ tdr.label }}</td>
+                                            
+                                            <td>
+                                                <div class="d-flex">
+                                                    {% if tdr.state <= state %}
+                                                    
+                                                    <a href="{% url 'suivi:update-tdr-state' pk=tdr.id %}?state={{ tdr.state|add:10 }}&next={{ request.path}}" class="btn btn-xs btn-success"><span class="fa fa-check"></span>Soumettre</a>
+                                                    <button data-bs-target="#cancel-tdr-{{ tdr.pk }}" data-bs-toggle="modal" class="btn btn-xs btn-outline btn-danger"> <span class="fa fa-times"></span>Annuler</button>
+                                                    <button class="btn btn-xs btn-primary" data-bs-toggle="modal"
+                                                            data-bs-target="#add-tdr-{{ tdr.pk }}"> <span class="fa fa-file-upload"></span> joindre
+                                                    </button>
+                                                    <div class="modal  fade" id="add-tdr-{{ tdr.pk }}">
+                                                        <div class="modal-dialog bg-white ">
+                                                            <div class=" bg-white modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title">Joindre un TDR à cette activité</h5>
+                                                                </div>
+                                                                <div class="modal-body text-black">
+                                                                    <form action="{% url 'suivi:update_tdr' pk=tdr.pk %}?state={{ state }}&next={{ request.path}}" method="post"
+                                                                          enctype="multipart/form-data">
+                                                                        {% csrf_token %}
+                                                                        <div>
+                                                                            <label for="">Titre</label>
+                                                                            <input type="text" name="label" value="{{ tdr.label }}" id=""
+                                                                                   class="form-control">
+                                                                        </div>
+                                                                        <div>
+                                                                            <label for="">Fichier</label>
+                                                                            <input type="file" name="file" id=""
+                                                                                   class="form-control">
+                                                                        </div>
+                                                                        <div class="text-right mt-3">
+                                                                            <button class="btn btn-sm btn-primary">Enregistrer
+                                                                            </button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal  fade" id="cancel-tdr-{{ tdr.pk }}">
+                                                        <div class="modal-dialog bg-white ">
+                                                            <div class=" bg-white modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title">Annuler le TDR</h5>
+                                                                </div>
+                                                                <div class="modal-body text-black">
+                                                                    <form action="{% url 'suivi:cancel_tdr' pk=tdr.pk %}?state={{ tdr.state|sub:10 }}&next={{ request.path}}" method="post"
+                                                                          enctype="multipart/form-data">
+                                                                        {% csrf_token %}
+                                                                        
+                                                                        <div>
+                                                                            <label for="">Fichier</label>
+                                                                            <input type="file" name="file" id=""
+                                                                                   class="form-control">
+                                                                        </div>
+                                                                        <div class="mb-3">
+                                                                            <label>Motif de rejet</label>
+                                                                            <textarea name="comment" class="form-control" id="" cols="30"
+                                                                                      rows="5"></textarea>
+                                                                        </div>
+                                                                        <div class="text-right mt-3">
+                                                                            <button class="btn btn-sm btn-primary">Enregistrer
+                                                                            </button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {% else %}
+                                                    <div class="ml-3">En attente de validation</div>
+                                                    {% endif %}
+                                                    <a href="{% url 'suivi:tdr_download' pk=tdr.id %}" class="btn btn-xs btn-outline btn-primary"> <span class="fa fa-file-download"></span>Télécharger</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
                                 {% endfor %}
 
                             </table>

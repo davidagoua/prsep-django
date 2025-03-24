@@ -42,6 +42,7 @@
 
 
                                                 <div class="d-flex">
+                                                    {% if tdr.state <= state|sub:10 %}
                                                     <a href="{% url 'suivi:update-tdrprogram-state' pk=tdr.id %}?state={{ state }}&next={{ request.path }}" class="btn btn-xs btn-success"><span class="fa fa-check"></span>Soumettre</a>
                                                     <button data-bs-target="#cancel-tdr-{{ tdr.pk }}" data-bs-toggle="modal" class="btn btn-xs btn-outline btn-danger"> <span class="fa fa-times"></span>Annuler</button>
                                                     <button class="btn btn-xs btn-primary" data-bs-toggle="modal"
@@ -101,6 +102,9 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    {% else %}
+                                                    <div class="ml-3">En attente de validation</div>
+                                                    {% endif %}
                                                     <a href="{% url 'suivi:tdr_programme_download' pk=tdr.id %}" class="btn btn-xs btn-outline btn-primary"> <span class="fa fa-file-download"></span>Télécharger</a>
                                                 </div>
 

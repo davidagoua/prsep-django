@@ -121,21 +121,59 @@ class ActivitiesListView(LoginRequiredMixin, generic.ListView):
 
 class TDRLocalListView(LoginRequiredMixin, generic.ListView):
     template_name = "suivi/local_list_activities.html"
+    state = 10
 
     def get_queryset(self):
-        return TDR.objects.filter(
-            Q()
+        if self.request.user.is_staff:
+            return Tache.objects.filter(
+                Q(pk__in=[tdr.activity.pk for tdr in TDR.objects.filter(state=self.state)])
+            )
+        return Tache.objects.filter(responsable=self.request.user.departement.name).filter(
+            Q(pk__in=[tdr.activity.pk for tdr in TDR.objects.filter(state=self.state)])
         )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        if self.request.user.is_staff:
+            context['object_list'] = Tache.objects.filter(
+                Q(pk__in=[tdr.activity.pk for tdr in TDR.objects.filter(state=self.state)])
+            )
+        else:
+            context['object_list'] = Tache.objects.filter(responsable=self.request.user.departement.name).filter(
+                Q(pk__in=[tdr.activity.pk for tdr in TDR.objects.filter(state=self.state)])
+            )
+
+        return context | {
+            'state': self.state + 10
+        }
 
 
 
 class TDRTechniqueListView(LoginRequiredMixin, generic.ListView):
-    template_name = "suivi/technique_list_activities.html"
+    template_name = "suivi/local_list_activities.html"
+    state = 20
 
     def get_queryset(self):
         return Tache.objects.filter(responsable=self.request.user.departement.name).filter(
-            Q(pk__in=[tdr.tache.pk for tdr in TDR.objects.filter(state=20)])
+            Q(pk__in=[tdr.activity.pk for tdr in TDR.objects.filter(state=self.state)])
         )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        if self.request.user.is_staff:
+            context['object_list'] = Tache.objects.filter(
+                Q(pk__in=[tdr.activity.pk for tdr in TDR.objects.filter(state=self.state)])
+            )
+        else:
+            context['object_list'] = Tache.objects.filter(responsable=self.request.user.departement.name).filter(
+                Q(pk__in=[tdr.activity.pk for tdr in TDR.objects.filter(state=self.state)])
+            )
+
+        return context | {
+            'state': self.state + 10
+        }
 
 
 class TDRCoordinationListView(LoginRequiredMixin, generic.ListView):
@@ -143,8 +181,24 @@ class TDRCoordinationListView(LoginRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         return Tache.objects.filter(responsable=self.request.user.departement.name).filter(
-            Q(pk__in=[tdr.tache.pk for tdr in TDR.objects.filter(state=30)])
+            Q(pk__in=[tdr.activity.pk for tdr in TDR.objects.filter(state=30)])
         )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        if self.request.user.is_staff:
+            context['object_list'] = Tache.objects.filter(
+                Q(pk__in=[tdr.activity.pk for tdr in TDR.objects.filter(state=30)])
+            )
+        else:
+            context['object_list'] = Tache.objects.filter(responsable=self.request.user.departement.name).filter(
+                Q(pk__in=[tdr.activity.pk for tdr in TDR.objects.filter(state=30)])
+            )
+
+        return context | {
+            'state': self.state + 10
+        }
 
 
 
@@ -197,7 +251,6 @@ class UpdateTDRView(LoginRequiredMixin, generic.UpdateView):
     def form_valid(self, form):
         tdr = form.save(commit=False)
         tdr.user = self.request.user
-        tdr.state = self.request.POST.get('state')
         tdr.save()
         return super().form_valid(form)
 
@@ -214,7 +267,6 @@ class UpdateTDRProgrammeView(LoginRequiredMixin, generic.UpdateView):
     def form_valid(self, form):
         tdr = form.save(commit=False)
         tdr.user = self.request.user
-        tdr.state = self.request.POST.get('state')
         tdr.save()
         return super().form_valid(form)
 
@@ -228,6 +280,8 @@ def update_tdr_state(request, pk):
 def update_tdrprogram_state(request, pk):
     tdr = get_object_or_404(TDRProgramme, pk=pk)
     tdr.state = request.GET.get('state')
+    if(tdr.state== 10):
+        tdr.comments_set.delete()
     tdr.save()
     return redirect(request.GET.get('next'))
 
@@ -244,15 +298,15 @@ def download_tdr_programme(request, pk):
 def get_tdr_stats(request):
     stats = TDR.objects.values('state').annotate(count=Count('state'))
     result = {item['state']: item['count'] for item in stats}
-    result['pointFocal'] = Tache.objects.filter(responsable=request.user.departement.name).filter(
-        Q(tdr__isnull=True) | Q(tdr__state=0)
+    result['pointFocal'] = TDR.objects.filter(responsable=request.user.departement.name).filter(
+        Q(state=0)
     ).count()
     return JsonResponse(result)
 
 def cancel_tdr(request, pk):
     if request.method == 'POST':
         tdr = TDR.objects.get(pk=pk)
-        tdr.state = request.POST.get('state')
+        tdr.state = request.GET.get('state')
         tdr.save()
         form = CancelTDRForm(request.POST)
         comment = form.save(commit=False)

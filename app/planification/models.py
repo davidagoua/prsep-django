@@ -281,7 +281,6 @@ class Tache(TimeStampedModel, models.Model):
 
     @property
     def from_last_year(self) -> bool:
-
         return self.date_fin.year < date.today().year
 
     @property

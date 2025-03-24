@@ -123,7 +123,7 @@ class FinalizeTDRProgramView(LoginRequiredMixin, generic.UpdateView):
 
     @override
     def get_success_url(self):
-        return redirect(self.request.GET.get('next', '/'))
+        return resolve_url(self.request.GET.get('next', '/'))
 
     def form_valid(self, form):
         tdr = TDRProgramme.objects.get(pk=self.kwargs['pk'])

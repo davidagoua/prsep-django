@@ -97,6 +97,10 @@
                                                                               enctype="multipart/form-data">
                                                                             {% csrf_token %}
                                                                             <div class="mb-3">
+                                                                                <label for="">Titre</label>
+                                                                                <input type="text" name="label" value="{{ tdr.label }}" id="" class="form-control">
+                                                                            </div>
+                                                                            <div class="mb-3">
                                                                                 <label for="">Fichier</label>
                                                                                 <input type="file" name="file" id="" class="form-control">
                                                                             </div>
