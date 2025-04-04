@@ -23,7 +23,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('', include(auth_urls)),
     path('', core.views.HomePageView.as_view(), name='home'),
-    path('seed-compte', core.views.seed_compte, name='home'),
+    path('seed-compte', core.views.seed_compte, name='seed-compte'),
     path('cartographie/', core.views.CartigraphieView.as_view(), name='cartographie'),
     path('analyse/', core.views.AnalyseView.as_view(), name='analyse'),
     path('planification/', include('planification.urls', namespace='plan',)),
