@@ -407,3 +407,20 @@ class FinalizeTDRView(LoginRequiredMixin, generic.UpdateView):
         tdr.save()
         return super().form_valid(form)
 
+
+
+def stats_view(request):
+    # Récupération des stats pour TDR
+    tdr_stats = TDR.objects.values('state').annotate(count=Count('id'))
+
+    # Récupération des stats pour TDRProgramme
+    tdr_programme_stats = TDRProgramme.objects.values('state').annotate(count=Count('id'))
+
+    # Passer les données au contexte
+    context = {
+        'tdr_stats': tdr_stats,
+        'tdr_programme_stats': tdr_programme_stats,
+    }
+    return render(request, 'home_stats.html', context)
+
+
