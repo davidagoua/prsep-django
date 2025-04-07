@@ -5,4 +5,10 @@ app_name = 'setting'
 
 urlpatterns = [
     path('composantes/', views.ComposanteTemplateView.as_view(), name='composantes'),
+    path('vehicules/', views.vehicule_list, name='vehicule_list'),
+    path('vehicules/ajouter/', views.vehicule_add, name='vehicule_add'),
+    path('vehicules/modifier/<int:pk>/', views.vehicule_edit, name='vehicule_edit'),
+    path('emprunts/', views.emprunt_list, name='emprunt_list'),
+    path('emprunts/ajouter/', views.emprunt_add, name='emprunt_add'),
+    path('emprunts/modifier/<int:pk>/', views.emprunt_edit, name='emprunt_edit'),
 ]
