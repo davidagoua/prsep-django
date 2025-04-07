@@ -17,7 +17,7 @@ class ComposanteTemplateView(generic.TemplateView):
 
 def vehicule_list(request):
     vehicules = Vehicule.objects.all()
-    return render(request, 'setting/vehicule_list.html', {'vehicules': vehicules})
+    return render(request, 'settings/vehicule_list.html', {'vehicules': vehicules})
 
 def vehicule_add(request):
     if request.method == 'POST':
@@ -28,7 +28,7 @@ def vehicule_add(request):
             return redirect('vehicule_list')
     else:
         form = VehiculeForm()
-    return render(request, 'setting/vehicule_form.html', {'form': form, 'title': 'Ajouter un véhicule'})
+    return render(request, 'settings/vehicule_form.html', {'form': form, 'title': 'Ajouter un véhicule'})
 
 def vehicule_edit(request, pk):
     vehicule = get_object_or_404(Vehicule, pk=pk)
@@ -40,7 +40,7 @@ def vehicule_edit(request, pk):
             return redirect('vehicule_list')
     else:
         form = VehiculeForm(instance=vehicule)
-    return render(request, 'setting/vehicule_form.html', {'form': form, 'title': 'Modifier un véhicule'})
+    return render(request, 'settings/vehicule_form.html', {'form': form, 'title': 'Modifier un véhicule'})
 
 # Vues pour les emprunts de véhicules
 
@@ -57,7 +57,7 @@ def emprunt_add(request):
             return redirect('emprunt_list')
     else:
         form = EmpruntVehiculeForm()
-    return render(request, 'setting/emprunt_form.html', {'form': form, 'title': 'Ajouter un emprunt'})
+    return render(request, 'settings/emprunt_form.html', {'form': form, 'title': 'Ajouter un emprunt'})
 
 def emprunt_edit(request, pk):
     emprunt = get_object_or_404(EmpruntVehicule, pk=pk)
@@ -69,4 +69,4 @@ def emprunt_edit(request, pk):
             return redirect('emprunt_list')
     else:
         form = EmpruntVehiculeForm(instance=emprunt)
-    return render(request, 'setting/emprunt_form.html', {'form': form, 'title': 'Modifier un emprunt'})
+    return render(request, 'settings/emprunt_form.html', {'form': form, 'title': 'Modifier un emprunt'})
