@@ -46,7 +46,7 @@ def vehicule_edit(request, pk):
 
 def emprunt_list(request):
     emprunts = EmpruntVehicule.objects.all()
-    return render(request, 'setting/emprunt_list.html', {'emprunts': emprunts})
+    return render(request, 'settings/emprunt_list.html', {'emprunts': emprunts})
 
 def emprunt_add(request):
     if request.method == 'POST':
