@@ -2,7 +2,7 @@
 
 {% block content %}
 <h2>Liste des emprunts de véhicules</h2>
-<a href="{% url 'emprunt_add' %}" class="btn btn-primary">Ajouter un emprunt</a>
+<a href="{% url 'setting:emprunt_add' %}" class="btn btn-primary">Ajouter un emprunt</a>
 <table class="table">
     <thead>
         <tr>
@@ -27,7 +27,7 @@
             <td>{{ emprunt.mission }}</td>
             <td>{{ emprunt.is_panne|yesno:"Oui,Non" }}</td>
             <td>
-                <a href="{% url 'emprunt_edit' emprunt.pk %}" class="btn btn-sm btn-primary">Modifier</a>
+                <a href="{% url 'setting:emprunt_edit' emprunt.pk %}" class="btn btn-sm btn-primary">Modifier</a>
             </td>
         </tr>
         {% endfor %}

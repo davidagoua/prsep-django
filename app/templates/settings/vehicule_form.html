@@ -1,34 +1,38 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>{{ title }}</h2>
-<form method="post">
-    {% csrf_token %}
-    <div class="mb-3">
-        {{ form.model.label_tag }}
-        {{ form.model }}
+<div class="card">
+    <div class="card-body">
+        <h2>{{ title }}</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                {{ form.model.label_tag }}
+                {{ form.model }}
+            </div>
+            <div class="mb-3">
+                {{ form.annee.label_tag }}
+                {{ form.annee }}
+            </div>
+            <div class="mb-3">
+                {{ form.marque.label_tag }}
+                {{ form.marque }}
+            </div>
+            <div class="mb-3">
+                {{ form.immatriculation.label_tag }}
+                {{ form.immatriculation }}
+            </div>
+            <div class="mb-3">
+                {{ form.numero_chassis.label_tag }}
+                {{ form.numero_chassis }}
+            </div>
+            <div class="mb-3">
+                {{ form.entretients.label_tag }}
+                {{ form.entretients }}
+            </div>
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+            <a href="{% url 'setting:vehicule_list' %}" class="btn btn-secondary">Annuler</a>
+        </form>
     </div>
-    <div class="mb-3">
-        {{ form.annee.label_tag }}
-        {{ form.annee }}
-    </div>
-    <div class="mb-3">
-        {{ form.marque.label_tag }}
-        {{ form.marque }}
-    </div>
-    <div class="mb-3">
-        {{ form.immatriculation.label_tag }}
-        {{ form.immatriculation }}
-    </div>
-    <div class="mb-3">
-        {{ form.numero_chassis.label_tag }}
-        {{ form.numero_chassis }}
-    </div>
-    <div class="mb-3">
-        {{ form.entretients.label_tag }}
-        {{ form.entretients }}
-    </div>
-    <button type="submit" class="btn btn-primary">Enregistrer</button>
-    <a href="{% url 'vehicule_list' %}" class="btn btn-secondary">Annuler</a>
-</form>
+</div>
 {% endblock %}

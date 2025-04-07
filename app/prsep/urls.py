@@ -35,5 +35,6 @@ urlpatterns = [
     path('parametres/', include('setting.urls', namespace='setting')),
     path('test/', core.views.test_import, name='test'),
     path('programme/', include('programme.urls', namespace='programme')),
+    path('setting/', include('setting.urls', namespace='setting')),
     path('change-password/', core.views.change_password, name='change_password'),
 ]

@@ -25,7 +25,7 @@ def vehicule_add(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Véhicule ajouté avec succès')
-            return redirect('vehicule_list')
+            return redirect('setting:vehicule_list')
     else:
         form = VehiculeForm()
     return render(request, 'settings/vehicule_form.html', {'form': form, 'title': 'Ajouter un véhicule'})
@@ -37,7 +37,7 @@ def vehicule_edit(request, pk):
         if form.is_valid():
             form.save()
             messages.success(request, 'Véhicule mis à jour avec succès')
-            return redirect('vehicule_list')
+            return redirect('setting:vehicule_list')
     else:
         form = VehiculeForm(instance=vehicule)
     return render(request, 'settings/vehicule_form.html', {'form': form, 'title': 'Modifier un véhicule'})
@@ -54,7 +54,7 @@ def emprunt_add(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Emprunt enregistré avec succès')
-            return redirect('emprunt_list')
+            return redirect('setting:emprunt_list')
     else:
         form = EmpruntVehiculeForm()
     return render(request, 'settings/emprunt_form.html', {'form': form, 'title': 'Ajouter un emprunt'})
@@ -66,7 +66,7 @@ def emprunt_edit(request, pk):
         if form.is_valid():
             form.save()
             messages.success(request, 'Emprunt mis à jour avec succès')
-            return redirect('emprunt_list')
+            return redirect('setting:emprunt_list')
     else:
         form = EmpruntVehiculeForm(instance=emprunt)
     return render(request, 'settings/emprunt_form.html', {'form': form, 'title': 'Modifier un emprunt'})
