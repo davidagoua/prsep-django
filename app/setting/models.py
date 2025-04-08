@@ -24,6 +24,9 @@ class EmpruntVehicule(models.Model):
     nom_prenom = models.CharField(max_length=100)
     nom_chauffeur = models.CharField(max_length=100)
     mission = models.TextField()
+    km_in = models.PositiveInteger(default=0)
+    km_out = models.PositiveInteger(default=0)
+    status = models.CharField(max_length=100, default='En poul')
     is_panne = models.BooleanField(default=False)
     type_panne = models.CharField(max_length=100, null=True, blank=True)
 
