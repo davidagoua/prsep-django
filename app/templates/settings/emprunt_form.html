@@ -12,34 +12,48 @@
                 <h2>{{ title }}</h2>
                 <form method="post">
                     {% csrf_token %}
-                    <div class="mb-3">
-                        {{ form.vehicule.label_tag }}
-                        {{ form.vehicule }}
-                    </div>
-                    <div class="row">
-                        <div class="mb-3 col">
-                            {{ form.date_sortie.label_tag }}
-                            {{ form.date_sortie }}
-                        </div>
+
+                    
+
+                   <fieldset>
+                      <legend>Formulaire Sortie</legend>
+                       <div class="row">
+                          <div class="mb-3 col">
+                              {{ form.vehicule.label_tag }}
+                              {{ form.vehicule }}
+                          </div>
+                          <div class="mb-3 col">
+                              {{ form.date_sortie.label_tag }}
+                              {{ form.date_sortie }}
+                          </div>
+                          
+                      </div>
+                        <div class="row">
+                          <div class="mb-3">
+                          <label for="">Nom & Prénoms Reponsable</label>
+                              {{ form.nom_prenom }}
+                          </div>
+                          <div class="mb-3">
+                              {{ form.nom_chauffeur.label_tag }}
+                              {{ form.nom_chauffeur }}
+                          </div>
+                      </div>
+                       <div class="mb-3">
+                          {{ form.mission.label_tag }}
+                          {{ form.mission }}
+                      </div>
+                    </fieldset>
+
+                  <fieldset>
+                      <legend>Formulaire Retour</legend>
+                      <div class="row">
                         <div class="mb-3 col">
                             {{ form.date_retour.label_tag }}
                             {{ form.date_retour }}
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="mb-3">
-                        <label for="">Nom & Prénoms Reponsable</label>
-                            {{ form.nom_prenom }}
-                        </div>
-                        <div class="mb-3">
-                            {{ form.nom_chauffeur.label_tag }}
-                            {{ form.nom_chauffeur }}
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        {{ form.mission.label_tag }}
-                        {{ form.mission }}
-                    </div>
+                   
+                    
                     <div class="row">
                         <div class="mb-3 col">
                             <span>En panne</span>
@@ -50,6 +64,9 @@
                             {{ form.type_panne }}
                         </div>
                     </div>
+                    </fieldset>
+                   
+                    
                     <button type="submit" class="btn btn-primary">Enregistrer</button>
                     <a href="{% url 'setting:emprunt_list' %}" class="btn btn-secondary">Annuler</a>
                 </form>
