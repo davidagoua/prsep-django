@@ -5,10 +5,11 @@ services:
       context: ./app
     volumes:
       - ./app:/app
-      - static_volume:/app/static
+      - static_volume:/app/staticfiles
       - media_volume:/app/medias
     expose:
       - "8000"
+    env_file: ./.env
     depends_on:
     
       - postgis

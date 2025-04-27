@@ -3,7 +3,7 @@ from .base import *
 
 
 
-
+SECRET_KEY = os.environ.get('SECRET_KEY','my_secret_key')
 ALLOWED_HOSTS = ['*']
 
 DATABASES = {
@@ -12,7 +12,7 @@ DATABASES = {
         "NAME": os.environ.get("POSTGRES_DB", "mydatabase"),
         "USER": os.environ.get("POSTGRES_USER", "mydatabaseuser"),
         "PASSWORD": os.environ.get("POSTGRES_PASSWORD", "mypassword"),
-        "HOST": os.environ.get("DB_HOST", "localhost"),
+        "HOST": os.environ.get("DB_HOST", "postgis"),
         "PORT": os.environ.get("DB_PORT", "5432"),
     }
 }
