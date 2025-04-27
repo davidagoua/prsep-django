@@ -7,7 +7,10 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         # Liste des départements à créer
         roles = [
-            "DSPA",
+            "PointFocal",
+            "DirecteurLocal",
+            "Directeur",
+            "DirecteurExe"
         ]
         
         count = 0
