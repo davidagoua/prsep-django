@@ -13,28 +13,30 @@
             {% csrf_token %}
             <div class="row">
                 <div class="mb-3 col">
+                    {{ form.marque.label_tag }}
+                    {{ form.marque }}
+                    <span class="text-sm text-danger">{{form.marque.errors}}</span>
+                </div>
+               <div class="mb-3 col">
                     {{ form.model.label_tag }}
                     {{ form.model }}
                     <span class="text-sm text-danger">{{form.model.errors}}</span>
                 </div>
+            </div>
+            <div class="row">
+
                 <div class="mb-3 col">
                     {{ form.annee.label_tag }}
                     {{ form.annee }}
                     <span class="text-sm text-danger">{{form.annee.errors}}</span>
                 </div>
-            </div>
-            <div class="row">
-                <div class="mb-3 col">
-                    {{ form.marque.label_tag }}
-                    {{ form.marque }}
-                    <span class="text-sm text-danger">{{form.marque.errors}}</span>
-                </div>
-                <div class="mb-3 col">
+                 <div class="mb-3 col">
                     {{ form.immatriculation.label_tag }}
                     {{ form.immatriculation }}
                     <span class="text-sm text-danger">{{form.immatriculation.errors}}</span>
                 </div>
             </div>
+
             <div class="mb-3">
                 {{ form.numero_chassis.label_tag }}
                 {{ form.numero_chassis }}

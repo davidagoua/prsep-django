@@ -4,6 +4,9 @@ services:
     build:
       context: ./app
     volumes:
+      - type: bind
+        target: /app
+        source: ./app
       - ./app:/app
       - static_volume:/app/staticfiles
       - media_volume:/app/medias
@@ -11,13 +14,13 @@ services:
       - "8000"
     env_file: ./.env
     depends_on:
-    
       - postgis
     environment:
       DATABASE_URL: ${DATABASE_URL}
       DEBUG: "True" # Change to "False" in production
       SECRET_KEY: ${SECRET_KEY} # Change to a secure key in production
       ALLOWED_HOSTS: "*" # Configure allowed hosts in production
+
 
 
   nginx:

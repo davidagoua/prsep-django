@@ -37,6 +37,9 @@ class VehiculeForm(forms.ModelForm):
 
 
 class EmpruntVehiculeForm(forms.ModelForm):
+    km_out = forms.IntegerField(label="Kilometrage de sortie")
+    km_in = forms.IntegerField(label="Kilometrage de retour", required=False)
+
     class Meta:
         model = EmpruntVehicule
         fields = '__all__'

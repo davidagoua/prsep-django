@@ -9,7 +9,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex justify-content-between">
-                    <h2>Liste des emprunts de véhicules</h2>
+                    <h2>Liste des sorties de véhicules</h2>
                     <a href="{% url 'setting:emprunt_add' %}" class="btn btn-primary">Ajouter un emprunt</a>
                 </div>
                 <table class="table mt-4">
@@ -20,7 +20,6 @@
                             <th>Date de retour</th>
                             <th>Utilisateur</th>
                             <th>Chauffeur</th>
-                            <th>Mission</th>
                             <th>Panne</th>
                             <th>Actions</th>
                         </tr>
@@ -33,7 +32,7 @@
                             <td>{{ emprunt.date_retour|date:"d/m/Y H:i" }}</td>
                             <td>{{ emprunt.nom_prenom }}</td>
                             <td>{{ emprunt.nom_chauffeur }}</td>
-                            <td>{{ emprunt.mission }}</td>
+
                             <td>{{ emprunt.is_panne|yesno:"Oui,Non" }}</td>
                             <td>
                                 <a href="{% url 'setting:emprunt_edit' emprunt.pk %}" class="btn btn-sm btn-primary">Modifier</a>
