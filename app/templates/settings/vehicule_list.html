@@ -19,6 +19,7 @@
                     <th>Modèle</th>
                     <th>Année</th>
                     <th>Immatriculation</th>
+                    <th>Disponible</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -30,7 +31,18 @@
                     <td>{{ vehicule.annee }}</td>
                     <td>{{ vehicule.immatriculation }}</td>
                     <td>
+                        {% if vehicule.status == 'disponible' %}
+                        <span class="badge badge-success">Oui</span>
+                        {% else%}
+                        <span class="badge badge-grey">Nom</span>
+                        {% endif %}
+                    </td>
+                    <td>
                         <a href="{% url 'setting:vehicule_edit' vehicule.pk %}" class="btn btn-sm btn-primary">Modifier</a>
+                        <a href="{% url 'setting:vehicule_details' vehicule.pk %}" class="btn btn-sm btn-info">Details</a>
+                        <a href="{% url 'setting:delete_vehicule' vehicule.pk %}?next={{request.path}}" onclick="return confirm('Etes-vous certains de vouloir executer cette action ?')" class="btn btn-sm btn-link">
+                            <span class="fa text-danger fa-trash"></span>
+                        </a>
                     </td>
                 </tr>
                 {% endfor %}

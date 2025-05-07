@@ -81,7 +81,7 @@
                 {% if request.user.is_staff or request.user.role.name == 'PointFocal' %}
                   <li class="sidebar-list"> <a class="sidebar-link sidebar-title link-nav" href="{% url 'suivi:list_activities' %}">
                     <span class="fa text-white fa-binoculars ml-2"></span>
-                    <span>Point Focal <span x-text="tdr_stats['pointFocal'] ?? 0" class="bg-danger p-1 rounded-pill"></span></span></a></li>
+                    <span>Agent de Saisie <span x-text="tdr_stats['pointFocal'] ?? 0" class="bg-danger p-1 rounded-pill"></span></span></a></li>
                   {% endif%}
                   {% if request.user.is_staff or request.user.role.name == 'DirecteurLocal' %}
                   <li class="sidebar-list"> <a class="sidebar-link sidebar-title link-nav" href="{% url 'suivi:tdr_local' %}">
@@ -104,7 +104,7 @@
                 {% if request.user.is_staff or request.user.role.name == 'PointFocal' %}
                   <li class="sidebar-list"> <a class="sidebar-link sidebar-title link-nav" href="{% url 'programme:liste-tache' %}"> 
                     <span class="fa text-white fa-binoculars ml-2"></span>
-                    <span>Point Focal <span x-text="tdr_stats_programme['pointFocal'] ?? 0" class="bg-danger p-1 rounded-pill"></span></span></a></li>
+                    <span>Agent de Saisie <span x-text="tdr_stats_programme['pointFocal'] ?? 0" class="bg-danger p-1 rounded-pill"></span></span></a></li>
                   {% endif%}
                   {% if request.user.is_staff or request.user.role.name == 'DirecteurLocal' %}
                   <li class="sidebar-list"> <a class="sidebar-link sidebar-title link-nav" href="{% url 'programme:liste-tache-local' %}"> 
@@ -198,6 +198,10 @@
                 <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{%  url 'setting:emprunt_list' %}">
                     <span class="fa text-white fa-file-pen ml-2"></span>
                       <span>Emprunts</span></a>
+                </li>
+                <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{%  url 'setting:emprunt_list' %}">
+                    <span class="fa text-white fa-file-pen ml-2"></span>
+                      <span>Entretients</span></a>
                 </li>
 
                 {% if request.user.is_staff %}

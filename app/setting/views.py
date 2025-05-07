@@ -19,6 +19,10 @@ def vehicule_list(request):
     vehicules = Vehicule.objects.all()
     return render(request, 'settings/vehicule_list.html', {'vehicules': vehicules})
 
+class VehiculeDetailsView(generic.DetailView):
+    model = Vehicule
+    template_name = 'settings/vehicule_details.html'
+
 def vehicule_add(request):
     if request.method == 'POST':
         form = VehiculeForm(request.POST)
@@ -51,16 +55,26 @@ def emprunt_list(request):
 def emprunt_add(request):
     if request.method == 'POST':
         form = EmpruntVehiculeForm(request.POST)
+        print(request.POST)
         if form.is_valid():
-            form.save()
+            data = form.save()
+            #Vehicule.objects.get(pk=form.vehicule_id).update()
             messages.success(request, 'Emprunt enregistré avec succès')
             return redirect('setting:emprunt_list')
+        else:
+            print(form.errors)
     else:
         form = EmpruntVehiculeForm()
-    return render(request, 'settings/emprunt_form.html', {'form': form, 'title': 'Ajouter un emprunt'})
+    return render(request, 'settings/emprunt_form.html', {'form': form, 'title': 'Enregistrer un emprunt',  'is_update': False})
 
 def emprunt_edit(request, pk):
     emprunt = get_object_or_404(EmpruntVehicule, pk=pk)
+
+    form = EmpruntVehiculeForm( instance=emprunt)
+    form.fields['km_out'].disabled = True
+    form.fields['nom_prenom'].disabled = True
+    form.fields['nom_chauffeur'].disabled = True
+
     if request.method == 'POST':
         form = EmpruntVehiculeForm(request.POST, instance=emprunt)
         if form.is_valid():
@@ -69,4 +83,10 @@ def emprunt_edit(request, pk):
             return redirect('setting:emprunt_list')
     else:
         form = EmpruntVehiculeForm(instance=emprunt)
-    return render(request, 'settings/emprunt_form.html', {'form': form, 'title': 'Modifier un emprunt'})
+    return render(request, 'settings/emprunt_form.html', {'form': form, 'title': 'Modifier un emprunt', 'is_update': True})
+
+
+def delete_vehicule(request, pk):
+    Vehicule.objects.get(pk=pk).delete()
+    messages.success(request, "Vehicule supprimé")
+    return redirect(request.GET['next'])

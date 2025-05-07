@@ -8,10 +8,11 @@ from django.views import generic
 from django.views.generic.detail import SingleObjectTemplateResponseMixin
 from django.shortcuts import resolve_url
 from planification.forms import UpdateTacheForm, DecaissementFormSet
-from planification.models import SousComposantProjet, ComposantProjet, Tache, Decaissement, Exercice
+from planification.models import SousComposantProjet, ComposantProjet, Tache, Decaissement, Exercice, Indicateur
 from programme.models import Activite
 from .forms import CancelTDRForm
 from .models import TDR, TDRProgramme
+from core.models import Departement
 
 
 class SuiviPTBAProjetView(generic.TemplateView):
@@ -117,8 +118,14 @@ class ActivitiesListView(LoginRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         if self.request.user.is_staff:
-            return Tache.objects.all()
+            return Tache.objects.select_related("indicateur").all()
         return Tache.objects.filter(responsable=self.request.user.departement.name)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['indicateurs'] = Indicateur.objects.all()
+        context['directions'] = Departement.objects.all()
+        return context
 
 
 class TDRLocalListView(LoginRequiredMixin, generic.ListView):

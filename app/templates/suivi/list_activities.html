@@ -14,10 +14,34 @@
             </div>
         </div>
 
-        <div class="container-fluid">
+        <div class="container-fluid" x-data="{query: '', indicateur: ''}">
             <div class="row">
                 <div class="card">
                     <div class="card-body">
+                        <div class="row">
+                            <div class="col-4">
+                                <label for="query">Rechercher une activité</label>
+                                <input type="text" x-model="query" placeholder="Rechercher une activité" class="form-control">&nbsp;
+                            </div>
+                            <div class="col-4">
+                                <label for="indicateur">Indicateur</label>
+                                <select name="indicateur" x-model="indicateur" id="indicateur" class="form-control">
+                                    <option value="">Tous</option>
+                                    {% for object in indicateurs %}
+                                        <option value="{{ object.pk }}">{{ object.label }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-4">
+                                <label for="direction">Direction</label>
+                                <select name="direction" x-model="direction" id="direction" class="form-control">
+                                    <option value="">Tous</option>
+                                    {% for object in directions %}
+                                        <option value="{{ object.pk }}">{{ object.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
                         <div class="table-responsive table">
                             <table class="table">
                                 <tr>
@@ -27,10 +51,12 @@
                                     <th></th>
                                 </tr>
                                 {% for object in object_list %}
-                                    <tr>
+                                    <tr x-show="'{{ object.label }}'.indexOf(query) != -1 && indicateur == '' || indicateur == {{ object.indicateur.pk }} && direction == '' || direction == {{ object.departement.pk }}">
                                         <td>{{ object.indicateur.label }}</td>
-                                        <td style="width: 500px">{{ object.label }}</td>
-                                        <td>{{ object.ugp }}</td>
+                                        <td style="width: 700px">{{ object.label }}</td>
+                                        <td>
+                                            <span class="badge badge-success">{{ object.ugp }}</span>
+                                        </td>
                                         <td>
 
 
@@ -71,7 +97,7 @@
                                         </td>
                                     </tr>
                                     {% for tdr in object.tdr_set.all %}
-                                        <tr style="background-color: #cccccc">
+                                        <tr x-show="'{{ object.label }}'.indexOf(query) != -1 && indicateur == '' || indicateur == {{ object.indicateur.pk }} && direction == '' || direction == {{ object.departement.pk }}"  style="background-color: #cccccc">
                                             <td  colspan="2">{{ tdr.label }}</td>
                                             <td></td>
                                             <td>

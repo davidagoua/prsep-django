@@ -1,4 +1,5 @@
 /app/prsep/settings/dev.py
+/app/prsep/settings/prod.py
 /app/db.sqlite3
 /app/medias
 /postgis
@@ -9,3 +10,5 @@
 *.pyc
 __pycache__/
 static\connection.php
+*.py[cod]
+*$py.class
