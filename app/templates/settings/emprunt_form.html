@@ -55,7 +55,25 @@
                               {{ form.nom_chauffeur }}
                               <span>{{form.nom_chauffeur.error}}</span>
                           </div>
+                            <div class="mb-3 col">
+                                <label for="id_type_sortie">Type sortie&nbsp;:</label>
+                              <select x-model="type_sortie" name="type_sortie" required="" id="id_type_sortie" class="form-control">
+                                  <option value="" selected="">---------</option>
+                                  <option value="mission">Mission</option>
+                                  <option value="course">Course</option>
+                                  <option value="deplacement">Deplacement</option>
+
+                                </select>
+                              <span></span>
+                            </div>
                       </div>
+                        <div class="row">
+                            <div class="mb-3">
+                              {{ form.destination.label_tag }}
+                              {{ form.destination }}
+                               <span>{{form.destination.error}}</span>
+                          </div>
+                        </div>
                        <div class="mb-3">
                           {{ form.mission.label_tag }}
                           {{ form.mission }}

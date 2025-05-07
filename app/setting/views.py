@@ -19,6 +19,10 @@ def vehicule_list(request):
     vehicules = Vehicule.objects.all()
     return render(request, 'settings/vehicule_list.html', {'vehicules': vehicules})
 
+class VehiculeDetailsView(generic.DetailView):
+    model = Vehicule
+    template_name = 'settings/vehicule_details.html'
+
 def vehicule_add(request):
     if request.method == 'POST':
         form = VehiculeForm(request.POST)

@@ -39,6 +39,7 @@
                     </td>
                     <td>
                         <a href="{% url 'setting:vehicule_edit' vehicule.pk %}" class="btn btn-sm btn-primary">Modifier</a>
+                        <a href="{% url 'setting:vehicule_details' vehicule.pk %}" class="btn btn-sm btn-info">Details</a>
                         <a href="{% url 'setting:delete_vehicule' vehicule.pk %}?next={{request.path}}" onclick="return confirm('Etes-vous certains de vouloir executer cette action ?')" class="btn btn-sm btn-link">
                             <span class="fa text-danger fa-trash"></span>
                         </a>

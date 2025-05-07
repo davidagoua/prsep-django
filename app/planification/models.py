@@ -211,10 +211,7 @@ class TypeUGP(models.Model):
         return str(self.label)
 
 
-class TachePublicManager(models.Manager):
 
-    def get_queryset(self):
-        return Tache.objects.all()
 
 
 
@@ -251,7 +248,11 @@ class Exercice(TimeStampedModel, models.Model):
         return self.montant_total - self.montant_engage
 
 
-    
+class TachePublicManager(models.Manager):
+
+    def get_queryset(self):
+        return Tache.objects.all()
+
 
 class Tache(TimeStampedModel, models.Model):
     type = models.CharField(max_length=100, choices=models.TextChoices("type_composant",'RLD HORS_RLD'), null=True, blank=True)

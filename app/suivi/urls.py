@@ -8,6 +8,8 @@ from suivi.views import SuiviPTBAProjetView, UpdateTacheView, ajouter_decaisseme
 
 from suivi.comsumer import TDRConsumer
 
+
+
 app_name = 'suivi'
 
 urlpatterns = [
