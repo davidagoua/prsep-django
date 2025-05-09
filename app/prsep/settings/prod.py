@@ -7,6 +7,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY','my_secret_key')
 ALLOWED_HOSTS = ['*','https://sigpro-mena.com']
 
 TRUSTED_ORIGINS = ['https://sigpro-mena.com','http://sigpro-mena.com']
+CSRF_TRUSTED_ORIGINS = ['https://sigpro-mena.com','http://sigpro-mena.com','http://*.sigpro-mena.com']
 
 DATABASES = {
     "default": {
