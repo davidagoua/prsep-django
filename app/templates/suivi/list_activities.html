@@ -52,7 +52,7 @@
                                 </tr>
                                 {% for object in object_list %}
                                     <tr x-show="(
-                                              '{{ object.label|escapejs }}'.toLowerCase().includes(query.toLowerCase())
+                                              JSON.stringify('{{ object.label|escapejs }}').toLowerCase().includes(query.toLowerCase())
                                               && indicateur === ''
                                             ) ||
                                             (
@@ -108,7 +108,7 @@
                                     </tr>
                                     {% for tdr in object.tdr_set.all %}
                                         <tr x-show="(
-                                              '{{ object.label|escapejs }}'.toLowerCase().includes(query.toLowerCase())
+                                              JSON.stringify('{{ object.label|escapejs }}').toLowerCase().includes(query.toLowerCase())
                                               && indicateur === ''
                                             ) ||
                                             (
