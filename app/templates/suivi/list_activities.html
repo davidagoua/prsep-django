@@ -51,7 +51,12 @@
                                     <th></th>
                                 </tr>
                                 {% for object in object_list %}
-                                    <tr x-show="'{{ object.label }}'.indexOf(query) != -1 && indicateur == '' || indicateur == {{ object.indicateur.pk }} && direction == '' || direction == {{ object.departement.pk }}">
+                                    <tr x-show="( ('{{ object.label }}'.indexOf(query) != -1 && indicateur == '') 
+                                          || 
+                                          (indicateur == {{ object.indicateur.pk }} && direction == '') 
+                                          || 
+                                          (direction == {{ object.departement.pk }})
+                                        )">
                                         <td>{{ object.indicateur.label }}</td>
                                         <td style="width: 700px">{{ object.label }}</td>
                                         <td>
@@ -97,7 +102,12 @@
                                         </td>
                                     </tr>
                                     {% for tdr in object.tdr_set.all %}
-                                        <tr x-show="'{{ object.label }}'.indexOf(query) != -1 && indicateur == '' || indicateur == {{ object.indicateur.pk }} && direction == '' || direction == {{ object.departement.pk }}"  style="background-color: #cccccc">
+                                        <tr x-show="( ('{{ object.label }}'.indexOf(query) != -1 && indicateur == '') 
+                                              || 
+                                              (indicateur == {{ object.indicateur.pk }} && direction == '') 
+                                              || 
+                                              (direction == {{ object.departement.pk }})
+                                            )"  style="background-color: #cccccc">
                                             <td  colspan="2">{{ tdr.label }}</td>
                                             <td></td>
                                             <td>
