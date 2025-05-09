@@ -6,6 +6,8 @@ from .base import *
 SECRET_KEY = os.environ.get('SECRET_KEY','my_secret_key')
 ALLOWED_HOSTS = ['*','https://sigpro-mena.com']
 
+TRUST_ORIGINS = ['https://sigpro-mena.com','http://sigpro-mena.com']
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
