@@ -51,11 +51,10 @@
                                     {% endfor %}
                                 </td>
                                 <td>
-
+                                    {% if perms.rapport.delete %}
+                                    <a href="{% url 'rapport:delete_rapport' pk=rapport.pk %}" class="btn  btn-outline-primary" title="Télécharger"><span class="fa fa-trash"></span></a>
+                                    {% endif %}
                                     <a href="{% url 'rapport:download_file' pk=object.pk %}?next={{ request.path }}" class="btn  btn-outline-primary" title="Télécharger"><span class="fa fa-file-download"></span> </a>
-
-
-
                                 </td>
                             </tr>
                         {% endfor %}
