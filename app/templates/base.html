@@ -155,7 +155,7 @@
                   <form action="{% url 'change_password' %}?next={{ request.path }}" method="post">
                       {% csrf_token %}
                       <div class="mb-3">
-                          <select class="form-control" name="exercice_year" id="">
+                          <select class="form-control" name="exercice" id="">
                               {% for exercice in exercice_list %}
                                   <option value="{{ exercice.pk }}">{{ exercice.date_debut }} - {{ exercice.date_fin }}</option>
                               {% endfor %}

@@ -9,10 +9,10 @@ from django.contrib.auth import logout
 from core.forms import UserCreationWithRoleForm
 from core.models import User
 from core.services import upload_ptba
-from planification.models import Tache, PTBAProjet
+from planification.models import Tache, PTBAProjet, Exercice
 
 from .models import Departement, Role
-
+from django_extensions.utils.
 
 class HomePageView(LoginRequiredMixin, generic.TemplateView):
     template_name = "home.html"
@@ -94,9 +94,16 @@ def change_password(request):
             request.user.save()
             messages.success(request, 'Mot de passe modifié avec succès.')
             return redirect(resolve_url(request.GET.get('next')))
-            messages.success(request, 'Mot de passe modifié avec succès.')
         else:
             messages.error(request, 'Mot de passe actuel incorrect.')
             return redirect(resolve_url(request.GET.get('next')))
    
     return render(request, 'change_password.html')
+
+
+def update_current_exercice(request):
+    if request.method == "POST":
+        current_exercice = get_object_or_404(Exercice, pk=request.POST.get('exercice'))
+        request.session['current_exercice'] = current_exercice.id
+        messages.success(request, "Exercice modifié")
+    return redirect(request.META.get('HTTP_REFERER', '/'))
