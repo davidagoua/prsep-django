@@ -225,10 +225,14 @@ class CreateTDRView(LoginRequiredMixin, generic.CreateView):
     def get_success_url(self):
         return resolve_url('suivi:list_activities')
 
+    def form_invalid(self, form):
+        print(form.errors)
+
+
     def form_valid(self, form):
         tdr = form.save(commit=False)
         tdr.user = self.request.user
-        tdr.activity = Tache.objects.get(pk=self.request.POST.get('activity_id'))
+        tdr.activity = get_object_or_404(Tache, self.request.POST.get('activity_id'))
         tdr.save()
         return super().form_valid(form)
 
