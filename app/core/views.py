@@ -12,7 +12,6 @@ from core.services import upload_ptba
 from planification.models import Tache, PTBAProjet, Exercice
 
 from .models import Departement, Role
-from django_extensions.utils.
 
 class HomePageView(LoginRequiredMixin, generic.TemplateView):
     template_name = "home.html"
