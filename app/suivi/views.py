@@ -232,7 +232,7 @@ class CreateTDRView(LoginRequiredMixin, generic.CreateView):
     def form_valid(self, form):
         tdr = form.save(commit=False)
         tdr.user = self.request.user
-        tdr.activity = get_object_or_404(Tache, self.request.POST.get('activity_id'))
+        tdr.activity = get_object_or_404(Tache, pk=self.request.POST.get('activity_id'))
         tdr.save()
         return super().form_valid(form)
 

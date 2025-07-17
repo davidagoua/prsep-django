@@ -23,7 +23,7 @@ class CommentaireTDR(TimeStampedModel,models.Model):
 class TDR(TimeStampedModel,models.Model):
     file = models.FileField(verbose_name='Fichier', upload_to='tdr')
     file_final = models.FileField(verbose_name="TDR fin d'activité", upload_to='tdr', null=True, blank=True)
-    label = models.CharField(max_length=100, null=True, blank=True)
+    label = models.TextField(null=True, blank=True)
     state = models.IntegerField(default=0)
     activity = models.ForeignKey(Tache, null=True, blank=True, on_delete=models.SET_NULL, verbose_name="Activité")
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
@@ -46,7 +46,7 @@ class TDR(TimeStampedModel,models.Model):
 class TDRProgramme(TimeStampedModel,models.Model):
     file = models.FileField(verbose_name='Fichier', upload_to='tdr', blank=False)
     file_final = models.FileField(verbose_name="TDR fin d'activité", upload_to='tdr', null=True, blank=True)
-    label = models.CharField(max_length=100, null=True, blank=True)
+    label = models.TextField(null=True, blank=True)
     state = models.IntegerField(default=0)
     activity = models.ForeignKey(Activite, null=True, blank=True, on_delete=models.SET_NULL, verbose_name="Activité")
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
