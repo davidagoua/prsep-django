@@ -39,6 +39,7 @@ urlpatterns = [
     path('programme/', include('programme.urls', namespace='programme')),
     path('setting/', include('setting.urls', namespace='setting')),
     path('change-password/', core.views.change_password, name='change_password'),
+    path('/update-exercice', core.views.update_current_exercice, name='update_current_exercice'),
 ]
 
 if settings.DEBUG:
