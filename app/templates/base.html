@@ -147,6 +147,29 @@
       </div>
   </div>
     {% endif %}
+    <div class="modal"  id="change-exercice-year">
+      <div class="modal-dialog">
+          <div class="modal-content text-black bg-white">
+              <div class="modal-header">Changer d'exercice</div>
+              <div class="modal-body">
+                  <form action="{% url 'change_password' %}?next={{ request.path }}" method="post">
+                      {% csrf_token %}
+                      <div class="mb-3">
+                          <select name="exercice_year" id="">
+                              {% for exercice in exercice_list %}
+                                  <option value="{{ exercice.pk }}">{{ exercice.date_debut }} - {{ exercice.date_fin }}</option>
+                              {% endfor %}
+
+                          </select>
+                      </div>
+                      <p>
+                          <button type="submit" class="btn btn-primary">Enregistrer</button>
+                      </p>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
     <script>
       Pusher.logToConsole = true;
 
