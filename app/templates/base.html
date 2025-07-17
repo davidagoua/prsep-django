@@ -157,7 +157,7 @@
                       <div class="mb-3">
                           <select class="form-control" name="exercice" id="">
                               {% for exercice in exercice_list %}
-                                  <option value="{{ exercice.pk }}">{{ exercice.date_debut }} - {{ exercice.date_fin }}</option>
+                                  <option value="{{ exercice.pk }}">{{ exercice.date_debut|date:"Y" }} - {{ exercice.date_fin|date:"Y" }}</option>
                               {% endfor %}
 
                           </select>
