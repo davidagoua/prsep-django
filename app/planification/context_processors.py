@@ -1,4 +1,4 @@
-from app.planification.models import  Exercice
+from planification.models import  Exercice
 
 
 def exercice_params(request):
