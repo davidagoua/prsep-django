@@ -2,7 +2,9 @@ from django.db import models
 from django_extensions.db.models import TimeStampedModel
 from django.contrib.auth import get_user_model
 from django.dispatch import receiver
-from planification.models import Tache
+
+from core.models import Departement
+from planification.models import Tache, Exercice
 from programme.models import Activite, TacheProgram
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
@@ -22,8 +24,10 @@ class CommentaireTDR(TimeStampedModel,models.Model):
 
 class TDR(TimeStampedModel,models.Model):
     file = models.FileField(verbose_name='Fichier', upload_to='tdr')
+    exercice=models.ForeignKey(Exercice, on_delete=models.SET_NULL, null=True, blank=True)
     file_final = models.FileField(verbose_name="TDR fin d'activité", upload_to='tdr', null=True, blank=True)
     label = models.TextField(null=True, blank=True)
+    departemnt = models.ForeignKey(Departement, on_delete=models.SET_NULL, null=True, blank=True)
     state = models.IntegerField(default=0)
     activity = models.ForeignKey(Tache, null=True, blank=True, on_delete=models.SET_NULL, verbose_name="Activité")
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)

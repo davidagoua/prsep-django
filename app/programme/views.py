@@ -1,4 +1,4 @@
-from typing import override
+
 from django import views
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q, Count
@@ -122,7 +122,7 @@ class FinalizeTDRProgramView(LoginRequiredMixin, generic.UpdateView):
         'risks'
     ]
 
-    @override
+
     def get_success_url(self):
         return resolve_url(self.request.GET.get('next', '/'))
 

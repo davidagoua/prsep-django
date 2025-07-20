@@ -6,9 +6,7 @@ from django.db import models
 from django.db.models import Sum
 from django.utils.timezone import now
 from django_extensions.db.models import TimeStampedModel
-
 from core.models import Departement, User
-
 
 
 class PTBAProjet(TimeStampedModel, models.Model  ):

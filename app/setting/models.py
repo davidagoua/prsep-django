@@ -1,4 +1,4 @@
-from typing import override
+
 from django.db import models
 
 
@@ -17,7 +17,7 @@ class Vehicule(models.Model):
     entretients = models.JSONField(null=True, blank=True)
     status = models.CharField(max_length=100, null=False, blank=True, default='disponible')
 
-    @override
+
     def __str__(self) -> str:
         return f'{self.marque} {self.model} {self.annee}'
 
@@ -48,6 +48,6 @@ class EmpruntVehicule(models.Model):
         ('autres', "Autres"),
     ])
 
-    @override
+
     def __str__(self) -> str:
         return f"{self.vehicule} - {self.nom_prenom} - {self.nom_chauffeur} - {self.mission} - {self.date_sortie} - {self.date_retour}"
