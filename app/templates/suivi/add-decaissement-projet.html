@@ -53,7 +53,7 @@
                             </tr>
                             {% for decaissement in object.decaissement_set.all %}
                             	<tr>
-                                    <td>DRF {{ forloop.counter  }}</td>
+                                    <td>{{ decaissement.drf.label  }}</td>
                                     <td>{{ decaissement.created_at }}</td>
                                     <td>{{ decaissement.montant }}</td>
                                     <td>{{ decaissement.user.username }}</td>
@@ -81,6 +81,14 @@
                                 {% endfor %}
                             </ul>
                             {% endif %}
+                            <div class="mb-3">
+                                <label for="">DRF</label>
+                                <select name="drf" id="drf">
+                                    {% for drf in drfs%}
+                                    <option value="drf.id">{{ drf.label }}</option>
+                                    {% drf %}
+                                </select>
+                            </div>
 
                             <div class="mb-3">
                                 <label for="">Montant Engagé</label>

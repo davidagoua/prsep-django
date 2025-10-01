@@ -13,6 +13,7 @@ from programme.models import Activite
 from .forms import CancelTDRForm
 from .models import TDR, TDRProgramme
 from core.models import Departement
+from suivi.models import Drf
 
 
 class SuiviPTBAProjetView(generic.TemplateView):
@@ -45,7 +46,6 @@ class UpdateTacheView(SingleObjectTemplateResponseMixin, generic.FormView):
 
 
 
-
 class AddDecaissementView(generic.DetailView):
 
     template_name = 'suivi/add-decaissement-projet.html'
@@ -56,7 +56,7 @@ class AddDecaissementView(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         return kwargs | {
-
+            'drfs': Drf.objects.all()
         }
 
     def post(self, request, *args, **kwargs):
@@ -69,7 +69,7 @@ class AddDecaissementView(generic.DetailView):
                 raise ValueError("Le montant engagé ne peut pas être négatif.")
 
             if paiement > 0:
-                Decaissement(montant=paiement, user=request.user, in_drf=True, tache=tache).save()
+                Decaissement(montant=paiement, user=request.user, in_drf=True, tache=tache, drf__pk=request.POST.get('drf')).save()
 
             tache.montant_engage = montant_engage
             tache.save()

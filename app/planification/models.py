@@ -7,6 +7,9 @@ from django.db.models import Sum
 from django.utils.timezone import now
 from django_extensions.db.models import TimeStampedModel
 from core.models import Departement, User
+from suivi.models import Drf
+
+from app.suivi.models import Drf
 
 
 class PTBAProjet(TimeStampedModel, models.Model  ):
@@ -191,6 +194,7 @@ class TypeProcedureAcquisition(models.Model):
 
 
 class Decaissement(TimeStampedModel, models.Model):
+    drf = models.ForeignKey(Drf, on_delete=models.SET_NULL, null=True, blank=True)
     montant = models.BigIntegerField(default=0)
     status = models.IntegerField(default=0)
     in_drf = models.BooleanField(default=False)

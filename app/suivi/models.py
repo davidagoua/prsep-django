@@ -88,5 +88,12 @@ def tdr_post_save(sender, instance, created, **kwargs):
             )
         except Exception as e:
             print(e)
+
+
+class Drf(models.Model):
+    exercice = models.ForeignKey(Exercice, on_delete=models.SET_NULL, null=True, blank=True)
+    montant = models.PositiveIntegerField(default=0)
+    date = models.DateField()
+    label = models.TextField(null=True, blank=True)
         
         
