@@ -36,6 +36,19 @@ services:
     depends_on:
       - web
 
+  caddy:
+    image: caddy
+    volumes:
+      - ./caddy:/etc/caddy
+      - static_volume:/app/staticfiles
+      - media_volume:/app/medias
+      - ./nginx/ssl/:/etc/letsencrypt/
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - web
+
 
   notification_system:
     image: quay.io/soketi/soketi:1.4-16-debian

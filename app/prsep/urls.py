@@ -19,7 +19,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import urls as auth_urls
 import core.views
-from debug_toolbar.toolbar import debug_toolbar_urls
+#from debug_toolbar.toolbar import debug_toolbar_urls
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -42,5 +42,5 @@ urlpatterns = [
     path('/update-exercice', core.views.update_current_exercice, name='update_current_exercice'),
 ]
 
-if settings.DEBUG:
-    urlpatterns  += debug_toolbar_urls()
+#if settings.DEBUG:
+#    urlpatterns  += debug_toolbar_urls()
