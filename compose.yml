@@ -91,7 +91,26 @@ services:
       - postgres_data:/var/lib/postgresql/data/
 
 
+  collabora:
+    image: collabora/code:latest
+    container_name: collabora-online
+    restart: unless-stopped
+    environment:
+      - domain=collabora-${DOMAIN_NAME}
+      - username=${COLLABORA_USER}
+      - password=${COLLABORA_PWD}
+      - DONT_GEN_SSL_CERT=true
+      - extra_params=--o:ssl.enable=false --o:ssl.termination=true
+    expose:
+      - "9980"
+    volumes:
+      - collabora_data:/var/log/cool
+      - ./collabora/collwsd.xml:/etc/collwsd/collwsd.xml
+
+
+
 volumes:
   postgres_data:
   static_volume:
   media_volume:
+  collabora_data:
