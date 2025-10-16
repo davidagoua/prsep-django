@@ -17,9 +17,9 @@ services:
       - postgis
     environment:
       DATABASE_URL: ${DATABASE_URL}
-      DEBUG: "True" # Change to "False" in production
-      SECRET_KEY: ${SECRET_KEY} # Change to a secure key in production
-      ALLOWED_HOSTS: "*" # Configure allowed hosts in production
+      DEBUG: "True" 
+      SECRET_KEY: ${SECRET_KEY} 
+      ALLOWED_HOSTS: "*"
 
 
 
@@ -35,32 +35,6 @@ services:
       - "443:443"
     depends_on:
       - web
-
-  caddy:
-    image: caddy
-    volumes:
-      - ./caddy:/etc/caddy
-      - static_volume:/app/staticfiles
-      - media_volume:/app/medias
-      - ./nginx/ssl/:/etc/letsencrypt/
-    ports:
-      - "80:80"
-      - "443:443"
-    depends_on:
-      - web
-
-
-  notification_system:
-    image: quay.io/soketi/soketi:1.4-16-debian
-    ports:
-      - 6001:6001
-      - 9601:9601
-    environment:
-      - SOKETI_DEBUG=1
-    command:
-      - soketi start --config=/socketi/config.json
-    volumes:
-      - ./socketi/config.json:/socketi/config.json
 
 
   cartographie:
